@@ -17,4 +17,4 @@ COPY scripts ./scripts
 
 RUN pip install --no-cache-dir .
 
-CMD ["python", "-m", "apps.worker.main"]
+CMD ["python", "-m", "apps.worker.main", "loop"]

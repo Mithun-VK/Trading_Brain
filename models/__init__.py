@@ -7,6 +7,7 @@ from models.base import Base
 from models.company import Company
 from models.data_validation_error import DataValidationError
 from models.financial_metric import FinancialMetric
+from models.job_run import JobRun
 from models.market_event import MarketEvent
 from models.market_regime import MarketRegimeObservation
 from models.position import Position
@@ -23,6 +24,7 @@ __all__ = [
     "Company",
     "DataValidationError",
     "FinancialMetric",
+    "JobRun",
     "MarketEvent",
     "MarketRegimeObservation",
     "Position",
