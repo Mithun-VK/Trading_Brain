@@ -12,6 +12,17 @@ from __future__ import annotations
 
 import datetime as dt
 from dataclasses import dataclass, field
+from enum import StrEnum
+
+
+class Interval(StrEnum):
+    """Bar intervals TradingBrain persists. Values double as the string
+    stored in `prices.interval`, so comparisons against plain "1d" still work.
+    """
+
+    DAILY = "1d"
+    WEEKLY = "1wk"
+    MONTHLY = "1mo"
 
 
 @dataclass(frozen=True)
@@ -42,11 +53,13 @@ class CompanyProfile:
     ticker: str
     name: str
     exchange: str
-    sector: str
-    industry: str
-    market_cap: int
     currency: str
     source: str
+    # Optional because real vendors genuinely don't always expose these --
+    # a missing sector is reported as None, never invented (Rule 4).
+    sector: str | None = None
+    industry: str | None = None
+    market_cap: int | None = None
 
 
 @dataclass(frozen=True)

@@ -10,32 +10,87 @@ get_company_profile(ticker) -> CompanyProfile
 get_fundamentals(ticker) -> FundamentalsSnapshot
 ```
 
-`data/ingestion/factory.get_market_data_provider(name)` selects an
-implementation by name (`config.settings.market_data_provider`,
-`MARKET_DATA_PROVIDER` env var). Only `"mock"` exists today.
+Intervals are `Interval.DAILY` (`"1d"`), `WEEKLY` (`"1wk"`), and `MONTHLY`
+(`"1mo"`) — the same strings stored in `prices.interval`.
 
-## MockProvider
+## Providers
 
-`data/ingestion/mock_provider.py`. Requires no API key. Every value it
-returns is tagged `source="mock"` — Rule 4 (never fabricate live financial
-data and present it as real) applies to how callers treat this: do not
-render mock data in a UI or Obsidian note without the `mock` label visible.
+| Name | Class | Credentials | Notes |
+|---|---|---|---|
+| `mock` | `MockProvider` | none | Deterministic synthetic data. **Synthetic** — see the fallback rule below. |
+| `yahoo` | `YahooFinanceProvider` | none | Yahoo's public chart/quoteSummary JSON over `httpx` (no `yfinance` dependency, so the transport stays injectable). |
+| `alphavantage` | `AlphaVantageProvider` | `ALPHAVANTAGE_API_KEY` | Reports throttling in a **200-OK body** (`Note`/`Information`), translated to `ProviderRateLimitError` so it can't look like success. |
 
-Deterministic by design: each ticker seeds an independent random walk
-anchored at a fixed epoch (2000-01-01), so the same ticker/date range always
-returns identical bars, in the same process or a different one. This makes
-it usable both for manual exploration and as a fixture in tests for the
-quant/regime/research layers built on top of it.
+## Provider registry
 
-## Normalization
+`data/ingestion/registry.py`. `build_registry()` (in `factory.py`) wires it
+from settings:
 
-`data/normalization/prices.py` maps a provider `PriceBar` to a `models.Price`
-row. This is the only place that construction happens, so provider output
-never leaks into persistence code ad hoc.
+```env
+MARKET_DATA_PROVIDER=yahoo          # primary
+MARKET_DATA_FALLBACKS=alphavantage  # tried in order when the primary fails
+MARKET_DATA_TIMEOUT_SECONDS=10
+```
+
+Capabilities: `register()` (lazy — registering a provider with missing
+credentials costs nothing until used), `switch()`, `set_fallbacks()`,
+`get()` (instantiate + cache), `execute()` (run an operation with fallback),
+`health_check()` / `health_check_all()`.
+
+**Safety property:** a provider registered `synthetic=True` (i.e. `mock`) is
+**never** used as an automatic fallback — `set_fallbacks()` rejects it and
+`execute()` skips it. Answering a request for real market data with
+generated numbers would violate Rule 4. Mock can still be chosen
+deliberately as the *primary*, which is the local-dev default.
+
+`execute()` never invents a result: if every candidate fails it re-raises
+the last `ProviderError`.
+
+## Errors
+
+`data/ingestion/errors.py` — `ProviderUnavailableError` (connection/timeout/
+5xx, retried 3× with backoff), `ProviderRateLimitError` (subclass, so it is
+also retryable/failover-able), `ProviderAuthError`, `ProviderDataError`,
+`ProviderNotFoundError`. Adapters never leak raw `httpx` exceptions.
+
+## Validation
+
+`data/normalization/validation.py::validate_price_bars()` runs before
+anything is persisted. Checks: missing/NaN values, non-positive prices,
+`high < low`, `high` below the open/close body, `low` above it, negative
+volume, future timestamps, and duplicate timestamps. Out-of-order bars are a
+**warning** (they get sorted); everything else is an **error** and the bar is
+**dropped, never repaired** — an interpolated price is fabricated data.
+
+A bad bar doesn't poison the batch: good bars still flow through, and every
+issue is persisted to `data_validation_errors`
+(`data/storage/validation_repository.py`) so vendor problems stay auditable.
+
+## Storage
+
+`data/storage/price_repository.py`:
+
+- `upsert_price_bars()` — **idempotent**. Existing `(asset_id, ts, interval)`
+  rows are detected up front, so re-running a job is a no-op rather than an
+  `IntegrityError`. Also de-duplicates within a single batch.
+- `get_latest_bar_ts()` — the anchor for incremental fetches.
+- `get_price_bars()` / `get_close_series()` — chronological reads in the
+  shape the quant/regime engines expect.
+
+Timestamps are compared on a normalized naive-UTC key, because SQLite (used
+in tests) returns naive datetimes while PostgreSQL returns aware ones.
 
 ## Adding a real provider
 
-1. Implement `MarketDataProvider` in a new `data/ingestion/<vendor>_provider.py`.
-2. Add a branch in `get_market_data_provider`.
-3. Never fabricate data on API failure — raise, don't silently fall back to
-   mock data in a way that could be mistaken for real prices.
+1. Implement `MarketDataProvider` in `data/ingestion/<vendor>_provider.py`,
+   reusing `HttpProviderClient` for timeout/retry/error mapping.
+2. Register it in `factory.build_registry()`.
+3. Never fabricate data on failure — raise, and let the registry fail over.
+
+## Testing
+
+`tests/data/` — every provider is tested against `httpx.MockTransport`, so
+**CI never touches a live market API**. Coverage includes the registry
+(switching, lazy construction, fallback, synthetic-fallback refusal, health
+checks), both real adapters' happy paths and every error mapping, all
+validation rules, and idempotent storage.

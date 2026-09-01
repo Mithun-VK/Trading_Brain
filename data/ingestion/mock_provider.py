@@ -15,7 +15,13 @@ import hashlib
 import random
 
 from data.ingestion.provider import MarketDataProvider
-from data.ingestion.schemas import CompanyProfile, FundamentalsSnapshot, PriceBar, Quote
+from data.ingestion.schemas import (
+    CompanyProfile,
+    FundamentalsSnapshot,
+    Interval,
+    PriceBar,
+    Quote,
+)
 
 _EPOCH = dt.date(2000, 1, 1)
 _SECTORS = (
@@ -70,11 +76,24 @@ class MockProvider(MarketDataProvider):
         end: dt.date,
         interval: str = "1d",
     ) -> list[PriceBar]:
-        if interval != "1d":
-            raise NotImplementedError("MockProvider currently only supports interval='1d'")
+        try:
+            resolved = Interval(interval)
+        except ValueError as exc:
+            supported = ", ".join(i.value for i in Interval)
+            raise NotImplementedError(
+                f"MockProvider supports intervals: {supported} (got {interval!r})"
+            ) from exc
         if start > end:
             raise ValueError("start must not be after end")
-        return [bar for bar in self._walk(ticker, end) if bar.ts.date() >= start]
+
+        daily = self._walk(ticker, end)
+        if resolved is Interval.DAILY:
+            return [bar for bar in daily if bar.ts.date() >= start]
+
+        # Weekly/monthly bars are aggregated from the same deterministic daily
+        # walk, so every interval tells a mutually consistent story.
+        aggregated = _aggregate(daily, resolved)
+        return [bar for bar in aggregated if bar.ts.date() >= start]
 
     def get_quote(self, ticker: str) -> Quote:
         today = dt.datetime.now(dt.UTC).date()
@@ -124,3 +143,39 @@ class MockProvider(MarketDataProvider):
             metrics=metrics,
             source="mock",
         )
+
+    def health_check(self) -> bool:
+        """Always healthy -- the mock provider has no external dependency."""
+        return True
+
+
+def _period_key(bar_date: dt.date, interval: Interval) -> tuple[int, int]:
+    if interval is Interval.WEEKLY:
+        iso = bar_date.isocalendar()
+        return (iso.year, iso.week)
+    return (bar_date.year, bar_date.month)
+
+
+def _aggregate(daily: list[PriceBar], interval: Interval) -> list[PriceBar]:
+    """Roll daily bars up into weekly/monthly bars: first open, max high,
+    min low, last close, summed volume, stamped at the period's first bar.
+    """
+    grouped: dict[tuple[int, int], list[PriceBar]] = {}
+    for bar in daily:
+        grouped.setdefault(_period_key(bar.ts.date(), interval), []).append(bar)
+
+    aggregated: list[PriceBar] = []
+    for _, bars in sorted(grouped.items()):
+        aggregated.append(
+            PriceBar(
+                ts=bars[0].ts,
+                open=bars[0].open,
+                high=max(b.high for b in bars),
+                low=min(b.low for b in bars),
+                close=bars[-1].close,
+                volume=sum(b.volume for b in bars),
+                interval=str(interval),
+                source="mock",
+            )
+        )
+    return aggregated

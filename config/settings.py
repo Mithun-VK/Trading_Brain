@@ -46,6 +46,17 @@ class Settings(BaseSettings):
 
     # --- Market data ---
     market_data_provider: str = Field(default="mock", alias="MARKET_DATA_PROVIDER")
+    # Comma-separated provider names tried, in order, when the primary fails.
+    # Synthetic providers (mock) are rejected here -- see ProviderRegistry.
+    market_data_fallbacks: str = Field(default="", alias="MARKET_DATA_FALLBACKS")
+    market_data_timeout_seconds: float = Field(
+        default=10.0, alias="MARKET_DATA_TIMEOUT_SECONDS"
+    )
+    alphavantage_api_key: str = Field(default="", alias="ALPHAVANTAGE_API_KEY")
+
+    @property
+    def market_data_fallback_list(self) -> list[str]:
+        return [name.strip() for name in self.market_data_fallbacks.split(",") if name.strip()]
 
     @property
     def auth_tokens(self) -> set[str]:
