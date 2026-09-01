@@ -81,7 +81,8 @@ Quantitative/Data Layer
 trading-brain/
 ├── apps/
 │   ├── api/            FastAPI orchestration layer
-│   └── worker/         Background/scheduled jobs
+│   ├── worker/         Background/scheduled jobs
+│   └── dashboard/      Next.js/TypeScript UI (thin client over apps/api)
 ├── brain/
 │   ├── market/          Market context assembly
 │   ├── research/        Research agent
