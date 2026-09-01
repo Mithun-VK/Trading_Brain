@@ -37,9 +37,30 @@ applies to every caller: never present these as a guarantee of future
 results, and never claim statistical significance a small sample doesn't
 support.
 
+## Market regime (`quant/regime/`)
+
+`MarketRegimeDetector.detect(closes, observed_at, breadth=None)` classifies
+along three independent axes, each defaulting to `UNKNOWN` when there isn't
+enough history to be confident:
+
+- **Trend** — `BULLISH`/`BEARISH`/`SIDEWAYS`: price vs. 50/200-period SMA
+  plus a normalized slope over the trailing window, both conditions must
+  agree.
+- **Volatility** — `HIGH_VOLATILITY`/`LOW_VOLATILITY`: annualized stdev of
+  recent returns vs. a configurable threshold.
+- **Risk** — `RISK_ON`/`RISK_OFF`: bullish+calm or bearish+turbulent
+  combinations trigger directly; otherwise an optional external `breadth`
+  score (0-1, e.g. % of advancing stocks) breaks the tie.
+
+All thresholds live in `RegimeDetectorConfig` — nothing is hard-coded.
+**These are descriptive classifications of what already happened in the
+data, not a forecast** (Critical Design Rules). `data/storage/regime_repository.py`
+persists a `RegimeObservation` to the `market_regimes` table.
+
 ## Testing
 
 `tests/quant/` — every function has hand-verified reference-value tests
 (e.g. SMA/EMA against hand-computed windows, ATR/VWAP against a worked
 example, R-multiple/position-sizing against known risk math), not just
-"runs without crashing" checks.
+"runs without crashing" checks. `tests/quant/regime/` covers all three
+classification axes plus the insufficient-history fallback.
