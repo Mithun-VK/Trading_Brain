@@ -11,8 +11,11 @@ export default function WatchlistPage() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    // One-time hydration from localStorage on mount -- browser storage isn't
+    // available during server rendering, so this can't be initial state.
     try {
       const stored = window.localStorage.getItem(STORAGE_KEY);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (stored) setTickers(JSON.parse(stored) as string[]);
     } catch {
       // localStorage unavailable (private browsing, etc.) -- just start empty.

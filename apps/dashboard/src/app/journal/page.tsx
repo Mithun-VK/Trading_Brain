@@ -36,6 +36,9 @@ export default function JournalPage() {
   }
 
   useEffect(() => {
+    // One-time bootstrap fetch on mount, not a sync of external->React state
+    // per render; setState happens after the awaited fetch resolves.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadTrades();
   }, []);
 
