@@ -1,0 +1,42 @@
+# --- Secrets ---
+.env
+.env.*
+!.env.example
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+dist/
+build/
+
+# --- Node / dashboard ---
+node_modules/
+.next/
+out/
+
+# --- Docker ---
+docker/volumes/
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.claude/
+
+# --- Obsidian vault (local sync artifacts, not the vault content itself) ---
+*.obsidian/workspace*
+
+# --- Logs ---
+*.log
+logs/
