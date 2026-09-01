@@ -125,7 +125,7 @@ trading-brain/
 9. **Research agent.** **Done.**
 10. **Thesis agent** (explicit `THESIS_INTACT` / `STRENGTHENED` / `WEAKENED` /
     `INVALIDATED` / `INSUFFICIENT_EVIDENCE` states; changes are auditable). **Done.**
-11. Trading journal intelligence.
+11. **Trading journal intelligence.** **Done.**
 12. Remaining TradingBrain API endpoints.
 13. Dashboard foundation (Next.js/TypeScript).
 

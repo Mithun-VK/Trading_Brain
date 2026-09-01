@@ -1,11 +1,15 @@
 from __future__ import annotations
 
 import datetime as dt
+from typing import TYPE_CHECKING
 
 from sqlalchemy import DateTime, ForeignKey, Numeric, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models.base import Base, TimestampMixin
+
+if TYPE_CHECKING:
+    from models.strategy import Strategy
 
 
 class Trade(Base, TimestampMixin):
@@ -28,3 +32,5 @@ class Trade(Base, TimestampMixin):
     obsidian_note_path: Mapped[str | None] = mapped_column(String(512))
     opened_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), index=True)
     closed_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+
+    strategy: Mapped[Strategy | None] = relationship("Strategy")
