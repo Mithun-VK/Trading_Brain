@@ -119,12 +119,12 @@ trading-brain/
 5. **Quantitative engine** (technical, risk, performance — all deterministic,
    unit-tested). **Done.**
 6. **Market regime engine** (descriptive, rule-based classification). **Done.**
-7. Claude research layer (`LLMProvider` abstraction, Claude implementation).
-8. Context assembler (targeted retrieval across Obsidian + PostgreSQL +
-   quant + regime — never the full vault).
-9. Research agent.
-10. Thesis agent (explicit `THESIS_INTACT` / `STRENGTHENED` / `WEAKENED` /
-    `INVALIDATED` / `INSUFFICIENT_EVIDENCE` states; changes are auditable).
+7. **Claude research layer** (`LLMProvider` abstraction, Claude implementation). **Done.**
+8. **Context assembler** (targeted retrieval across Obsidian + PostgreSQL +
+   quant + regime — never the full vault). **Done.**
+9. **Research agent.** **Done.**
+10. **Thesis agent** (explicit `THESIS_INTACT` / `STRENGTHENED` / `WEAKENED` /
+    `INVALIDATED` / `INSUFFICIENT_EVIDENCE` states; changes are auditable). **Done.**
 11. Trading journal intelligence.
 12. Remaining TradingBrain API endpoints.
 13. Dashboard foundation (Next.js/TypeScript).
