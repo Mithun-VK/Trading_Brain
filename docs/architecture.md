@@ -112,9 +112,9 @@ trading-brain/
 0. **Architecture & repository foundation** — this document, monorepo
    layout, FastAPI/worker skeletons, Docker Compose, structured logging,
    settings. **Done.**
-1. Obsidian knowledge architecture (vault spec, templates).
-2. Obsidian MCP/REST integration (`KnowledgeStore` abstraction).
-3. PostgreSQL data layer (schema, migrations).
+1. **Obsidian knowledge architecture** (vault spec, templates). **Done.**
+2. **Obsidian MCP/REST integration** (`KnowledgeStore` abstraction). **Done.**
+3. **PostgreSQL data layer** (schema, migrations). **Done.**
 4. Market data abstraction (`MarketDataProvider`, mock provider first).
 5. Quantitative engine (technical, risk, performance — all deterministic,
    unit-tested).

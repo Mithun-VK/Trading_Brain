@@ -17,12 +17,12 @@ Broker execution = disabled in this phase
 See [docs/architecture.md](docs/architecture.md) for the full system design
 and phase roadmap.
 
-## Current status: Phase 0 — Architecture & Repository Foundation
+## Current status: Phase 3 complete (PostgreSQL data layer)
 
 What exists today:
 
 - Monorepo layout (`apps/`, `brain/`, `quant/`, `data/`, `integrations/`,
-  `models/`, `config/`, `tests/`, `scripts/`, `docs/`, `docker/`)
+  `models/`, `config/`, `tests/`, `scripts/`, `docs/`, `docker/`, `vault/`)
 - FastAPI app skeleton (`apps/api`) with a `/health` endpoint, structured
   request logging, and a hard guard that rejects any `/orders`, `/execute`,
   `/buy`, `/sell` path with `403` (defense-in-depth for Rule 8 — no such
@@ -31,13 +31,19 @@ What exists today:
 - Worker process skeleton (`apps/worker`) — no jobs yet
 - Centralized settings (`config/settings.py`) and structured logging
   (`config/logging.py`) with automatic secret redaction
+- Obsidian vault spec (`vault/`) with folder structure and the four required
+  note templates, plus a `KnowledgeStore`/`ObsidianKnowledgeStore`
+  integration over the Local REST API plugin (search/read/write/update/
+  append/list/backlinks) — see [docs/obsidian.md](docs/obsidian.md)
+- PostgreSQL schema (12 tables) via SQLAlchemy models + Alembic migrations —
+  see [docs/database.md](docs/database.md)
 - Docker Compose stack: API, worker, PostgreSQL, Redis
 - Test suite runnable with a single `pytest` command
 
-What is intentionally **not** implemented yet (later phases): Obsidian vault
-+ MCP integration, PostgreSQL schema/migrations, market data providers,
-quant indicators, market regime engine, Claude research/thesis agents,
-trading journal review, remaining API endpoints, and the Next.js dashboard.
+What is intentionally **not** implemented yet (later phases): market data
+providers, quant indicators, market regime engine, Claude research/thesis
+agents, trading journal review, remaining API endpoints, and the Next.js
+dashboard.
 
 ## Installation
 
@@ -98,14 +104,23 @@ the FastAPI app in-process.
 
 ## Obsidian setup
 
-Not yet implemented (Phase 1/2). `.env.example` reserves
-`OBSIDIAN_BASE_URL`, `OBSIDIAN_API_KEY`, and `OBSIDIAN_VAULT_PATH` for the
-upcoming integration.
+See [vault/README.md](vault/README.md) for vault setup (Local REST API
+plugin, `.env` values) and [docs/obsidian.md](docs/obsidian.md) for the
+integration architecture. Verify with:
+
+```bash
+python -m scripts.test_obsidian
+```
 
 ## Database setup
 
-Not yet implemented (Phase 3). `DATABASE_URL` is reserved and the Docker
-Compose stack already provisions a PostgreSQL 16 instance.
+```bash
+docker compose up -d postgres
+alembic upgrade head
+```
+
+See [docs/database.md](docs/database.md) for the schema and migration
+workflow.
 
 ## Claude setup
 
@@ -115,7 +130,7 @@ never hard-coded.
 
 ## Current limitations
 
-- No persistence layer yet — nothing is written to PostgreSQL or Obsidian.
+- Nothing populates the database yet — schema exists, no ingestion.
 - No market data, quant, or regime logic yet.
 - No Claude integration yet.
 - No broker execution, and none is planned until the full research/thesis/
@@ -124,10 +139,9 @@ never hard-coded.
 
 ## Future phases
 
-Obsidian knowledge architecture → Obsidian MCP integration → PostgreSQL data
-layer → market data abstraction → quantitative engine → market regime engine
-→ Claude research layer → context pipeline → research agent → thesis agent →
-trading journal intelligence → API → dashboard. See
+Market data abstraction → quantitative engine → market regime engine →
+Claude research layer → context pipeline → research agent → thesis agent →
+trading journal intelligence → remaining API endpoints → dashboard. See
 [docs/architecture.md](docs/architecture.md) for details on each phase.
 
 ## Assumptions from Phase 0
