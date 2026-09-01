@@ -116,8 +116,8 @@ trading-brain/
 2. **Obsidian MCP/REST integration** (`KnowledgeStore` abstraction). **Done.**
 3. **PostgreSQL data layer** (schema, migrations). **Done.**
 4. **Market data abstraction** (`MarketDataProvider`, mock provider first). **Done.**
-5. Quantitative engine (technical, risk, performance — all deterministic,
-   unit-tested).
+5. **Quantitative engine** (technical, risk, performance — all deterministic,
+   unit-tested). **Done.**
 6. Market regime engine (descriptive, rule-based classification).
 7. Claude research layer (`LLMProvider` abstraction, Claude implementation).
 8. Context assembler (targeted retrieval across Obsidian + PostgreSQL +
