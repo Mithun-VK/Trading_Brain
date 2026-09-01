@@ -9,6 +9,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from models.base import Base, TimestampMixin
 
 if TYPE_CHECKING:
+    from models.asset import Asset
     from models.strategy import Strategy
 
 
@@ -34,3 +35,4 @@ class Trade(Base, TimestampMixin):
     closed_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
 
     strategy: Mapped[Strategy | None] = relationship("Strategy")
+    asset: Mapped[Asset] = relationship("Asset")

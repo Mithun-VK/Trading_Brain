@@ -25,6 +25,48 @@ from quant.indicators.returns import simple_returns, volatility
 _SEARCH_LIMIT = 5
 
 
+def compute_quant_summary(market_data: MarketDataProvider, ticker: str) -> dict[str, Any]:
+    """Deterministic quant snapshot for a ticker -- standalone so callers
+    that don't need the rest of ContextBundle (e.g. a plain analysis API
+    endpoint) don't have to depend on Obsidian.
+    """
+    today = dt.datetime.now(dt.UTC).date()
+    bars = market_data.get_historical_prices(ticker, today - dt.timedelta(days=400), today)
+    if not bars:
+        return {}
+
+    closes = [bar.close for bar in bars]
+    summary: dict[str, Any] = {
+        "last_close": closes[-1],
+        "source": bars[-1].source,
+    }
+    sma50 = sma(closes, 50)[-1]
+    sma200 = sma(closes, 200)[-1]
+    rsi14 = rsi(closes, 14)[-1]
+    if sma50 is not None:
+        summary["sma_50"] = round(sma50, 2)
+    if sma200 is not None:
+        summary["sma_200"] = round(sma200, 2)
+    if rsi14 is not None:
+        summary["rsi_14"] = round(rsi14, 2)
+    if len(closes) > 20:
+        summary["volatility_20d_annualized"] = round(volatility(simple_returns(closes[-21:])), 4)
+    return summary
+
+
+def get_latest_regime(session: Session) -> dict[str, str] | None:
+    row = session.scalars(
+        select(MarketRegimeObservation).order_by(MarketRegimeObservation.observed_at.desc())
+    ).first()
+    if row is None:
+        return None
+    return {
+        "trend_regime": row.regime,
+        "volatility_regime": row.volatility_regime,
+        "risk_regime": row.risk_regime,
+    }
+
+
 class ContextAssembler:
     def __init__(
         self,
@@ -62,8 +104,8 @@ class ContextAssembler:
         if include_recent_trades and asset is not None:
             bundle.recent_trades = self._get_recent_trades(asset)
 
-        bundle.quant_summary = self._compute_quant_summary(ticker)
-        bundle.market_regime = self._get_latest_regime()
+        bundle.quant_summary = compute_quant_summary(self._market_data, ticker)
+        bundle.market_regime = get_latest_regime(self._session)
         return bundle
 
     def _get_asset(self, ticker: str) -> Asset | None:
@@ -116,42 +158,3 @@ class ContextAssembler:
             for t in trades
         ]
 
-    def _compute_quant_summary(self, ticker: str) -> dict[str, Any]:
-        today = dt.datetime.now(dt.UTC).date()
-        bars = self._market_data.get_historical_prices(
-            ticker, today - dt.timedelta(days=400), today
-        )
-        if not bars:
-            return {}
-
-        closes = [bar.close for bar in bars]
-        summary: dict[str, Any] = {
-            "last_close": closes[-1],
-            "source": bars[-1].source,
-        }
-        sma50 = sma(closes, 50)[-1]
-        sma200 = sma(closes, 200)[-1]
-        rsi14 = rsi(closes, 14)[-1]
-        if sma50 is not None:
-            summary["sma_50"] = round(sma50, 2)
-        if sma200 is not None:
-            summary["sma_200"] = round(sma200, 2)
-        if rsi14 is not None:
-            summary["rsi_14"] = round(rsi14, 2)
-        if len(closes) > 20:
-            summary["volatility_20d_annualized"] = round(
-                volatility(simple_returns(closes[-21:])), 4
-            )
-        return summary
-
-    def _get_latest_regime(self) -> dict[str, str] | None:
-        row = self._session.scalars(
-            select(MarketRegimeObservation).order_by(MarketRegimeObservation.observed_at.desc())
-        ).first()
-        if row is None:
-            return None
-        return {
-            "trend_regime": row.regime,
-            "volatility_regime": row.volatility_regime,
-            "risk_regime": row.risk_regime,
-        }

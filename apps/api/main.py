@@ -1,8 +1,7 @@
 """TradingBrain API entrypoint.
 
-FastAPI application factory. Routers are registered incrementally as later
-phases land (research, thesis, trades, portfolio, market regime). No broker
-execution routes exist or will exist in this phase — see the guard below.
+FastAPI application factory. No broker execution routes exist or will
+exist in this phase — see the guard below.
 """
 
 from __future__ import annotations
@@ -14,7 +13,7 @@ from collections.abc import Awaitable, Callable
 from fastapi import FastAPI, Request, Response
 from fastapi.responses import JSONResponse
 
-from apps.api.routers import health
+from apps.api.routers import analysis, assets, health, market, portfolio, research, thesis, trades
 from config.logging import configure_logging, get_logger
 from config.settings import get_settings
 
@@ -69,6 +68,13 @@ def create_app() -> FastAPI:
         return response
 
     app.include_router(health.router)
+    app.include_router(assets.router)
+    app.include_router(market.router)
+    app.include_router(analysis.router)
+    app.include_router(research.router)
+    app.include_router(thesis.router)
+    app.include_router(trades.router)
+    app.include_router(portfolio.router)
 
     logger.info("api_startup", operation="create_app", status="ready", app_env=settings.app_env)
     return app

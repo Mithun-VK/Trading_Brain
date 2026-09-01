@@ -17,33 +17,38 @@ Broker execution = disabled in this phase
 See [docs/architecture.md](docs/architecture.md) for the full system design
 and phase roadmap.
 
-## Current status: Phase 3 complete (PostgreSQL data layer)
+## Current status: Phases 0-12 complete — only the dashboard (Phase 13) remains
 
 What exists today:
 
 - Monorepo layout (`apps/`, `brain/`, `quant/`, `data/`, `integrations/`,
   `models/`, `config/`, `tests/`, `scripts/`, `docs/`, `docker/`, `vault/`)
-- FastAPI app skeleton (`apps/api`) with a `/health` endpoint, structured
-  request logging, and a hard guard that rejects any `/orders`, `/execute`,
-  `/buy`, `/sell` path with `403` (defense-in-depth for Rule 8 — no such
-  routes exist, and none will be added until execution is explicitly
-  approved in a much later phase)
-- Worker process skeleton (`apps/worker`) — no jobs yet
+- FastAPI app (`apps/api`) with every endpoint from the spec except broker
+  execution — see [docs/api.md](docs/api.md). A hard middleware guard
+  rejects any `/orders`, `/execute`, `/buy`, `/sell` path with `403`
+  regardless of whether a route is ever registered for it (Rule 8)
+- Worker process skeleton (`apps/worker`) — no scheduled jobs yet
 - Centralized settings (`config/settings.py`) and structured logging
   (`config/logging.py`) with automatic secret redaction
 - Obsidian vault spec (`vault/`) with folder structure and the four required
   note templates, plus a `KnowledgeStore`/`ObsidianKnowledgeStore`
-  integration over the Local REST API plugin (search/read/write/update/
-  append/list/backlinks) — see [docs/obsidian.md](docs/obsidian.md)
+  integration over the Local REST API plugin — see [docs/obsidian.md](docs/obsidian.md)
 - PostgreSQL schema (12 tables) via SQLAlchemy models + Alembic migrations —
   see [docs/database.md](docs/database.md)
+- `MarketDataProvider` abstraction with a deterministic `MockProvider`
+  (no API key required) — see [docs/market-data.md](docs/market-data.md)
+- Deterministic quant engine: technical indicators, risk math, performance
+  stats, and a rule-based market regime detector — see [docs/quant-engine.md](docs/quant-engine.md)
+- `LLMProvider`/`ClaudeProvider` (Anthropic SDK), a targeted context
+  assembler, a Research Agent, a Thesis Agent, and a Trading Journal Review
+  Agent — see [docs/claude.md](docs/claude.md), [docs/research-agents.md](docs/research-agents.md),
+  [docs/thesis-engine.md](docs/thesis-engine.md), [docs/trading-journal.md](docs/trading-journal.md)
 - Docker Compose stack: API, worker, PostgreSQL, Redis
-- Test suite runnable with a single `pytest` command
+- 130 tests, all passing without a live database, Obsidian instance, or
+  Anthropic API key (fakes/mocks throughout — see each doc's Testing section)
 
-What is intentionally **not** implemented yet (later phases): market data
-providers, quant indicators, market regime engine, Claude research/thesis
-agents, trading journal review, remaining API endpoints, and the Next.js
-dashboard.
+What is intentionally **not** implemented yet: the Next.js dashboard
+(Phase 13), and — deliberately, indefinitely — broker execution.
 
 ## Installation
 
@@ -124,25 +129,24 @@ workflow.
 
 ## Claude setup
 
-Not yet implemented (Phase 7). `ANTHROPIC_API_KEY` and `ANTHROPIC_MODEL` are
-reserved in `.env.example`. The model name is read from configuration and is
-never hard-coded.
+Set `ANTHROPIC_API_KEY` and `ANTHROPIC_MODEL` in `.env`. The model name is
+always read from configuration — never hard-coded. See [docs/claude.md](docs/claude.md).
 
 ## Current limitations
 
-- Nothing populates the database yet — schema exists, no ingestion.
-- No market data, quant, or regime logic yet.
-- No Claude integration yet.
+- No real market data provider yet — only the deterministic `MockProvider`.
+  Nothing fabricated by it should ever be treated as real (Rule 4).
+- The worker has no scheduled jobs yet (no periodic ingestion/regime
+  refresh) — everything runs on-demand via the API.
+- No dashboard yet (Phase 13) — the API is the only interface.
 - No broker execution, and none is planned until the full research/thesis/
   quant/risk/audit/paper-trading stack is independently validated (see
   [docs/architecture.md](docs/architecture.md), Critical Design Rules).
 
 ## Future phases
 
-Market data abstraction → quantitative engine → market regime engine →
-Claude research layer → context pipeline → research agent → thesis agent →
-trading journal intelligence → remaining API endpoints → dashboard. See
-[docs/architecture.md](docs/architecture.md) for details on each phase.
+Dashboard foundation (Next.js/TypeScript) is the only phase from the
+original plan left — see [docs/architecture.md](docs/architecture.md).
 
 ## Assumptions from Phase 0
 
