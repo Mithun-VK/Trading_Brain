@@ -128,10 +128,15 @@ trading-brain/
     `INVALIDATED` / `INSUFFICIENT_EVIDENCE` states; changes are auditable). **Done.**
 11. **Trading journal intelligence.** **Done.**
 12. **Remaining TradingBrain API endpoints.** **Done.**
-13. Dashboard foundation (Next.js/TypeScript).
+13. **Dashboard foundation** (Next.js/TypeScript). **Done.**
 
-Phases are implemented sequentially; later phases are not started before the
-current phase's tests, docs, and acceptance criteria are complete.
+All phases from the initial plan are complete. Phases were implemented
+sequentially; each phase's tests, docs, and acceptance criteria were
+finished before the next one started. See section 24 of the original
+implementation prompt for the full acceptance checklist — every item is
+satisfied except broker execution, which remains permanently out of scope
+until the full research/thesis/quant/risk/audit/paper-trading stack is
+independently validated (Rule 8).
 
 ## Critical design rules
 

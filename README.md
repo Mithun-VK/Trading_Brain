@@ -1,9 +1,9 @@
 # TradingBrain
 
 TradingBrain is an AI-assisted personal trading and investment intelligence
-platform. It is **not** an autonomous trading bot: this phase of the project
-builds a research and reasoning foundation, with broker execution explicitly
-disabled.
+platform. It is **not** an autonomous trading bot: it is a research and
+reasoning foundation, with broker execution explicitly and permanently
+disabled until a much later, independently-validated phase.
 
 ```text
 PostgreSQL   = structured financial data
@@ -17,7 +17,7 @@ Broker execution = disabled in this phase
 See [docs/architecture.md](docs/architecture.md) for the full system design
 and phase roadmap.
 
-## Current status: Phases 0-12 complete — only the dashboard (Phase 13) remains
+## Current status: all 13 phases of the initial plan are complete
 
 What exists today:
 
@@ -44,11 +44,17 @@ What exists today:
   Agent — see [docs/claude.md](docs/claude.md), [docs/research-agents.md](docs/research-agents.md),
   [docs/thesis-engine.md](docs/thesis-engine.md), [docs/trading-journal.md](docs/trading-journal.md)
 - Docker Compose stack: API, worker, PostgreSQL, Redis
-- 130 tests, all passing without a live database, Obsidian instance, or
-  Anthropic API key (fakes/mocks throughout — see each doc's Testing section)
+- Next.js/TypeScript dashboard (`apps/dashboard`) — a thin client over the
+  API with no direct database/Obsidian/Claude access, covering every
+  section from the spec
+- 130 backend tests + a clean `next build`/`npm run lint`, all passing
+  without a live database, Obsidian instance, or Anthropic API key
+  (fakes/mocks throughout — see each doc's Testing section)
 
-What is intentionally **not** implemented yet: the Next.js dashboard
-(Phase 13), and — deliberately, indefinitely — broker execution.
+What is intentionally **not** implemented, deliberately and indefinitely:
+broker execution. No autonomous trading exists or is planned until the
+full research/thesis/quant/risk/audit/paper-trading stack is independently
+validated (Critical Design Rules in [docs/architecture.md](docs/architecture.md)).
 
 ## Installation
 
@@ -107,6 +113,17 @@ pytest
 No Docker or database is required for the current test suite — it exercises
 the FastAPI app in-process.
 
+## Running the dashboard
+
+```bash
+cd apps/dashboard
+npm install
+cp .env.local.example .env.local   # NEXT_PUBLIC_API_BASE_URL, defaults to :8000
+npm run dev
+```
+
+Visit `http://localhost:3000`. See [docs/development.md](docs/development.md).
+
 ## Obsidian setup
 
 See [vault/README.md](vault/README.md) for vault setup (Local REST API
@@ -135,18 +152,24 @@ always read from configuration — never hard-coded. See [docs/claude.md](docs/c
 ## Current limitations
 
 - No real market data provider yet — only the deterministic `MockProvider`.
-  Nothing fabricated by it should ever be treated as real (Rule 4).
+  Nothing fabricated by it should ever be treated as real (Rule 4). Adding a
+  real vendor means one new `data/ingestion/<vendor>_provider.py` plus a
+  branch in `get_market_data_provider` — see [docs/market-data.md](docs/market-data.md).
 - The worker has no scheduled jobs yet (no periodic ingestion/regime
   refresh) — everything runs on-demand via the API.
-- No dashboard yet (Phase 13) — the API is the only interface.
+- The dashboard has no watchlist backend (stored in browser `localStorage`
+  only, clearly labeled as such) and no auth — it's a local development
+  tool, not deployed anywhere.
 - No broker execution, and none is planned until the full research/thesis/
   quant/risk/audit/paper-trading stack is independently validated (see
   [docs/architecture.md](docs/architecture.md), Critical Design Rules).
 
-## Future phases
+## Future work
 
-Dashboard foundation (Next.js/TypeScript) is the only phase from the
-original plan left — see [docs/architecture.md](docs/architecture.md).
+All 13 phases from the original implementation plan are complete. Natural
+next steps beyond the plan: a real market data provider, scheduled worker
+jobs (periodic price ingestion, regime refresh), a watchlist table, and —
+only after independent validation of the full stack — paper trading.
 
 ## Assumptions from Phase 0
 
