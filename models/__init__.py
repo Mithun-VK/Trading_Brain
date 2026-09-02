@@ -14,6 +14,7 @@ from models.paper_portfolio import PaperPortfolio, PaperPosition, PaperTransacti
 from models.position import Position
 from models.price import Price
 from models.research_document import ResearchDocument
+from models.research_queue import ResearchQueueEntry
 from models.signal import Signal
 from models.strategy import Strategy
 from models.thesis import Thesis
@@ -35,6 +36,7 @@ __all__ = [
     "Position",
     "Price",
     "ResearchDocument",
+    "ResearchQueueEntry",
     "Signal",
     "Strategy",
     "Thesis",

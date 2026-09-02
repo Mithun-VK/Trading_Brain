@@ -21,6 +21,7 @@ import time
 from apps.worker.jobs.base import JobContext, JobTrigger
 from apps.worker.jobs.company_update import CompanyUpdateJob
 from apps.worker.jobs.daily_market import DailyMarketUpdateJob
+from apps.worker.jobs.research_refresh import ResearchRefreshJob
 from apps.worker.scheduler.schedule import Schedule
 from apps.worker.scheduler.scheduler import JobScheduler
 from config.logging import configure_logging, get_logger
@@ -38,6 +39,8 @@ def build_scheduler() -> JobScheduler:
     scheduler = JobScheduler()
     scheduler.register(DailyMarketUpdateJob(), Schedule.daily(at=dt.time(hour=22, minute=0)))
     scheduler.register(CompanyUpdateJob(), Schedule.interval(every=dt.timedelta(days=7)))
+    # Runs after the daily price update so it scores against fresh data.
+    scheduler.register(ResearchRefreshJob(), Schedule.daily(at=dt.time(hour=23, minute=0)))
     return scheduler
 
 
