@@ -137,6 +137,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             status_code=503, content={"detail": "Database is currently unavailable."}
         )
 
+    for issue in settings.production_issues():
+        # Loud, once, at startup. These are not crashes -- the operator may
+        # have a reason -- but they must never be silent, which is the whole
+        # failure mode they represent.
+        logger.error("production_config_issue", status="misconfigured", detail=issue)
+
     app.include_router(health.router)
     app.include_router(assets.router)
     app.include_router(market.router)

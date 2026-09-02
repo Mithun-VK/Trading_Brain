@@ -176,3 +176,48 @@ def test_scheduled_runs_are_labelled_as_scheduled(context: JobContext) -> None:
     scheduler.run_due(context)
 
     assert get_recent_job_runs(context.session)[0].trigger == "scheduled"
+
+
+# -- resilience of the runner itself (Phase 31) -------------------------------
+
+
+class _DatabaseErrorJob(Job):
+    """Fails the way a writing job fails: a flush the database rejects.
+
+    A failed SELECT leaves the session usable; a failed flush does not. Every
+    ingestion job writes, so this is the realistic failure mode.
+    """
+
+    name = "db_error"
+
+    def run(self, context: JobContext) -> JobResult:
+        from models.job_run import JobRun
+
+        try:
+            context.session.add(JobRun(job_name=None, status="x", trigger="m"))
+            context.session.flush()
+        except Exception as exc:
+            raise RuntimeError("job hit a database error") from exc
+        return JobResult(job_name=self.name, status=JobStatus.SUCCESS)
+
+
+def test_a_database_error_inside_a_job_still_records_the_failure(
+    context: JobContext,
+) -> None:
+    """The scheduler is what records failures, so it has to survive the
+    failure it is recording.
+
+    A job that dies on a rejected flush leaves the session in a failed
+    transaction. Writing the job_run row without rolling back first raises
+    PendingRollbackError from *outside* the try block -- killing the worker
+    and losing the record, at exactly the moment the record matters most.
+    """
+    scheduler = JobScheduler()
+    scheduler.register(_DatabaseErrorJob(), Schedule.daily(at=dt.time(22, 0)))
+
+    result = scheduler.run_job("db_error", context)
+
+    assert result.status is JobStatus.FAILED
+    runs = get_recent_job_runs(context.session, limit=10)
+    assert len(runs) == 1
+    assert "database error" in (runs[0].error or "")

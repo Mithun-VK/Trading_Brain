@@ -71,6 +71,56 @@ class Settings(BaseSettings):
     def is_production(self) -> bool:
         return self.app_env.lower() == "production"
 
+    def production_issues(self) -> list[str]:
+        """Configuration that is fine for local development and wrong in
+        production.
+
+        Every default in this class is chosen so a developer's first run
+        works with no setup. That is the right trade -- but it means the
+        unsafe configuration is also the *quiet* one: nothing about running
+        with a synthetic price feed and no authentication looks different
+        from running correctly. This method is what makes it look different.
+
+        Returns an empty list outside production, since none of these are
+        problems there.
+        """
+        if not self.is_production:
+            return []
+
+        issues: list[str] = []
+
+        if self.market_data_provider.lower() in _SYNTHETIC_PROVIDERS:
+            issues.append(
+                f"MARKET_DATA_PROVIDER={self.market_data_provider!r} is a synthetic "
+                "generator. Prices, and every number derived from them, would be "
+                "invented (Rule 4)."
+            )
+        if not self.auth_tokens:
+            issues.append(
+                "API_AUTH_TOKENS is empty, so every endpoint is publicly callable -- "
+                "including ones that spend Anthropic API credits."
+            )
+        if "change-me" in self.database_url:
+            issues.append("DATABASE_URL still contains the placeholder password 'change-me'.")
+        if not self.anthropic_api_key:
+            issues.append(
+                "ANTHROPIC_API_KEY is not set; the research and thesis agents cannot run."
+            )
+        if self.obsidian_api_key and not (self.obsidian_verify_tls or self.obsidian_ca_cert_path):
+            issues.append(
+                "Obsidian is configured but TLS verification is off and no CA is pinned "
+                "(set OBSIDIAN_CA_CERT_PATH)."
+            )
+        if self.log_level.upper() == "DEBUG":
+            issues.append("LOG_LEVEL=DEBUG is unusually verbose for production.")
+
+        return issues
+
+
+# Providers that generate numbers rather than retrieve them. Kept here so
+# settings can name them without importing the ingestion package.
+_SYNTHETIC_PROVIDERS = frozenset({"mock", "synthetic", "fake"})
+
 
 @lru_cache
 def get_settings() -> Settings:

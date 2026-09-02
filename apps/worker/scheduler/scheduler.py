@@ -92,6 +92,17 @@ class JobScheduler:
                     status=JobStatus.FAILED,
                     error=f"{type(exc).__name__}: {exc}",
                 )
+                # A job that died on a rejected flush leaves the session in a
+                # failed transaction, and recording the failure would then
+                # raise PendingRollbackError from outside this block -- taking
+                # down the worker and losing the record, exactly when the
+                # record matters most. Roll back first so the audit row can
+                # always be written. Anything the job left uncommitted is
+                # discarded, which is the right outcome for a failed run.
+                try:
+                    context.session.rollback()
+                except Exception:  # noqa: BLE001 -- best effort; never mask the job error
+                    logger.warning("job_session_rollback_failed", operation=name, status="error")
                 logger.warning(
                     "job_failed",
                     operation=name,
