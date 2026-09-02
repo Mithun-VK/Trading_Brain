@@ -12,6 +12,7 @@ from collections.abc import Awaitable, Callable
 
 from fastapi import FastAPI, Request, Response
 from fastapi.responses import JSONResponse
+from sqlalchemy.exc import SQLAlchemyError
 
 from apps.api.routers import (
     analysis,
@@ -81,6 +82,39 @@ def create_app() -> FastAPI:
         )
         response.headers["X-Request-ID"] = request_id
         return response
+
+    @app.exception_handler(SQLAlchemyError)
+    async def database_unavailable(request: Request, exc: SQLAlchemyError) -> JSONResponse:
+        """A database outage is a 503, not a 500 -- and on a health route it
+        must still answer in health shape, since reporting the outage is
+        exactly that endpoint's job.
+        """
+        logger.warning(
+            "database_unavailable",
+            operation=f"{request.method} {request.url.path}",
+            status="unavailable",
+            error=type(exc).__name__,
+        )
+        if request.url.path.startswith("/health"):
+            return JSONResponse(
+                status_code=503,
+                content={
+                    "status": "unavailable",
+                    "checks": [
+                        {
+                            "name": "database",
+                            "status": "unavailable",
+                            "detail": (
+                                "Database is unreachable; dependent checks could "
+                                "not run."
+                            ),
+                        }
+                    ],
+                },
+            )
+        return JSONResponse(
+            status_code=503, content={"detail": "Database is currently unavailable."}
+        )
 
     app.include_router(health.router)
     app.include_router(assets.router)

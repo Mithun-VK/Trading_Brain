@@ -45,6 +45,7 @@ packages = [
     "data",
     "integrations",
     "models",
+    "observability",
     "paper_trading",
     "config",
     "scripts",
