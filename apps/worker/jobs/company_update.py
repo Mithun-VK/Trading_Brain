@@ -8,15 +8,36 @@ blank out known values) and metrics are keyed on
 
 from __future__ import annotations
 
+from collections.abc import Callable
+
 from sqlalchemy import select
 
 from apps.worker.jobs.base import Job, JobContext, JobResult, JobStatus
 from config.logging import get_logger
 from data.ingestion.errors import ProviderError
+from data.ingestion.provider import MarketDataProvider
+from data.ingestion.schemas import CompanyProfile, FundamentalsSnapshot
 from data.storage.fundamentals_repository import upsert_company_profile, upsert_fundamentals
 from models.asset import Asset
 
 logger = get_logger("worker")
+
+
+# Closure factories rather than inline lambdas: binding the ticker as a
+# function parameter avoids capturing the loop variable (B023) while staying
+# fully typed for the registry's Callable[[MarketDataProvider], T] contract.
+def _profile_call(ticker: str) -> Callable[[MarketDataProvider], CompanyProfile]:
+    def call(provider: MarketDataProvider) -> CompanyProfile:
+        return provider.get_company_profile(ticker)
+
+    return call
+
+
+def _fundamentals_call(ticker: str) -> Callable[[MarketDataProvider], FundamentalsSnapshot]:
+    def call(provider: MarketDataProvider) -> FundamentalsSnapshot:
+        return provider.get_fundamentals(ticker)
+
+    return call
 
 
 class CompanyUpdateJob(Job):
@@ -47,20 +68,15 @@ class CompanyUpdateJob(Job):
         failures: dict[str, str] = {}
 
         for asset in assets:
-            # `execute` invokes the callable synchronously, so capturing the
-            # loop variable directly is safe here.
-            ticker = asset.ticker
             try:
                 profile = context.registry.execute(
-                    "get_company_profile",
-                    lambda provider: provider.get_company_profile(ticker),
+                    "get_company_profile", _profile_call(asset.ticker)
                 )
                 upsert_company_profile(context.session, asset, profile)
                 profiles_updated += 1
 
                 snapshot = context.registry.execute(
-                    "get_fundamentals",
-                    lambda provider: provider.get_fundamentals(ticker),
+                    "get_fundamentals", _fundamentals_call(asset.ticker)
                 )
                 inserted, updated = upsert_fundamentals(context.session, asset.id, snapshot)
                 metrics_written += inserted + updated
