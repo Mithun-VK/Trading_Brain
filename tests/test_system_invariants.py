@@ -228,3 +228,28 @@ def test_the_security_document_records_gaps_not_just_controls() -> None:
 
     assert "known gaps" in text
     assert "rate limiting" in text
+
+
+# -- deployment ------------------------------------------------------------------
+
+
+def test_dockerfiles_copy_every_declared_package() -> None:
+    """A package declared in pyproject but not COPYed into the image does not
+    fail the build -- it fails at import time inside the running container,
+    which is a far worse place to find out.
+
+    This is a real regression: `backtesting`, `observability`, and
+    `paper_trading` were added in later phases and never reached either
+    Dockerfile, so the API image could not have started.
+    """
+    import tomllib
+
+    pyproject = tomllib.loads((REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+    declared = set(pyproject["tool"]["hatch"]["build"]["targets"]["wheel"]["packages"])
+
+    for dockerfile in (REPO_ROOT / "docker").glob("*.Dockerfile"):
+        content = dockerfile.read_text(encoding="utf-8")
+        missing = {
+            package for package in declared if f"COPY {package} ./{package}" not in content
+        }
+        assert not missing, f"{dockerfile.name} does not COPY: {sorted(missing)}"
