@@ -14,6 +14,7 @@ from fastapi import FastAPI, Request, Response
 from fastapi.responses import JSONResponse
 from sqlalchemy.exc import SQLAlchemyError
 
+from apps.api.auth import EXEMPT_PATHS, is_authorized, unauthorized_response
 from apps.api.routers import (
     analysis,
     assets,
@@ -31,7 +32,7 @@ from apps.api.routers import (
     watchlists,
 )
 from config.logging import configure_logging, get_logger
-from config.settings import get_settings
+from config.settings import Settings, get_settings
 
 configure_logging()
 logger = get_logger("api")
@@ -42,8 +43,10 @@ logger = get_logger("api")
 _BLOCKED_PATH_PREFIXES = ("/orders", "/execute", "/buy", "/sell")
 
 
-def create_app() -> FastAPI:
-    settings = get_settings()
+def create_app(settings: Settings | None = None) -> FastAPI:
+    """`settings` is injectable so tests can exercise configuration-dependent
+    behaviour without mutating the process-wide settings cache."""
+    settings = settings or get_settings()
     app = FastAPI(
         title="TradingBrain API",
         version="0.1.0",
@@ -63,6 +66,24 @@ def create_app() -> FastAPI:
                     "of TradingBrain (Rule 8)."
                 },
             )
+        return await call_next(request)
+
+    @app.middleware("http")
+    async def require_api_token(
+        request: Request, call_next: Callable[[Request], Awaitable[Response]]
+    ) -> Response:
+        """Shared-token auth, active only when API_AUTH_TOKENS is configured.
+
+        Runs before anything else touches the database or spends money on a
+        Claude call.
+        """
+        if request.url.path not in EXEMPT_PATHS and not is_authorized(request, settings):
+            logger.warning(
+                "unauthorized_request",
+                operation=f"{request.method} {request.url.path}",
+                status=401,
+            )
+            return unauthorized_response()
         return await call_next(request)
 
     @app.middleware("http")

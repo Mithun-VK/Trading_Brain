@@ -225,10 +225,41 @@ def check_market_data(settings: Settings | None = None) -> Check:
     )
 
 
+def check_api_auth(settings: Settings | None = None) -> Check:
+    """An unauthenticated API in production is a real exposure.
+
+    Open access is a legitimate localhost default, so this is only a finding
+    when APP_ENV says production.
+    """
+    settings = settings or get_settings()
+    if settings.auth_tokens:
+        return Check(
+            name="api_auth",
+            status=Status.HEALTHY,
+            detail=f"{len(settings.auth_tokens)} API token(s) configured.",
+        )
+    if settings.is_production:
+        return Check(
+            name="api_auth",
+            status=Status.UNAVAILABLE,
+            detail=(
+                "APP_ENV is production but API_AUTH_TOKENS is empty: every "
+                "endpoint is publicly callable, including ones that spend "
+                "Claude API credits."
+            ),
+        )
+    return Check(
+        name="api_auth",
+        status=Status.DEGRADED,
+        detail="API_AUTH_TOKENS is empty; the API is unauthenticated (development default).",
+    )
+
+
 def dependency_checks(session: Session, settings: Settings | None = None) -> list[Check]:
     settings = settings or get_settings()
     return [
         check_database(session),
+        check_api_auth(settings),
         check_market_data(settings),
         check_obsidian(settings),
         check_claude(settings),

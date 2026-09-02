@@ -72,3 +72,20 @@ extend-immutable-calls = ["fastapi.Depends", "fastapi.params.Depends"]
 python_version = "3.11"
 ignore_missing_imports = true
 disallow_untyped_defs = false
+# Listed explicitly so a bare `mypy` checks exactly what the CI gate checks,
+# rather than depending on the caller remembering the package list.
+# Tests are excluded on purpose: they use loose fixtures and monkeypatched
+# doubles where strict typing costs more than it catches.
+files = [
+    "apps",
+    "backtesting",
+    "brain",
+    "config",
+    "data",
+    "integrations",
+    "models",
+    "observability",
+    "paper_trading",
+    "quant",
+    "scripts",
+]
