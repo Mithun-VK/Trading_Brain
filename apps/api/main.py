@@ -13,7 +13,17 @@ from collections.abc import Awaitable, Callable
 from fastapi import FastAPI, Request, Response
 from fastapi.responses import JSONResponse
 
-from apps.api.routers import analysis, assets, health, market, portfolio, research, thesis, trades
+from apps.api.routers import (
+    analysis,
+    assets,
+    health,
+    market,
+    portfolio,
+    research,
+    thesis,
+    trades,
+    watchlists,
+)
 from config.logging import configure_logging, get_logger
 from config.settings import get_settings
 
@@ -75,6 +85,7 @@ def create_app() -> FastAPI:
     app.include_router(thesis.router)
     app.include_router(trades.router)
     app.include_router(portfolio.router)
+    app.include_router(watchlists.router)
 
     logger.info("api_startup", operation="create_app", status="ready", app_env=settings.app_env)
     return app
