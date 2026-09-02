@@ -17,44 +17,64 @@ Broker execution = disabled in this phase
 See [docs/architecture.md](docs/architecture.md) for the full system design
 and phase roadmap.
 
-## Current status: all 13 phases of the initial plan are complete
+## Current status: all 37 phases complete
 
-What exists today:
+TradingBrain now runs as a continuous intelligence loop: it ingests market
+data on a schedule, notices what changed, researches what matters, forms and
+reviews theses, emits evidence-backed signals, simulates positions on paper,
+and grades its own past reasoning against what actually happened.
 
-- Monorepo layout (`apps/`, `brain/`, `quant/`, `data/`, `integrations/`,
-  `models/`, `config/`, `tests/`, `scripts/`, `docs/`, `docker/`, `vault/`)
-- FastAPI app (`apps/api`) with every endpoint from the spec except broker
-  execution — see [docs/api.md](docs/api.md). A hard middleware guard
-  rejects any `/orders`, `/execute`, `/buy`, `/sell` path with `403`
-  regardless of whether a route is ever registered for it (Rule 8)
-- Worker process skeleton (`apps/worker`) — no scheduled jobs yet
-- Centralized settings (`config/settings.py`) and structured logging
-  (`config/logging.py`) with automatic secret redaction
-- Obsidian vault spec (`vault/`) with folder structure and the four required
-  note templates, plus a `KnowledgeStore`/`ObsidianKnowledgeStore`
-  integration over the Local REST API plugin — see [docs/obsidian.md](docs/obsidian.md)
-- PostgreSQL schema (12 tables) via SQLAlchemy models + Alembic migrations —
-  see [docs/database.md](docs/database.md)
-- `MarketDataProvider` abstraction with a deterministic `MockProvider`
-  (no API key required) — see [docs/market-data.md](docs/market-data.md)
-- Deterministic quant engine: technical indicators, risk math, performance
-  stats, and a rule-based market regime detector — see [docs/quant-engine.md](docs/quant-engine.md)
-- `LLMProvider`/`ClaudeProvider` (Anthropic SDK), a targeted context
-  assembler, a Research Agent, a Thesis Agent, and a Trading Journal Review
-  Agent — see [docs/claude.md](docs/claude.md), [docs/research-agents.md](docs/research-agents.md),
-  [docs/thesis-engine.md](docs/thesis-engine.md), [docs/trading-journal.md](docs/trading-journal.md)
-- Docker Compose stack: API, worker, PostgreSQL, Redis
-- Next.js/TypeScript dashboard (`apps/dashboard`) — a thin client over the
-  API with no direct database/Obsidian/Claude access, covering every
-  section from the spec
-- 130 backend tests + a clean `next build`/`npm run lint`, all passing
-  without a live database, Obsidian instance, or Anthropic API key
-  (fakes/mocks throughout — see each doc's Testing section)
+**Verified:** 582 backend tests · mypy clean (161 source files) · ruff clean
+· eslint clean · `next build` clean (17 routes) · 9 migrations applying from
+an empty database with no schema drift.
 
-What is intentionally **not** implemented, deliberately and indefinitely:
-broker execution. No autonomous trading exists or is planned until the
-full research/thesis/quant/risk/audit/paper-trading stack is independently
-validated (Critical Design Rules in [docs/architecture.md](docs/architecture.md)).
+Read [docs/PRODUCTION_READINESS.md](docs/PRODUCTION_READINESS.md) before
+deploying this anywhere. It rates each category GREEN/YELLOW/RED and is
+written to be useful rather than reassuring.
+
+### What exists
+
+**Foundation** — monorepo layout, FastAPI app, worker, centralized settings,
+structured logging with automatic secret redaction, PostgreSQL schema (25
+tables) via SQLAlchemy + Alembic, Obsidian vault integration over the Local
+REST API plugin, deterministic quant engine, and the Claude reasoning layer
+(Research, Thesis, and Journal Review agents).
+
+**Continuous intelligence** — real market data providers (Yahoo, Alpha
+Vantage) with fallback, 8 scheduled jobs, watchlists and a paper portfolio,
+a change-detection research queue, an anti-lookahead backtesting engine, an
+evidence-backed signal engine, paper trading, and a learning loop that
+scores past reasoning.
+
+**Integration** — a complete REST surface over all of it, automated Obsidian
+reporting, a dashboard covering every section, system-wide lineage
+(`/lineage/*`), three-state health checks, shared-token authentication, and
+production preflight validation.
+
+### What is deliberately not implemented
+
+**Broker execution.** Not "not yet" — structurally absent. No broker SDK is
+imported anywhere in the tree, no route resembling order placement is
+registered, and no signal category names an executable action. All three are
+asserted by tests over the real source tree
+(`tests/test_system_invariants.py`), not left to convention.
+
+Paper trading is the only trading that exists here, and opening or closing
+even a paper position requires explicit `confirm=true` — it never happens as
+a side effect of anything else.
+
+### Honesty properties
+
+The system is built to distinguish *not knowing* from *knowing zero*, and
+that distinction survives all the way to the screen:
+
+- A portfolio with one snapshot reports `daily_return: null`, never `0.0` —
+  one data point is not a return.
+- A position with no current price is excluded from market value rather than
+  valued at cost.
+- A trade with no stop has an undefined R-multiple, not a zero one.
+- A signal with no evidence is not served at all (Rule 10).
+- A lineage stage with no record says so, rather than inventing provenance.
 
 ## Installation
 
@@ -151,25 +171,33 @@ always read from configuration — never hard-coded. See [docs/claude.md](docs/c
 
 ## Current limitations
 
-- No real market data provider yet — only the deterministic `MockProvider`.
-  Nothing fabricated by it should ever be treated as real (Rule 4). Adding a
-  real vendor means one new `data/ingestion/<vendor>_provider.py` plus a
-  branch in `get_market_data_provider` — see [docs/market-data.md](docs/market-data.md).
-- The worker has no scheduled jobs yet (no periodic ingestion/regime
-  refresh) — everything runs on-demand via the API.
-- The dashboard has no watchlist backend (stored in browser `localStorage`
-  only, clearly labeled as such) and no auth — it's a local development
-  tool, not deployed anywhere.
-- No broker execution, and none is planned until the full research/thesis/
-  quant/risk/audit/paper-trading stack is independently validated (see
-  [docs/architecture.md](docs/architecture.md), Critical Design Rules).
+Every item that used to be listed here (no real provider, no scheduled jobs,
+no watchlist backend, no auth) has since been built. These are the ones that
+remain — see [docs/PRODUCTION_READINESS.md](docs/PRODUCTION_READINESS.md)
+for the full assessment and [docs/security.md](docs/security.md) for the
+security-specific gaps.
+
+- **No rate limiting.** A caller can trigger unbounded Anthropic spend via
+  `POST /research/queue/{id}/process`. This is the most consequential gap.
+- **Authentication is a single shared secret**, and opt-in: with
+  `API_AUTH_TOKENS` empty the API is open. That is the right default for
+  `localhost` and wrong anywhere else, so `/health` reports UNAVAILABLE when
+  `APP_ENV=production` and no tokens are set.
+- **Single-operator only.** No user accounts, no tenancy, no per-user audit.
+- **No TLS in-app** — plaintext unless fronted by a reverse proxy.
+- **No circuit breaker** on failing providers, and no request idempotency
+  keys, so a client retry after a timeout could open a duplicate paper
+  position.
+- **No dependency vulnerability scanning** in CI.
+- **No broker execution**, and none is planned. See the Critical Design
+  Rules in [docs/architecture.md](docs/architecture.md).
 
 ## Future work
 
-All 13 phases from the original implementation plan are complete. Natural
-next steps beyond the plan: a real market data provider, scheduled worker
-jobs (periodic price ingestion, regime refresh), a watchlist table, and —
-only after independent validation of the full stack — paper trading.
+The 37 phases of the implementation plan are complete. Beyond them, in
+rough order of value: a token-bucket rate limiter on the Claude-spending
+routes, `pip-audit`/`npm audit` in CI, a circuit breaker for market data
+providers, and request idempotency keys on the paper-trading endpoints.
 
 ## Assumptions from Phase 0
 
