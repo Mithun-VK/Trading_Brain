@@ -5,10 +5,19 @@ written to be useful rather than reassuring: the RED and YELLOW rows are the
 point of the document, and a category is only GREEN when there is code and a
 test behind the claim.
 
-**Verified at:** commit `e1d1c10`
-**Verification:** 582 tests passing · mypy clean (161 source files) · ruff
-clean · eslint clean · `next build` clean (17 routes) · 9 migrations apply
-from an empty database with zero schema drift against the models.
+**Verified at:** commit `de3733f`
+**Verification:** 584 tests passing · mypy clean (161 source files) · ruff
+clean · tsc clean · eslint clean · `next build` clean (17 routes) · 9
+migrations apply from an empty Postgres with zero schema drift against the
+models, and survive a full downgrade-to-base and re-upgrade round trip.
+
+**Not verified:** the Docker image build. It hangs in this environment on a
+credential-helper lookup — `~/.docker/config.json` maps
+`asia-south1-docker.pkg.dev` to the `gcloud` helper and
+`docker-credential-gcloud` is not on `PATH`. That is a machine
+configuration issue, not a repository one, but it means the Dockerfiles are
+verified by inspection and test rather than by a successful build. Removing
+that `credHelpers` entry (or installing the helper) should clear it.
 
 ---
 
@@ -34,9 +43,10 @@ source tree, not by convention.
 | 2 | Data integrity / no fabrication | **GREEN** | Unknowns are `null` not `0.0` end to end; unpriced positions excluded, not valued at cost; synthetic providers cannot be fallbacks |
 | 3 | Auditability & lineage | **GREEN** | Every signal carries evidence or is not served; `/lineage/*` marks gaps `recorded: false` rather than inventing provenance |
 | 4 | Deterministic financial math | **GREEN** | All quant in Python; Claude never computes a number that reaches a report |
-| 5 | Test coverage | **GREEN** | 582 tests, no live external calls in CI, deterministic fakes throughout |
+| 5 | Test coverage | **GREEN** | 584 tests, no live external calls in CI, deterministic fakes throughout |
 | 6 | Type & lint hygiene | **GREEN** | mypy and ruff clean over 161 source files; `[tool.mypy]` lists its own files so a bare `mypy` matches the CI gate |
-| 7 | Database & migrations | **GREEN** | 9 migrations apply cleanly from empty; 25 tables with no missing tables or columns versus the models |
+| 7 | Database & migrations | **GREEN** | 9 migrations apply cleanly from empty; 25 tables, no drift versus the models; full down/up round trip verified |
+| 7b | Container images | **YELLOW** | A real defect was found and fixed (3 packages never copied, so the API image could not have started), and a test now derives the list from `pyproject.toml` — but no successful build was observed here |
 | 8 | Observability | **GREEN** | Three-state health with worst-wins aggregation; a DB outage is a 503 in health shape, never a 500 |
 | 9 | Frontend | **GREEN** | Builds clean; every data area handles error/empty/success distinctly; four visually distinct kinds of "unknown" |
 | 10 | Configuration safety | **YELLOW** | `production_issues()` + `scripts/preflight.py` name every unsafe default, but nothing *enforces* them — a misconfigured production instance logs loudly and still starts |
