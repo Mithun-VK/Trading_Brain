@@ -16,8 +16,11 @@ from fastapi.responses import JSONResponse
 from apps.api.routers import (
     analysis,
     assets,
+    backtests,
     health,
+    learning,
     market,
+    paper_trades,
     portfolio,
     research,
     research_queue,
@@ -90,6 +93,9 @@ def create_app() -> FastAPI:
     app.include_router(watchlists.router)
     app.include_router(signals.router)
     app.include_router(research_queue.router)
+    app.include_router(backtests.router)
+    app.include_router(paper_trades.router)
+    app.include_router(learning.router)
 
     logger.info("api_startup", operation="create_app", status="ready", app_env=settings.app_env)
     return app

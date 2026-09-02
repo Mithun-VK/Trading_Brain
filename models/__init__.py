@@ -3,6 +3,7 @@ is fully populated for Alembic autogenerate and `Base.metadata.create_all`.
 """
 
 from models.asset import Asset
+from models.backtest_run import BacktestRun
 from models.base import Base
 from models.company import Company
 from models.data_validation_error import DataValidationError
@@ -28,6 +29,7 @@ from models.watchlist import Watchlist, WatchlistItem
 __all__ = [
     "Base",
     "Asset",
+    "BacktestRun",
     "Company",
     "DataValidationError",
     "FinancialMetric",
