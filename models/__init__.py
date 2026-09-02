@@ -10,6 +10,7 @@ from models.financial_metric import FinancialMetric
 from models.job_run import JobRun
 from models.market_event import MarketEvent
 from models.market_regime import MarketRegimeObservation
+from models.paper_portfolio import PaperPortfolio, PaperPosition, PaperTransaction
 from models.position import Position
 from models.price import Price
 from models.research_document import ResearchDocument
@@ -17,6 +18,7 @@ from models.signal import Signal
 from models.strategy import Strategy
 from models.thesis import Thesis
 from models.trade import Trade
+from models.watchlist import Watchlist, WatchlistItem
 
 __all__ = [
     "Base",
@@ -27,6 +29,9 @@ __all__ = [
     "JobRun",
     "MarketEvent",
     "MarketRegimeObservation",
+    "PaperPortfolio",
+    "PaperPosition",
+    "PaperTransaction",
     "Position",
     "Price",
     "ResearchDocument",
@@ -34,4 +39,6 @@ __all__ = [
     "Strategy",
     "Thesis",
     "Trade",
+    "Watchlist",
+    "WatchlistItem",
 ]
