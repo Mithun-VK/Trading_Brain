@@ -16,7 +16,6 @@ import ast
 import pathlib
 
 import pytest
-from fastapi.routing import APIRoute
 from fastapi.testclient import TestClient
 
 from apps.api.main import create_app
@@ -47,8 +46,21 @@ def _source_files() -> list[pathlib.Path]:
     ]
 
 
-def _routes() -> list[APIRoute]:
-    return [r for r in create_app().routes if isinstance(r, APIRoute)]
+def _route_paths() -> list[str]:
+    """Every path the assembled app actually serves.
+
+    Read from the OpenAPI schema rather than by walking `app.routes`. This
+    FastAPI version keeps included routers as opaque `_IncludedRouter`
+    objects that expose neither `.path` nor `.routes`, so the obvious
+    `[r for r in app.routes if isinstance(r, APIRoute)]` returns only the
+    four docs endpoints -- and every "no route matches X" assertion over it
+    passes vacuously while protecting nothing.
+
+    The schema is also the better source on its own terms: it is the surface
+    the app actually publishes. `test_the_route_scan_is_not_vacuous` pins
+    the count so this can never silently empty out again.
+    """
+    return list(create_app().openapi()["paths"])
 
 
 # -- Rule 7 / Rule 8: no execution path can exist --------------------------------
@@ -62,11 +74,21 @@ def test_no_route_looks_like_an_order_placement_endpoint() -> None:
     """
     forbidden = ("order", "execute", "/buy", "/sell", "broker", "brokerage")
 
-    offenders = [
-        r.path for r in _routes() if any(word in r.path.lower() for word in forbidden)
-    ]
+    offenders = [p for p in _route_paths() if any(w in p.lower() for w in forbidden)]
 
     assert offenders == [], f"Routes resembling execution were registered: {offenders}"
+
+
+def test_the_route_scan_is_not_vacuous() -> None:
+    """Guards the guard. If `_route_paths` ever returns nothing -- a FastAPI
+    upgrade changing how routers nest would do it -- the execution-route
+    assertion above becomes an assertion about an empty list, and would
+    keep passing while protecting nothing."""
+    paths = _route_paths()
+
+    assert len(paths) > 40, f"Only {len(paths)} routes found; the scan is not seeing the app"
+    assert "/health" in paths
+    assert "/signals" in paths
 
 
 def test_no_broker_sdk_is_importable_from_source() -> None:
