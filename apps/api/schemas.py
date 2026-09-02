@@ -61,9 +61,11 @@ class TradeOut(BaseModel):
     direction: str
     timeframe: str
     entry_price: float
-    stop_price: float
+    # Nullable: a paper trade may be opened without a defined stop, in which
+    # case there is no honest risk_amount either.
+    stop_price: float | None
     target_price: float | None
-    risk_amount: float
+    risk_amount: float | None
     position_size: float
     r_multiple: float | None
     status: str

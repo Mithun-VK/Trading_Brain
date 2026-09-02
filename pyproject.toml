@@ -45,6 +45,7 @@ packages = [
     "data",
     "integrations",
     "models",
+    "paper_trading",
     "config",
     "scripts",
 ]

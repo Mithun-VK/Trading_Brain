@@ -22,9 +22,11 @@ class Trade(Base, TimestampMixin):
     direction: Mapped[str] = mapped_column(String(8))  # "long" | "short"
     timeframe: Mapped[str] = mapped_column(String(16))
     entry_price: Mapped[float] = mapped_column(Numeric(18, 6))
-    stop_price: Mapped[float] = mapped_column(Numeric(18, 6))
+    # Nullable: a paper position may be opened without a defined stop.
+    # Inventing one would fabricate risk that was never taken.
+    stop_price: Mapped[float | None] = mapped_column(Numeric(18, 6))
     target_price: Mapped[float | None] = mapped_column(Numeric(18, 6))
-    risk_amount: Mapped[float] = mapped_column(Numeric(18, 6))
+    risk_amount: Mapped[float | None] = mapped_column(Numeric(18, 6))
     position_size: Mapped[float] = mapped_column(Numeric(18, 6))
     r_multiple: Mapped[float | None] = mapped_column(Numeric(10, 4))
     status: Mapped[str] = mapped_column(String(16), default="open", index=True)  # open|closed

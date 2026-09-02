@@ -11,6 +11,8 @@ from models.job_run import JobRun
 from models.market_event import MarketEvent
 from models.market_regime import MarketRegimeObservation
 from models.paper_portfolio import PaperPortfolio, PaperPosition, PaperTransaction
+from models.paper_portfolio_snapshot import PaperPortfolioSnapshot
+from models.paper_trade_proposal import PaperTradeProposal
 from models.position import Position
 from models.price import Price
 from models.research_document import ResearchDocument
@@ -33,6 +35,8 @@ __all__ = [
     "PaperPortfolio",
     "PaperPosition",
     "PaperTransaction",
+    "PaperPortfolioSnapshot",
+    "PaperTradeProposal",
     "Position",
     "Price",
     "ResearchDocument",
