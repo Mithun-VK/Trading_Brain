@@ -34,8 +34,14 @@ Thumbs.db
 .idea/
 .claude/
 
-# --- Obsidian vault (local sync artifacts, not the vault content itself) ---
-*.obsidian/workspace*
+# --- Obsidian vault ---
+# The whole .obsidian directory stays out of git. It holds per-machine
+# workspace state AND plugin data -- including the Local REST API plugin's
+# data.json, which contains your API key. Never commit it.
+.obsidian/
+vault/.obsidian/
+# The connection-test note is a scratch artifact of scripts.test_obsidian.
+vault/99 Archive/_tradingbrain_connection_test.md
 
 # --- Logs ---
 *.log
