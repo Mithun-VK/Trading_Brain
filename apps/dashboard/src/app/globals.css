@@ -7,6 +7,7 @@
   --accent: #2f5fd6;
   --danger: #b3261e;
   --ok: #1a7f37;
+  --warn: #9a6700;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,6 +20,7 @@
     --accent: #7aa2ff;
     --danger: #ff6b64;
     --ok: #3fd66b;
+    --warn: #d4a72c;
   }
   html {
     color-scheme: dark;
@@ -259,3 +261,288 @@ ul.bulleted {
 ul.bulleted li {
   margin-bottom: 0.2rem;
 }
+
+/* --- Phase 28: epistemic status ---------------------------------------------
+   The four ways a value can be absent look different on purpose. A reader
+   should be able to tell "we have not observed this" from "we observed too
+   little to say" from "this metric does not apply here" at a glance, without
+   reading a tooltip -- and none of them should be mistakable for zero. */
+
+.unknown {
+  font-size: 0.8em;
+  font-style: italic;
+  color: var(--muted);
+  border-bottom: 1px dotted var(--muted);
+  cursor: help;
+  white-space: nowrap;
+}
+
+.unknown-insufficient {
+  color: var(--warn);
+  border-bottom-color: var(--warn);
+}
+
+.unknown-not-scorable {
+  border-bottom-style: dashed;
+}
+
+.unknown-unpriced {
+  color: var(--danger);
+  border-bottom-color: var(--danger);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.num.pos {
+  color: var(--ok);
+}
+
+.num.neg {
+  color: var(--danger);
+}
+
+.currency {
+  font-size: 0.8em;
+  color: var(--muted);
+}
+
+.stat-caveat {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.35rem;
+  line-height: 1.35;
+}
+
+/* A metric below its significance threshold is shown but visibly demoted --
+   hiding it over-corrects, showing it plainly overstates it. */
+.card-weak {
+  border-style: dashed;
+}
+
+.card-weak .stat-value {
+  opacity: 0.75;
+}
+
+/* --- states --- */
+
+.empty-state {
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.error-box strong {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.error-hint {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+.notice {
+  border-left: 3px solid var(--warn);
+  background: var(--surface);
+  padding: 0.6rem 0.85rem;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  border-radius: 0 6px 6px 0;
+}
+
+.skeleton-row {
+  height: 1.1rem;
+  border-radius: 4px;
+  background: var(--surface);
+  margin-bottom: 0.55rem;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-row { animation: none; }
+}
+
+/* --- signals --- */
+
+.signal-head,
+.queue-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.signal-confidence,
+.queue-score {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.signal-reasoning {
+  margin: 0.6rem 0;
+  font-size: 0.92rem;
+}
+
+.evidence {
+  border-top: 1px solid var(--border);
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  font-size: 0.86rem;
+}
+
+.evidence-head {
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.35rem;
+}
+
+.evidence-kind {
+  color: var(--muted);
+  font-size: 0.8em;
+  text-transform: uppercase;
+}
+
+.stance {
+  display: inline-block;
+  width: 1.1em;
+  font-weight: 700;
+  text-align: center;
+}
+
+.stance-supports { color: var(--ok); }
+.stance-contradicts { color: var(--danger); }
+.stance-neutral { color: var(--muted); }
+
+.signal-foot,
+.queue-foot {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  margin-top: 0.7rem;
+  padding-top: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* Category badges are all neutral in weight on purpose: none of them is an
+   instruction, and colouring ACCUMULATE green would read as one. */
+.badge[class*="cat-"] {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* --- score bars --- */
+
+.score-bar {
+  display: grid;
+  grid-template-columns: 11rem 1fr 4rem;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+}
+
+.score-bar-label { color: var(--muted); }
+
+.score-bar-track {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.score-bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+
+.score-bar-value { text-align: right; }
+
+/* --- health --- */
+
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.dot-healthy { background: var(--ok); }
+.dot-degraded { background: var(--warn); }
+.dot-unavailable { background: var(--danger); }
+
+.status-healthy { color: var(--ok); border-color: var(--ok); }
+.status-degraded { color: var(--warn); border-color: var(--warn); }
+.status-unavailable { color: var(--danger); border-color: var(--danger); }
+
+.health-banner .stat-value { text-transform: capitalize; }
+.health-healthy { border-left: 4px solid var(--ok); }
+.health-degraded { border-left: 4px solid var(--warn); }
+.health-unavailable { border-left: 4px solid var(--danger); }
+
+/* --- lineage --- */
+
+.lineage {
+  list-style: none;
+  border-left: 2px solid var(--border);
+  padding-left: 1rem;
+  margin-left: 0.4rem;
+}
+
+.lineage li {
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.lineage li::before {
+  content: "";
+  position: absolute;
+  left: -1.42rem;
+  top: 0.85rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--ok);
+}
+
+.lineage li.not-recorded::before {
+  background: var(--background);
+  border: 2px solid var(--muted);
+}
+
+.lineage-stage { font-weight: 600; font-size: 0.9rem; }
+.lineage-summary { color: var(--muted); font-size: 0.85rem; }
+.lineage li.not-recorded .lineage-stage { color: var(--muted); }
+
+/* --- misc --- */
+
+.table-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.row-unpriced { background: color-mix(in srgb, var(--danger) 6%, transparent); }
+
+.small { font-size: 0.82rem; }
+
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.85rem; }
+
+.link { color: var(--accent); }
+.link:hover { text-decoration: underline; }

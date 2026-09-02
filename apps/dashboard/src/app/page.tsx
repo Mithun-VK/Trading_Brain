@@ -1,51 +1,101 @@
 import Link from "next/link";
-import { apiGet } from "@/lib/api";
-import type { HealthOut } from "@/lib/types";
-import { ErrorBox } from "@/components/ErrorBox";
+import { apiGetAll } from "@/lib/api";
+import type {
+  PortfolioOut,
+  ResearchQueueOut,
+  SignalOut,
+} from "@/lib/types";
+import { ErrorBox } from "@/components/Section";
+import { Money, Pct } from "@/components/Value";
 
-const SECTIONS: Array<{ href: string; title: string; description: string }> = [
-  { href: "/market", title: "Market", description: "Latest regime observation and quote lookup." },
-  { href: "/watchlist", title: "Watchlist", description: "Tickers you're tracking (stored locally in your browser)." },
-  { href: "/companies", title: "Companies", description: "Asset metadata and deterministic quant analysis." },
-  { href: "/theses", title: "Investment Theses", description: "Look up a thesis and run a Thesis Agent review." },
-  { href: "/research", title: "Research Reports", description: "Run the Research Agent and read its output." },
-  { href: "/journal", title: "Trading Journal", description: "Record trades and review them individually." },
-  { href: "/portfolio", title: "Portfolio", description: "Open exposure and trade counts by status." },
-  { href: "/system", title: "System Health", description: "API connectivity and configuration." },
-];
+export const dynamic = "force-dynamic";
 
-export default async function HomePage() {
-  const health = await apiGet<HealthOut>("/health");
+export default async function OverviewPage() {
+  const [portfolio, signals, queue] = await apiGetAll<
+    [PortfolioOut, SignalOut[], ResearchQueueOut[]]
+  >("/portfolio", "/signals/latest?limit=5", "/research/queue?status=pending&limit=5");
 
   return (
     <>
-      <h1>TradingBrain</h1>
+      <h1>Overview</h1>
       <p className="lede">
-        AI-assisted research and investment intelligence. This is the research and reasoning
-        layer only — there is no broker execution in this system, and nothing here is
-        guaranteed financial advice.
+        A research and reasoning system. It forms views, records why, and checks itself against what
+        happened. It does not place orders — no broker is connected and no execution path exists.
       </p>
 
-      {health.ok ? (
-        <div className="card">
-          <span className={`badge badge-ok`}>API reachable</span>{" "}
-          <span className="muted">env: {health.data.app_env}</span>
+      <h2>Portfolio</h2>
+      {portfolio.ok ? (
+        <div className="card-grid">
+          <div className="card">
+            <div className="stat-label">Total value</div>
+            <div className="stat-value">
+              <Money value={portfolio.data.total_value} currency={portfolio.data.base_currency} />
+            </div>
+          </div>
+          <div className="card">
+            <div className="stat-label">Total return</div>
+            <div className="stat-value">
+              <Pct value={portfolio.data.total_return} signed />
+            </div>
+          </div>
+          <div className="card">
+            <div className="stat-label">Positions</div>
+            <div className="stat-value">{portfolio.data.position_count}</div>
+            {portfolio.data.unpriced_positions > 0 ? (
+              <div className="stat-caveat">
+                {portfolio.data.unpriced_positions} unpriced and excluded from value
+              </div>
+            ) : null}
+          </div>
         </div>
       ) : (
-        <ErrorBox message={health.error} />
+        <ErrorBox message={portfolio.error} what="the portfolio" />
       )}
 
-      <h2>Sections</h2>
-      <div className="card-grid">
-        {SECTIONS.map((section) => (
-          <Link key={section.href} href={section.href} className="card">
-            <div style={{ fontWeight: 600, marginBottom: "0.25rem" }}>{section.title}</div>
-            <div className="muted" style={{ fontSize: "0.85rem" }}>
-              {section.description}
-            </div>
-          </Link>
-        ))}
-      </div>
+      <h2>Latest signals</h2>
+      {signals.ok ? (
+        signals.data.length === 0 ? (
+          <div className="empty-state">No signals yet.</div>
+        ) : (
+          <ul className="plain">
+            {signals.data.map((s) => (
+              <li key={s.id}>
+                <span className={`badge cat-${s.category.toLowerCase()}`}>{s.category}</span>{" "}
+                <strong>{s.ticker}</strong>{" "}
+                <span className="muted small">
+                  {s.evidence.length} piece{s.evidence.length === 1 ? "" : "s"} of evidence
+                </span>
+              </li>
+            ))}
+          </ul>
+        )
+      ) : (
+        <ErrorBox message={signals.error} what="signals" />
+      )}
+
+      <h2>Research queue</h2>
+      {queue.ok ? (
+        queue.data.length === 0 ? (
+          <div className="empty-state">Nothing queued for research.</div>
+        ) : (
+          <ul className="plain">
+            {queue.data.map((q) => (
+              <li key={q.id}>
+                <strong>{q.ticker}</strong> <span className="badge">{q.change_type}</span>{" "}
+                <span className="muted small">priority {q.score.toFixed(2)}</span>
+              </li>
+            ))}
+          </ul>
+        )
+      ) : (
+        <ErrorBox message={queue.error} what="the research queue" />
+      )}
+
+      <p style={{ marginTop: "1.75rem" }}>
+        <Link className="link" href="/system">
+          Check system health →
+        </Link>
+      </p>
     </>
   );
 }

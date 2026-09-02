@@ -9,6 +9,8 @@ export const metadata: Metadata = {
 
 const NAV_LINKS: Array<{ href: string; label: string }> = [
   { href: "/", label: "Overview" },
+  { href: "/signals", label: "Signals" },
+  { href: "/intelligence", label: "Queue" },
   { href: "/market", label: "Market" },
   { href: "/watchlist", label: "Watchlist" },
   { href: "/companies", label: "Companies" },
@@ -16,6 +18,9 @@ const NAV_LINKS: Array<{ href: string; label: string }> = [
   { href: "/research", label: "Research" },
   { href: "/journal", label: "Journal" },
   { href: "/portfolio", label: "Portfolio" },
+  { href: "/paper", label: "Paper" },
+  { href: "/backtests", label: "Backtests" },
+  { href: "/learning", label: "Learning" },
   { href: "/system", label: "System" },
 ];
 
