@@ -3,6 +3,7 @@ from apps.worker.jobs.company_update import CompanyUpdateJob
 from apps.worker.jobs.daily_market import DailyMarketUpdateJob
 from apps.worker.jobs.learning_review import LearningReviewJob
 from apps.worker.jobs.portfolio_update import PortfolioUpdateJob
+from apps.worker.jobs.reporting import DailyReportJob, MonthlyReportJob, WeeklyReportJob
 from apps.worker.jobs.research_refresh import ResearchRefreshJob
 
 __all__ = [
@@ -15,5 +16,8 @@ __all__ = [
     "CompanyUpdateJob",
     "PortfolioUpdateJob",
     "LearningReviewJob",
+    "DailyReportJob",
+    "WeeklyReportJob",
+    "MonthlyReportJob",
     "ResearchRefreshJob",
 ]

@@ -23,12 +23,16 @@ from apps.worker.jobs.company_update import CompanyUpdateJob
 from apps.worker.jobs.daily_market import DailyMarketUpdateJob
 from apps.worker.jobs.learning_review import LearningReviewJob
 from apps.worker.jobs.portfolio_update import PortfolioUpdateJob
+from apps.worker.jobs.reporting import DailyReportJob, MonthlyReportJob, WeeklyReportJob
 from apps.worker.jobs.research_refresh import ResearchRefreshJob
 from apps.worker.scheduler.schedule import Schedule
 from apps.worker.scheduler.scheduler import JobScheduler
 from config.logging import configure_logging, get_logger
+from config.settings import get_settings
 from data.ingestion.factory import build_registry
 from data.storage.session import session_scope
+from integrations.obsidian.errors import ObsidianError
+from integrations.obsidian.obsidian_knowledge_store import ObsidianKnowledgeStore
 
 configure_logging()
 logger = get_logger("worker")
@@ -45,9 +49,26 @@ def build_scheduler() -> JobScheduler:
     scheduler.register(PortfolioUpdateJob(), Schedule.daily(at=dt.time(hour=22, minute=30)))
     # Runs after the daily price update so it scores against fresh data.
     scheduler.register(ResearchRefreshJob(), Schedule.daily(at=dt.time(hour=23, minute=0)))
+    # Reports run last, so they describe a fully-updated day.
+    scheduler.register(DailyReportJob(), Schedule.daily(at=dt.time(hour=23, minute=30)))
+    scheduler.register(WeeklyReportJob(), Schedule.interval(every=dt.timedelta(days=7)))
+    scheduler.register(MonthlyReportJob(), Schedule.interval(every=dt.timedelta(days=30)))
     # Monthly: enough outcomes need to resolve before a review says anything.
     scheduler.register(LearningReviewJob(), Schedule.interval(every=dt.timedelta(days=30)))
     return scheduler
+
+
+def _knowledge_store():
+    """Obsidian is optional: jobs that need it SKIP when it is absent."""
+    settings = get_settings()
+    if not settings.obsidian_api_key:
+        return None
+    try:
+        return ObsidianKnowledgeStore(settings)
+    except ObsidianError as exc:
+        logger.warning("obsidian_unavailable", operation="startup", status="degraded",
+                       error=type(exc).__name__)
+        return None
 
 
 def _context(session, now: dt.datetime | None = None) -> JobContext:
@@ -55,6 +76,7 @@ def _context(session, now: dt.datetime | None = None) -> JobContext:
         session=session,
         now=now or dt.datetime.now(dt.UTC),
         registry=build_registry(),
+        knowledge_store=_knowledge_store(),
     )
 
 
