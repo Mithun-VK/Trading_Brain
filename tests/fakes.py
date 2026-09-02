@@ -38,6 +38,22 @@ class FakeKnowledgeStore(KnowledgeStore):
     def append(self, path: str, content: str) -> None:
         self.notes[path] = self.notes.get(path, "") + content
 
+    def append_to_section(self, path: str, section: str, content: str) -> bool:
+        """Mirrors the real store: insert at the end of the named section,
+        or fall back to end-of-note when the heading is absent.
+        """
+        body = self.notes.get(path, "")
+        heading = f"## {section}"
+        if heading not in body:
+            self.append(path, content)
+            return False
+
+        start = body.index(heading) + len(heading)
+        next_heading = body.find("\n## ", start)
+        insert_at = len(body) if next_heading == -1 else next_heading
+        self.notes[path] = body[:insert_at] + content + body[insert_at:]
+        return True
+
     def list_notes(self, folder: str | None = None) -> list[str]:
         if folder is None:
             return list(self.notes.keys())

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 import httpx
 import pytest
 
@@ -10,7 +12,10 @@ from integrations.obsidian.errors import (
     ObsidianConnectionError,
     ObsidianNotFoundError,
 )
-from integrations.obsidian.obsidian_knowledge_store import ObsidianKnowledgeStore
+from integrations.obsidian.obsidian_knowledge_store import (
+    ObsidianKnowledgeStore,
+    _tls_verification,
+)
 
 
 def _settings() -> Settings:
@@ -125,3 +130,65 @@ def test_connect_error_raises_connection_error() -> None:
 
     with pytest.raises(ObsidianConnectionError):
         _store(handler).read("note.md")
+
+
+def test_append_to_section_targets_the_heading() -> None:
+    captured = {}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        captured["method"] = request.method
+        captured["body"] = json.loads(request.content)
+        return httpx.Response(200)
+
+    targeted = _store(handler).append_to_section("t.md", "Historical Changes", "entry")
+
+    assert targeted is True
+    assert captured["method"] == "PATCH"
+    assert captured["body"] == {
+        "targetType": "heading",
+        "target": ["Historical Changes"],
+        "operation": "append",
+        "content": "entry",
+    }
+
+
+def test_append_to_section_falls_back_when_heading_is_missing() -> None:
+    """An audit entry must never be lost just because a heading was renamed."""
+    calls = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        calls.append(request.method)
+        if request.method == "PATCH":
+            return httpx.Response(404)
+        return httpx.Response(200)
+
+    targeted = _store(handler).append_to_section("t.md", "Missing", "entry")
+
+    assert targeted is False
+    assert calls == ["PATCH", "POST"]  # fell back to a plain append
+
+
+def test_ca_cert_path_is_used_for_verification_when_configured() -> None:
+    settings = Settings(
+        OBSIDIAN_API_KEY="k",
+        OBSIDIAN_BASE_URL="https://obsidian.local",
+        OBSIDIAN_CA_CERT_PATH="/path/to/ca.crt",
+    )
+
+    assert _tls_verification(settings) == "/path/to/ca.crt"
+
+
+def test_verification_defaults_to_disabled_for_the_self_signed_loopback_cert() -> None:
+    settings = Settings(OBSIDIAN_API_KEY="k", OBSIDIAN_BASE_URL="https://obsidian.local")
+
+    assert _tls_verification(settings) is False
+
+
+def test_verification_can_be_enabled_without_a_custom_ca() -> None:
+    settings = Settings(
+        OBSIDIAN_API_KEY="k",
+        OBSIDIAN_BASE_URL="https://obsidian.local",
+        OBSIDIAN_VERIFY_TLS=True,
+    )
+
+    assert _tls_verification(settings) is True

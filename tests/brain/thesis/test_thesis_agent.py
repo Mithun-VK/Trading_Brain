@@ -122,3 +122,30 @@ def test_apply_handles_thesis_without_note_path(session: Session) -> None:
     agent.apply(thesis, review)
 
     assert thesis.current_assessment == "THESIS_WEAKENED"
+
+
+def test_audit_entry_lands_inside_the_history_section_not_at_the_end(
+    session: Session,
+) -> None:
+    """Rule 9: placement must not depend on Historical Changes being last."""
+    asset, thesis = _seed_asset_and_thesis(session)
+    note = (
+        "# Thesis\n\n"
+        "## Historical Changes\n\n"
+        "## Invalidation Conditions\n\nMargins below 8%.\n"
+    )
+    knowledge_store = FakeKnowledgeStore({thesis.obsidian_note_path: note})
+    llm = FakeLLMProvider(extract_response=_REVIEW_RESPONSE)
+    assembler = ContextAssembler(knowledge_store, session, MockProvider())
+    agent = ThesisAgent(assembler, llm, knowledge_store, session)
+
+    agent.review_and_apply(thesis, asset)
+
+    updated = knowledge_store.notes[thesis.obsidian_note_path]
+    history_at = updated.index("## Historical Changes")
+    invalidation_at = updated.index("## Invalidation Conditions")
+    entry_at = updated.index("THESIS_INTACT -> THESIS_WEAKENED")
+
+    assert history_at < entry_at < invalidation_at
+    # The human-authored section below it must be untouched.
+    assert "Margins below 8%." in updated

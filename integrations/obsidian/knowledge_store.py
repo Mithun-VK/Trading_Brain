@@ -47,6 +47,15 @@ class KnowledgeStore(ABC):
         """Append content to the end of an existing (or new) note."""
 
     @abstractmethod
+    def append_to_section(self, path: str, section: str, content: str) -> bool:
+        """Append content under a specific heading.
+
+        Returns True if the heading was targeted, False if it was missing
+        and the content went to the end of the note instead. Callers that
+        depend on placement (audit trails) should surface a False.
+        """
+
+    @abstractmethod
     def list_notes(self, folder: str | None = None) -> list[str]:
         """List vault-relative note paths, optionally scoped to a folder."""
 

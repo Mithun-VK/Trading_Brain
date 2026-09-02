@@ -16,10 +16,16 @@ from sqlalchemy.orm import Session
 
 from brain.market.context_assembler import ContextAssembler
 from brain.thesis.schemas import THESIS_REVIEW_SCHEMA, ThesisReview
+from config.logging import get_logger
 from integrations.claude.llm_provider import LLMProvider
 from integrations.obsidian.knowledge_store import KnowledgeStore
 from models.asset import Asset
 from models.thesis import Thesis
+
+logger = get_logger("thesis_agent")
+
+# Must match the heading in vault/_templates/Investment Thesis.md.
+HISTORY_SECTION = "Historical Changes"
 
 _DISCLAIMER = (
     "AI-generated thesis review. Not a guaranteed prediction (Rule 12) -- "
@@ -59,7 +65,21 @@ class ThesisAgent:
     def apply(self, thesis: Thesis, review: ThesisReview) -> None:
         if thesis.obsidian_note_path:
             entry = self._render_change_entry(review)
-            self._knowledge_store.append(thesis.obsidian_note_path, entry)
+            # Target the heading explicitly. A plain append would land at the
+            # end of the file, which is only correct while "Historical
+            # Changes" happens to be the last section -- too fragile for an
+            # audit trail (Rule 9).
+            targeted = self._knowledge_store.append_to_section(
+                thesis.obsidian_note_path, HISTORY_SECTION, entry
+            )
+            if not targeted:
+                logger.warning(
+                    "thesis_history_section_missing",
+                    operation="apply",
+                    status="fallback",
+                    path=thesis.obsidian_note_path,
+                    section=HISTORY_SECTION,
+                )
 
         thesis.current_assessment = review.assessment.value
         thesis.last_reviewed_at = review.reviewed_at

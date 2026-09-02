@@ -39,6 +39,11 @@ class Settings(BaseSettings):
     obsidian_base_url: str = Field(default="https://127.0.0.1:27124", alias="OBSIDIAN_BASE_URL")
     obsidian_api_key: str = Field(default="", alias="OBSIDIAN_API_KEY")
     obsidian_vault_path: str = Field(default="", alias="OBSIDIAN_VAULT_PATH")
+    # The plugin serves a self-signed cert on loopback by default, so
+    # verification is off unless you opt in. Trusting its downloadable CA
+    # (see docs/obsidian.md) is the better option and takes precedence.
+    obsidian_verify_tls: bool = Field(default=False, alias="OBSIDIAN_VERIFY_TLS")
+    obsidian_ca_cert_path: str = Field(default="", alias="OBSIDIAN_CA_CERT_PATH")
 
     # --- Claude / Anthropic ---
     anthropic_api_key: str = Field(default="", alias="ANTHROPIC_API_KEY")
