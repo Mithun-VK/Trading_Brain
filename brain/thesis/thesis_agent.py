@@ -17,6 +17,7 @@ from sqlalchemy.orm import Session
 from brain.market.context_assembler import ContextAssembler
 from brain.thesis.schemas import THESIS_REVIEW_SCHEMA, ThesisReview
 from config.logging import get_logger
+from data.storage.learning_repository import record_thesis_review
 from integrations.claude.llm_provider import LLMProvider
 from integrations.obsidian.knowledge_store import KnowledgeStore
 from models.asset import Asset
@@ -80,6 +81,20 @@ class ThesisAgent:
                     path=thesis.obsidian_note_path,
                     section=HISTORY_SECTION,
                 )
+
+        # Record the transition in queryable form as well as in the note.
+        # The note is the narrative audit trail (Rule 9); this row is what
+        # makes thesis accuracy and time-to-invalidation measurable.
+        record_thesis_review(
+            self._session,
+            thesis_id=thesis.id,
+            asset_id=thesis.asset_id,
+            previous_assessment=review.previous_assessment,
+            assessment=review.assessment.value,
+            reviewed_at=review.reviewed_at,
+            confidence=review.confidence,
+            reasoning=review.reasoning,
+        )
 
         thesis.current_assessment = review.assessment.value
         thesis.last_reviewed_at = review.reviewed_at

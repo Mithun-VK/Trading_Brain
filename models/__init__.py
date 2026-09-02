@@ -8,6 +8,7 @@ from models.company import Company
 from models.data_validation_error import DataValidationError
 from models.financial_metric import FinancialMetric
 from models.job_run import JobRun
+from models.learning_review import LearningReview
 from models.market_event import MarketEvent
 from models.market_regime import MarketRegimeObservation
 from models.paper_portfolio import PaperPortfolio, PaperPosition, PaperTransaction
@@ -20,6 +21,7 @@ from models.research_queue import ResearchQueueEntry
 from models.signal import Signal
 from models.strategy import Strategy
 from models.thesis import Thesis
+from models.thesis_review_record import ThesisReviewRecord
 from models.trade import Trade
 from models.watchlist import Watchlist, WatchlistItem
 
@@ -30,6 +32,7 @@ __all__ = [
     "DataValidationError",
     "FinancialMetric",
     "JobRun",
+    "LearningReview",
     "MarketEvent",
     "MarketRegimeObservation",
     "PaperPortfolio",
@@ -44,6 +47,7 @@ __all__ = [
     "Signal",
     "Strategy",
     "Thesis",
+    "ThesisReviewRecord",
     "Trade",
     "Watchlist",
     "WatchlistItem",
