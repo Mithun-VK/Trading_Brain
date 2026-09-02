@@ -20,6 +20,8 @@ from apps.api.routers import (
     market,
     portfolio,
     research,
+    research_queue,
+    signals,
     thesis,
     trades,
     watchlists,
@@ -86,6 +88,8 @@ def create_app() -> FastAPI:
     app.include_router(trades.router)
     app.include_router(portfolio.router)
     app.include_router(watchlists.router)
+    app.include_router(signals.router)
+    app.include_router(research_queue.router)
 
     logger.info("api_startup", operation="create_app", status="ready", app_env=settings.app_env)
     return app
