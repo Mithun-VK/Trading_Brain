@@ -342,3 +342,82 @@ export type SignalLineageOut = {
   chain: LineageNode[];
   evidence: EvidenceOut[];
 };
+
+// --- Phase 45: AI operations -------------------------------------------------
+// `recorded: false` on usage is the honest answer when nothing has run, and
+// is deliberately not the same shape as a zeroed summary.
+
+export type AIProviderHealth = {
+  name: string;
+  tier: string;
+  available: boolean;
+  detail: string;
+  models?: string[];
+};
+
+export type AIStatusOut = {
+  enabled: boolean;
+  providers: AIProviderHealth[];
+  stats: {
+    requests: number;
+    succeeded: number;
+    failed: number;
+    blocked_rate_limit: number;
+    blocked_budget: number;
+    cache_hits: number;
+    escalations: number;
+    local_calls: number;
+    frontier_calls: number;
+  };
+  budgets: AIBudgetWindow[];
+  cache: { entries: number; in_flight: number };
+  priced_models: string[];
+};
+
+export type AIBudgetWindow = {
+  window: string;
+  limit: number | null;
+  spent: number;
+  remaining: number | null;
+  state: string;
+};
+
+export type AIUsageBucket = {
+  key: string | null;
+  calls: number;
+  estimated_cost: number | null;
+  input_tokens: number | null;
+  output_tokens: number | null;
+};
+
+export type AIUsageOut =
+  | { recorded: false; reason: string; since: string }
+  | {
+      recorded: true;
+      since: string;
+      calls: number;
+      succeeded: number;
+      failed: number;
+      blocked: number;
+      cache_hits: number;
+      cache_hit_rate: number;
+      escalations: number;
+      escalation_rate: number;
+      local_calls: number;
+      frontier_calls: number;
+      input_tokens: number | null;
+      output_tokens: number | null;
+      cache_read_tokens: number | null;
+      estimated_cost: number | null;
+      // Stated so a low cost figure is never mistaken for a complete one.
+      calls_with_unknown_cost: number;
+      by_task: AIUsageBucket[];
+      by_model: AIUsageBucket[];
+      by_provider: AIUsageBucket[];
+    };
+
+export type AIBudgetOut = {
+  windows: AIBudgetWindow[];
+  recorded_spend: { hour: number | null; day: number | null; month: number | null };
+  note: string;
+};

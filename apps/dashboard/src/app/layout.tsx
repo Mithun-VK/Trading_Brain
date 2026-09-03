@@ -21,6 +21,7 @@ const NAV_LINKS: Array<{ href: string; label: string }> = [
   { href: "/paper", label: "Paper" },
   { href: "/backtests", label: "Backtests" },
   { href: "/learning", label: "Learning" },
+  { href: "/ai", label: "AI Ops" },
   { href: "/system", label: "System" },
 ];
 
