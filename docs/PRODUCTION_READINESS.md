@@ -11,12 +11,13 @@ clean · tsc clean · eslint clean · `next build` clean (17 routes) · 9
 migrations apply from an empty Postgres with zero schema drift against the
 models, and survive a full downgrade-to-base and re-upgrade round trip.
 
-**Docker:** the API image builds, starts, and serves. `GET /health/live`
-answers 200 from the container; the three packages that were previously
+**Docker:** both images build. The API image starts and serves —
+`GET /health/live` answers 200 from the container; the three packages that were previously
 missing (`backtesting`, `observability`, `paper_trading`) all import;
 `alembic.ini` and `alembic/` are present so migrations can be run from the
 image; the execution guard returns 403 for `POST /orders`; and the process
-runs as uid 10001, not root.
+runs as uid 10001, not root. The worker image imports its entrypoint and
+registers all 8 scheduled jobs, also as uid 10001.
 
 One environment note for reproducing this: builds must run with
 `DOCKER_BUILDKIT=0`, because `docker buildx` fails here with "The parameter
@@ -52,7 +53,7 @@ source tree, not by convention.
 | 5 | Test coverage | **GREEN** | 584 tests, no live external calls in CI, deterministic fakes throughout |
 | 6 | Type & lint hygiene | **GREEN** | mypy and ruff clean over 161 source files; `[tool.mypy]` lists its own files so a bare `mypy` matches the CI gate |
 | 7 | Database & migrations | **GREEN** | 9 migrations apply cleanly from empty; 25 tables, no drift versus the models; full down/up round trip verified |
-| 7b | Container images | **GREEN** | A real defect was found and fixed (3 packages never copied, so the API image could not have started). Image now builds, starts, serves `/health/live`, imports all declared packages, and runs as a non-root user; a test derives the expected package list from `pyproject.toml` |
+| 7b | Container images | **GREEN** | A real defect was found and fixed (3 packages never copied, so the API image could not have started). Both images build; API serves `/health/live`, worker registers its 8 jobs, both run non-root; a test derives the expected package list from `pyproject.toml` |
 | 8 | Observability | **GREEN** | Three-state health with worst-wins aggregation; a DB outage is a 503 in health shape, never a 500 |
 | 9 | Frontend | **GREEN** | Builds clean; every data area handles error/empty/success distinctly; four visually distinct kinds of "unknown" |
 | 10 | Configuration safety | **YELLOW** | `production_issues()` + `scripts/preflight.py` name every unsafe default, but nothing *enforces* them — a misconfigured production instance logs loudly and still starts |
