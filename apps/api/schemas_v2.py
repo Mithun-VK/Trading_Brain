@@ -152,6 +152,17 @@ class SignalOut(BaseModel):
 # --- research queue ----------------------------------------------------------
 
 
+class AIRecommendationOut(BaseModel):
+    """The escalation gate's verdict, surfaced before anything is spent."""
+
+    escalate: bool
+    outcome: str
+    tier: str | None
+    reason: str
+    materiality: float
+    trigger: str | None = None
+
+
 class ResearchQueueOut(BaseModel):
     id: int
     asset_id: int
@@ -169,6 +180,10 @@ class ResearchQueueOut(BaseModel):
     processed_at: dt.datetime | None = None
     research_document_id: int | None = None
     note: str | None = None
+    # Whether reasoning about this entry is judged worth paying for, and why.
+    # Present on every entry including the refusals: "we considered this and
+    # declined" is more useful operationally than a silently absent field.
+    ai_recommendation: AIRecommendationOut | None = None
 
 
 class QueueDismissIn(BaseModel):

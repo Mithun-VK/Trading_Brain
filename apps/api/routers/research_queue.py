@@ -11,14 +11,16 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
+from ai import escalation
 from apps.api.ai_dependencies import get_queue_research_llm
 from apps.api.dependencies import (
     get_knowledge_store,
     get_market_data,
     get_session,
 )
-from apps.api.schemas_v2 import QueueDismissIn, ResearchQueueOut
+from apps.api.schemas_v2 import AIRecommendationOut, QueueDismissIn, ResearchQueueOut
 from brain.market.context_assembler import ContextAssembler
+from brain.research.change_detection import ChangeType, DetectedChange
 from brain.research.research_agent import ResearchAgent
 from brain.research.schemas import ResearchAnalysis
 from data.ingestion.provider import MarketDataProvider
@@ -36,8 +38,42 @@ from models.research_queue import ResearchQueueEntry
 router = APIRouter(tags=["research-queue"])
 
 
+def _recommendation(entry: ResearchQueueEntry) -> AIRecommendationOut | None:
+    """Reconstruct the escalation verdict for a stored queue entry.
+
+    Recomputed on read rather than persisted: the policy is cheap, and a
+    stored verdict would silently go stale the moment a threshold changed.
+    An unrecognised change type yields no recommendation rather than a
+    guessed one.
+    """
+    try:
+        change_type = ChangeType(entry.change_type)
+    except ValueError:
+        return None
+
+    trigger = escalation.evaluate(
+        DetectedChange(
+            asset_id=entry.asset_id,
+            ticker=entry.ticker,
+            change_type=change_type,
+            magnitude=float(entry.importance),
+            detected_at=entry.detected_at,
+            detail=dict(entry.detail or {}),
+        )
+    )
+    return AIRecommendationOut(
+        escalate=trigger.escalate,
+        outcome=str(trigger.outcome),
+        tier=str(trigger.tier) if trigger.tier else None,
+        reason=trigger.reason,
+        materiality=trigger.materiality,
+        trigger=str(trigger.kind) if trigger.kind else None,
+    )
+
+
 def _to_out(entry: ResearchQueueEntry) -> ResearchQueueOut:
     return ResearchQueueOut(
+        ai_recommendation=_recommendation(entry),
         id=entry.id,
         asset_id=entry.asset_id,
         ticker=entry.ticker,
