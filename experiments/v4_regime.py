@@ -165,9 +165,9 @@ def _report(periods, market_labels, findings) -> None:
     # --- per ticker ---
     print("\nBY TICKER (all periods)")
     print("-" * 104)
-    for ticker, stat in trade_analysis.by_ticker(all_records).items():
-        print(f"  {ticker:<8}{stat['trades']:>5} trades{stat['total_pnl']:>12.2f}"
-              f"{stat['average_return']*100:>9.2f}% avg{stat['win_rate']*100:>8.0f}% win")
+    for ticker, summary in trade_analysis.by_ticker(all_records).items():
+        print(f"  {ticker:<8}{summary['trades']:>5} trades{summary['total_pnl']:>12.2f}"
+              f"{summary['average_return']*100:>9.2f}% avg{summary['win_rate']*100:>8.0f}% win")
 
     # --- the ten questions ---
     print("\n" + "=" * 104)
