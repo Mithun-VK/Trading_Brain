@@ -5,7 +5,7 @@ written to be useful rather than reassuring: the RED and YELLOW rows are the
 point of the document, and a category is only GREEN when there is code and a
 test behind the claim.
 
-**Verified at:** commit `9f0e2d1` (Phases 38-45)
+**Verified at:** commit `bea46c3` (Phases 38-46)
 **Verification:** 696 tests passing · mypy clean (164 source files) · ruff
 clean · tsc clean · eslint clean · `next build` clean (18 routes) · 10
 migrations apply from an empty Postgres with zero schema drift against the
