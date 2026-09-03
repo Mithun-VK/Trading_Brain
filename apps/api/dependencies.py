@@ -14,9 +14,6 @@ from config.settings import get_settings
 from data.ingestion.factory import get_market_data_provider
 from data.ingestion.provider import MarketDataProvider
 from data.storage.session import get_db
-from integrations.claude.claude_provider import ClaudeProvider
-from integrations.claude.errors import ClaudeAuthError
-from integrations.claude.llm_provider import LLMProvider
 from integrations.obsidian.errors import ObsidianAuthError
 from integrations.obsidian.knowledge_store import KnowledgeStore
 from integrations.obsidian.obsidian_knowledge_store import ObsidianKnowledgeStore
@@ -40,9 +37,9 @@ def get_knowledge_store() -> Generator[KnowledgeStore, None, None]:
     finally:
         store.close()
 
-
-def get_llm_provider() -> LLMProvider:
-    try:
-        return ClaudeProvider(get_settings())
-    except ClaudeAuthError as exc:
-        raise HTTPException(status_code=503, detail=str(exc)) from exc
+# NOTE: there is deliberately no `get_llm_provider` here any more.
+# AI providers are reached only through the gateway -- see
+# apps/api/ai_dependencies.py. A dependency that handed a router a raw
+# provider would be a path around routing, budgets, rate limits, and usage
+# accounting, which is exactly what tests/ai/test_no_provider_bypass.py
+# exists to prevent.

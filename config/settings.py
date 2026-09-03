@@ -59,9 +59,54 @@ class Settings(BaseSettings):
     )
     alphavantage_api_key: str = Field(default="", alias="ALPHAVANTAGE_API_KEY")
 
+    # --- AI gateway ---
+    # Tier -> model. Empty means the tier is unavailable and the router says
+    # so, rather than silently substituting a model from another tier.
+    ai_local_model: str = Field(default="", alias="AI_LOCAL_MODEL")
+    ai_frontier_model: str = Field(default="", alias="AI_FRONTIER_MODEL")
+    ai_frontier_high_model: str = Field(default="", alias="AI_FRONTIER_HIGH_MODEL")
+    # OpenAI-compatible endpoint (Ollama, LM Studio, vLLM, llama.cpp server).
+    # Empty disables the local provider entirely.
+    local_llm_base_url: str = Field(default="", alias="LOCAL_LLM_BASE_URL")
+    local_llm_api_key: str = Field(default="", alias="LOCAL_LLM_API_KEY")
+    local_llm_timeout_seconds: float = Field(
+        default=120.0, alias="LOCAL_LLM_TIMEOUT_SECONDS"
+    )
+    # Per-million-token rates as JSON; see config/ai_pricing.py. Unset means
+    # costs report as unknown -- never as zero.
+    ai_model_pricing: str = Field(default="", alias="AI_MODEL_PRICING")
+    ai_pricing_currency: str = Field(default="USD", alias="AI_PRICING_CURRENCY")
+    # Budgets. 0 disables that window's ceiling.
+    ai_budget_per_request: float = Field(default=0.0, alias="AI_BUDGET_PER_REQUEST")
+    ai_budget_per_hour: float = Field(default=0.0, alias="AI_BUDGET_PER_HOUR")
+    ai_budget_per_day: float = Field(default=0.0, alias="AI_BUDGET_PER_DAY")
+    ai_budget_per_month: float = Field(default=0.0, alias="AI_BUDGET_PER_MONTH")
+    # Fraction of a budget at which the gateway warns before it blocks.
+    ai_budget_warn_ratio: float = Field(default=0.8, alias="AI_BUDGET_WARN_RATIO")
+    # Inbound rate limits on AI-spending routes. 0 disables that dimension.
+    ai_rate_limit_per_minute: int = Field(default=10, alias="AI_RATE_LIMIT_PER_MINUTE")
+    ai_rate_limit_per_hour: int = Field(default=100, alias="AI_RATE_LIMIT_PER_HOUR")
+    # Cache lifetime for completed identical requests, per task type default.
+    ai_cache_ttl_seconds: int = Field(default=900, alias="AI_CACHE_TTL_SECONDS")
+    # When a model has no configured price: allow the call and flag it, or
+    # refuse. Allowing is the default so adding a model does not break the
+    # system, but operators who want strict cost control can invert it.
+    ai_allow_unpriced_models: bool = Field(
+        default=True, alias="AI_ALLOW_UNPRICED_MODELS"
+    )
+
     @property
     def market_data_fallback_list(self) -> list[str]:
         return [name.strip() for name in self.market_data_fallbacks.split(",") if name.strip()]
+
+    @property
+    def ai_enabled(self) -> bool:
+        """True when at least one AI provider is configured.
+
+        The deterministic core must work when this is False, which is
+        asserted by tests/ai/test_deterministic_independence.py.
+        """
+        return bool(self.anthropic_api_key or self.local_llm_base_url)
 
     @property
     def auth_tokens(self) -> set[str]:

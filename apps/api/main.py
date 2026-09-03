@@ -16,6 +16,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from apps.api.auth import EXEMPT_PATHS, is_authorized, unauthorized_response
 from apps.api.routers import (
+    ai_ops,
     analysis,
     assets,
     backtests,
@@ -143,6 +144,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         # failure mode they represent.
         logger.error("production_config_issue", status="misconfigured", detail=issue)
 
+    app.include_router(ai_ops.router)
     app.include_router(health.router)
     app.include_router(assets.router)
     app.include_router(market.router)

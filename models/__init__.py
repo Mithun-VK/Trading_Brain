@@ -2,6 +2,7 @@
 is fully populated for Alembic autogenerate and `Base.metadata.create_all`.
 """
 
+from models.ai_request import AIRequestRecord
 from models.asset import Asset
 from models.backtest_run import BacktestRun
 from models.base import Base
@@ -33,6 +34,7 @@ __all__ = [
     "Company",
     "DataValidationError",
     "FinancialMetric",
+    "AIRequestRecord",
     "JobRun",
     "LearningReview",
     "MarketEvent",

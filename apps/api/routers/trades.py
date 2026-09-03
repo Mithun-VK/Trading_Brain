@@ -9,7 +9,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from apps.api.dependencies import get_knowledge_store, get_llm_provider, get_session
+from apps.api.ai_dependencies import get_journal_llm
+from apps.api.dependencies import get_knowledge_store, get_session
 from apps.api.routers._common import get_asset_or_404
 from apps.api.schemas import TradeIn, TradeOut
 from brain.review.review_agent import TradeJournalReviewAgent
@@ -97,7 +98,7 @@ def review_trade(
     trade_id: int,
     session: Session = Depends(get_session),
     knowledge_store: KnowledgeStore = Depends(get_knowledge_store),
-    llm_provider: LLMProvider = Depends(get_llm_provider),
+    llm_provider: LLMProvider = Depends(get_journal_llm),
 ) -> JournalReview:
     trade = session.get(Trade, trade_id)
     if trade is None:

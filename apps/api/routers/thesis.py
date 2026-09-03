@@ -4,9 +4,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from apps.api.ai_dependencies import get_thesis_llm
 from apps.api.dependencies import (
     get_knowledge_store,
-    get_llm_provider,
     get_market_data,
     get_session,
 )
@@ -56,7 +56,7 @@ def review_thesis(
     session: Session = Depends(get_session),
     knowledge_store: KnowledgeStore = Depends(get_knowledge_store),
     market_data: MarketDataProvider = Depends(get_market_data),
-    llm_provider: LLMProvider = Depends(get_llm_provider),
+    llm_provider: LLMProvider = Depends(get_thesis_llm),
 ) -> ThesisReview:
     asset = get_asset_or_404(session, ticker)
     thesis = _get_active_thesis_or_404(session, asset.id, ticker)

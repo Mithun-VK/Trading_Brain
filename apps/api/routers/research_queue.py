@@ -11,9 +11,9 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
+from apps.api.ai_dependencies import get_queue_research_llm
 from apps.api.dependencies import (
     get_knowledge_store,
-    get_llm_provider,
     get_market_data,
     get_session,
 )
@@ -85,7 +85,7 @@ def process_entry(
     session: Session = Depends(get_session),
     knowledge_store: KnowledgeStore = Depends(get_knowledge_store),
     market_data: MarketDataProvider = Depends(get_market_data),
-    llm_provider: LLMProvider = Depends(get_llm_provider),
+    llm_provider: LLMProvider = Depends(get_queue_research_llm),
 ) -> ResearchAnalysis:
     """Run the Research Agent for this entry and close it."""
     entry = _get_or_404(session, entry_id)
