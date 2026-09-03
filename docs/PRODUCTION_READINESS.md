@@ -5,9 +5,9 @@ written to be useful rather than reassuring: the RED and YELLOW rows are the
 point of the document, and a category is only GREEN when there is code and a
 test behind the claim.
 
-**Verified at:** commit `de3733f`
-**Verification:** 584 tests passing · mypy clean (161 source files) · ruff
-clean · tsc clean · eslint clean · `next build` clean (17 routes) · 9
+**Verified at:** commit `9f0e2d1` (Phases 38-45)
+**Verification:** 696 tests passing · mypy clean (164 source files) · ruff
+clean · tsc clean · eslint clean · `next build` clean (18 routes) · 10
 migrations apply from an empty Postgres with zero schema drift against the
 models, and survive a full downgrade-to-base and re-upgrade round trip.
 
@@ -50,16 +50,18 @@ source tree, not by convention.
 | 2 | Data integrity / no fabrication | **GREEN** | Unknowns are `null` not `0.0` end to end; unpriced positions excluded, not valued at cost; synthetic providers cannot be fallbacks |
 | 3 | Auditability & lineage | **GREEN** | Every signal carries evidence or is not served; `/lineage/*` marks gaps `recorded: false` rather than inventing provenance |
 | 4 | Deterministic financial math | **GREEN** | All quant in Python; Claude never computes a number that reaches a report |
-| 5 | Test coverage | **GREEN** | 584 tests, no live external calls in CI, deterministic fakes throughout |
+| 5 | Test coverage | **GREEN** | 696 tests, no live external calls in CI, deterministic fakes throughout |
 | 6 | Type & lint hygiene | **GREEN** | mypy and ruff clean over 161 source files; `[tool.mypy]` lists its own files so a bare `mypy` matches the CI gate |
-| 7 | Database & migrations | **GREEN** | 9 migrations apply cleanly from empty; 25 tables, no drift versus the models; full down/up round trip verified |
+| 7 | Database & migrations | **GREEN** | 10 migrations apply cleanly from empty; 25 tables, no drift versus the models; full down/up round trip verified |
 | 7b | Container images | **GREEN** | A real defect was found and fixed (3 packages never copied, so the API image could not have started). Both images build; API serves `/health/live`, worker registers its 8 jobs, both run non-root; a test derives the expected package list from `pyproject.toml` |
 | 8 | Observability | **GREEN** | Three-state health with worst-wins aggregation; a DB outage is a 503 in health shape, never a 500 |
 | 9 | Frontend | **GREEN** | Builds clean; every data area handles error/empty/success distinctly; four visually distinct kinds of "unknown" |
 | 10 | Configuration safety | **YELLOW** | `production_issues()` + `scripts/preflight.py` name every unsafe default, but nothing *enforces* them — a misconfigured production instance logs loudly and still starts |
 | 11 | Authentication | **YELLOW** | Real shared-token auth with constant-time comparison, but opt-in and single-secret: no user accounts, no per-user attribution, no revocation short of rotating for everyone |
 | 12 | Resilience | **YELLOW** | Timeouts, capped retries, exponential backoff, transient-vs-permanent classification, DB-backed restart safety, idempotent jobs — but no circuit breaker and no request idempotency keys |
-| 13 | Rate limiting | **RED** | None. A caller can trigger unbounded Anthropic spend via `POST /research/queue/{id}/process` |
+| 13 | Rate limiting | **YELLOW** | AI-spending routes are limited per principal and bounded by budgets, tested against a 200-request loop. Ordinary read endpoints remain unlimited |
+| 13b | AI cost governance | **GREEN** | Gateway enforces rate limits, dedup/cache, per-request and per-hour/day/month budgets, and bounded retries. Unpriced models report unknown cost, never zero |
+| 13c | AI architecture | **GREEN** | Every call passes the gateway; no provider bypass, asserted by parsing the tree. Deterministic core runs with all providers disabled |
 | 14 | Multi-user operation | **RED** | Not designed for it. One shared secret, one portfolio namespace, no tenancy, no per-user audit |
 | 15 | Transport security | **RED** | No TLS termination in-app; plaintext unless fronted by a reverse proxy. Obsidian TLS verification is off by default |
 | 16 | Dependency scanning | **RED** | No vulnerability scanning in CI |

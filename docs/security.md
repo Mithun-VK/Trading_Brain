@@ -115,13 +115,49 @@ string-interpolated SQL in the tree.
 - The Obsidian health probe is single-shot with a 2 s timeout, so a
   health poll cannot be used to amplify load.
 
-## 6. Known gaps
+## 6. AI-specific security
+
+The reasoning layer adds a category of risk the rest of the system does not
+have: text that arrives from outside and is then read by something that
+follows instructions.
+
+**External content is data, never instructions.** Research documents, news,
+and filings enter prompts fenced as `UNTRUSTED DATA`, and every system
+prompt in `ai/adapter.py` states that instructions found inside such content
+must never be complied with. Tested in `tests/ai/test_gateway.py`.
+
+**Prompts are never persisted.** The `ai_requests` audit row stores a
+`prompt_fingerprint` and a character count, never the text -- a table of
+prompts is a table of whatever happened to be in them. The principal is a
+truncated SHA-256 of the bearer token, never the token: enough to tell two
+callers apart, useless if leaked.
+
+**No provider bypass.** No application module may import `anthropic` or
+construct a provider client; only the provider layer may. Asserted by
+parsing the source tree in `tests/ai/test_no_provider_bypass.py`, with a
+guard that the scan actually sees the files -- a bypass would defeat rate
+limiting, budgets, and the audit trail in a single step.
+
+**Bounded inputs and outputs.** Empty prompts, oversized prompts, unbounded
+`max_output_tokens`, and retry counts above a ceiling are all rejected at
+request construction, before a provider is reached.
+
+**Cost is an attack surface.** An unauthenticated caller looping a research
+endpoint is a denial-of-wallet attack. Rate limits apply before any
+expensive work, budgets block past a ceiling, and both are tested against a
+200-request loop that must not reach the provider more than five times.
+
+**AI cannot execute.** No `ai/` module imports `paper_trading`, the
+portfolio or trade repositories, or any broker SDK, and every `/ai` route is
+GET-only (`tests/ai/test_ai_cannot_execute.py`).
+
+## 7. Known gaps
 
 Listed plainly, because an undocumented gap is worse than a documented one.
 
 | Gap | Impact | Mitigating factor |
 |---|---|---|
-| **No inbound rate limiting** | A caller with a valid token (or any caller, if auth is off) can trigger unbounded Claude API spend via `POST /research/queue/{id}/process` | Single-operator deployment; outbound provider rate-limit *errors* are handled, but nothing throttles inbound requests |
+| **Rate limiting covers AI routes only** | AI-spending routes are limited per principal and bounded by budgets. Ordinary read endpoints are still unlimited | The unbounded routes are cheap; the expensive ones are the ones now guarded |
 | **No CORS policy configured** | FastAPI's default is to send no CORS headers, so browsers block cross-origin calls — safe by default, but not an explicit decision | Dashboard is same-origin or proxied |
 | **No HTTPS termination in-app** | Traffic is plaintext unless fronted by a reverse proxy | Intended for loopback/private network |
 | **Auth is a single shared secret** | No per-user attribution, no revocation short of rotating the token for everyone | Single operator |
@@ -129,7 +165,7 @@ Listed plainly, because an undocumented gap is worse than a documented one.
 | **Obsidian TLS verification off by default** | `OBSIDIAN_VERIFY_TLS=false` accepts the plugin's self-signed loopback certificate | `OBSIDIAN_CA_CERT_PATH` supports pinning the plugin's own CA and takes precedence |
 | **No dependency vulnerability scanning in CI** | Known-vulnerable transitive dependencies would not be flagged | Dependencies are pinned in `pyproject.toml` |
 
-## 7. Deployment checklist
+## 8. Deployment checklist
 
 Before running anywhere other than `localhost`:
 

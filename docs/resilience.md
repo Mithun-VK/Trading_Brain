@@ -94,7 +94,29 @@ The dashboard renders each of these as a distinct visible state
 - Paper trade open and close both require `confirm=true`, so a retried or
   replayed request cannot open a position as a side effect.
 
-## 6. Known gaps
+## 6. The AI layer
+
+AI is an auxiliary subsystem, and its failure modes are contained so that
+they stay auxiliary.
+
+- **Deterministic independence.** Market data, validation, quant, risk,
+  backtesting, portfolio, paper trading, the database, and the scheduler all
+  run with every provider disabled. Asserted by
+  `tests/ai/test_deterministic_independence.py` -- AI availability never
+  determines whether a risk constraint is enforced.
+- **No fabricated output.** When a provider is unavailable the gateway
+  returns a structured unavailable state. Nothing substitutes invented text
+  for a missing answer.
+- **A failure never escalates a tier.** Retrying a failed local call on a
+  frontier model would turn an outage into an invoice.
+- **No silent fallback.** An unset tier is reported unavailable rather than
+  served by a model from another tier (Rule 11).
+- **Bounded retries** with a hard ceiling, and auth failures and provider
+  rate limits are never retried at all.
+- **Timeouts** on every provider call.
+- **`/ai/status` survives a database outage** -- it reads process state.
+
+## 7. Known gaps
 
 | Gap | Consequence |
 |---|---|
@@ -102,7 +124,7 @@ The dashboard renders each of these as a distinct visible state
 | **No request-level idempotency keys** | `POST /paper-trades` retried by a client after a timeout would open a second position. The `confirm` flag prevents accidental opens, not duplicate ones |
 | **No dead-letter queue** | A job that fails every attempt is recorded and then simply retried on its next schedule; there is no quarantine or escalation |
 | **No bulkheads between jobs** | Jobs share one session and run sequentially; a slow job delays the ones behind it |
-| **No inbound rate limiting** | See [security.md](security.md) |
+| **Rate limiting is AI-only** | Cheap read endpoints remain unlimited; see [security.md](security.md) |
 
 None of these is load-bearing for a single-operator system, which is why
 they are gaps rather than bugs — but they would each need addressing before

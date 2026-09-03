@@ -17,15 +17,15 @@ Broker execution = disabled in this phase
 See [docs/architecture.md](docs/architecture.md) for the full system design
 and phase roadmap.
 
-## Current status: all 37 phases complete
+## Current status: all 45 phases complete
 
 TradingBrain now runs as a continuous intelligence loop: it ingests market
 data on a schedule, notices what changed, researches what matters, forms and
 reviews theses, emits evidence-backed signals, simulates positions on paper,
 and grades its own past reasoning against what actually happened.
 
-**Verified:** 582 backend tests · mypy clean (161 source files) · ruff clean
-· eslint clean · `next build` clean (17 routes) · 9 migrations applying from
+**Verified:** 696 backend tests · mypy clean (164 source files) · ruff clean
+· eslint clean · `next build` clean (18 routes) · 10 migrations applying from
 an empty database with no schema drift.
 
 Read [docs/PRODUCTION_READINESS.md](docs/PRODUCTION_READINESS.md) before
@@ -51,6 +51,13 @@ reporting, a dashboard covering every section, system-wide lineage
 (`/lineage/*`), three-state health checks, shared-token authentication, and
 production preflight validation.
 
+**AI gateway** — every runtime AI call passes through one place that
+classifies the task, rate-limits, deduplicates, checks a budget, routes to a
+tier, and audits the result. Deterministic work uses no model at all;
+high-volume language work prefers a local model; frontier reasoning is
+reserved for thesis synthesis and contradiction resolution. See
+[docs/ai-gateway.md](docs/ai-gateway.md).
+
 ### What is deliberately not implemented
 
 **Broker execution.** Not "not yet" — structurally absent. No broker SDK is
@@ -62,6 +69,19 @@ asserted by tests over the real source tree
 Paper trading is the only trading that exists here, and opening or closing
 even a paper position requires explicit `confirm=true` — it never happens as
 a side effect of anything else.
+
+### AI is auxiliary, not load-bearing
+
+The deterministic core — market data, quant, risk, backtesting, portfolio,
+paper trading, the scheduler — runs unchanged with every AI provider
+disabled, and a test asserts it. Machines calculate; models reason about
+what was calculated. No `ai/` module can import a trading path, and every
+`/ai` route is read-only.
+
+Nothing calls a model automatically. The research queue fills itself
+deterministically and shows, per entry, whether reasoning is judged worth
+paying for — including the refusals, with reasons — but only a human ever
+starts one.
 
 ### Honesty properties
 

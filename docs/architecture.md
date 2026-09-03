@@ -164,3 +164,33 @@ independently validated (Rule 8).
   (Phase 12) — not used in this phase.
 - Docker 28.3.2 / Compose v2.38.2 available.
 - No existing functionality to preserve — nothing was overwritten.
+
+
+## The AI layer
+
+Added in Phases 38-45. Every runtime AI call passes through `ai/gateway.py`;
+application services never construct a provider client, which is asserted by
+parsing the source tree.
+
+```
+Application service
+      |
+  AI Gateway      validate -> classify -> rate limit -> dedupe/cache
+      |                    -> budget -> route -> invoke -> account -> audit
+      |
+  Provider        local (OpenAI-compatible) | anthropic
+      |
+  Model           per tier, from configuration
+```
+
+Four tiers: TIER 0 uses no model at all (every calculation), TIER 1 local
+(summarisation, classification, extraction), TIER 2 frontier (thesis
+synthesis, multi-source research), TIER 3 frontier-high (thesis revision,
+contradiction resolution). An unset tier is unavailable and reported as
+such -- never silently substituted from another tier.
+
+The layer is auxiliary by construction: the deterministic core runs with
+every provider disabled. See [ai-gateway.md](ai-gateway.md) for the operator
+guide, [AI_ROUTING_POLICY.md](AI_ROUTING_POLICY.md) for tier assignment, and
+[AI_ARCHITECTURE_FINAL.md](AI_ARCHITECTURE_FINAL.md) for the assessment.
+
