@@ -19,6 +19,7 @@ from dataclasses import dataclass, field
 
 from backtesting.engine import BacktestEngine
 from backtesting.schemas import BacktestConfig, BacktestResult
+from backtesting.sizing import FixedFractionSizer
 from backtesting.strategy import Strategy
 from config.logging import get_logger
 from data.ingestion.schemas import PriceBar
@@ -143,13 +144,19 @@ def run(
     random.seed(config.random_seed)
 
     provenance = describe_data(bars_by_ticker, provider=provider)
+    # The sizer comes from the config. Before this it did not: the engine's
+    # default 10% fraction was used regardless of what the experiment
+    # declared, so `position_size_pct` was a setting that did nothing --
+    # and a "buy and hold SPY" benchmark was really "hold 10% SPY, 90%
+    # cash", which understated its return by roughly an order of magnitude.
     engine = BacktestEngine(
         BacktestConfig(
             initial_cash=config.initial_cash,
             commission_bps=config.costs.commission_bps,
             slippage_bps=config.costs.slippage_bps + config.costs.spread_bps,
             periods_per_year=config.periods_per_year,
-        )
+        ),
+        sizer=FixedFractionSizer(fraction=config.position_size_pct),
     )
 
     result = engine.run(strategy, bars_by_ticker, start=start, end=end)

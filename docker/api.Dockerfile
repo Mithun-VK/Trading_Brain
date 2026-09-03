@@ -14,6 +14,7 @@ COPY backtesting ./backtesting
 COPY brain ./brain
 COPY config ./config
 COPY data ./data
+COPY experiments ./experiments
 COPY integrations ./integrations
 COPY models ./models
 COPY observability ./observability

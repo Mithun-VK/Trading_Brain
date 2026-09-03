@@ -46,3 +46,4 @@ vault/99 Archive/_tradingbrain_connection_test.md
 # --- Logs ---
 *.log
 logs/
+experiments/.cache/
