@@ -1,0 +1,45 @@
+{
+ "ma_20_50_v1": {
+  "metadata": {
+   "hypothesis_id": "ma_20_50_v1",
+   "hypothesis_name": "Moving Average 20/50 Crossover",
+   "economic_mechanism": "Single-name price trend persistence: a fast moving average crossing above a slow one signals an established uptrend worth participating in, on the premise that trends persist longer than a single crossing implies.",
+   "expected_direction": "long while fast SMA > slow SMA, flat otherwise",
+   "expected_holding_period": "weeks to months, until the crossover reverses",
+   "expected_market_behavior": "Expected to outperform in sustained trending markets and underperform (whipsaw) in range-bound, low-trend markets.",
+   "required_features": [
+    "sma_20",
+    "sma_50"
+   ],
+   "known_failure_modes": [
+    "Whipsaws in sideways/range-bound markets.",
+    "Lag: a crossover confirms a trend after a meaningful portion of the move has already happened.",
+    "Concentration in whichever single name is trending hardest."
+   ],
+   "falsification_criteria": [
+    "Does not beat matched random entry at the 95th percentile.",
+    "Does not beat regime-matched random entry within a modeled regime.",
+    "Result collapses when the largest P&L contributor is excluded."
+   ],
+   "researcher": "TradingBrain research (V2-V4.1)",
+   "data_dependencies": [
+    "yahoo_daily_ohlcv"
+   ],
+   "creation_timestamp": "2026-09-04T20:27:38.644910+00:00"
+  },
+  "status": "falsified",
+  "dataset_snapshot": null,
+  "runs": [],
+  "decision": null,
+  "decision_reasons": [],
+  "test_observed": false,
+  "archived_note": "FALSIFIED at commit f6cac64 (see docs/V4_1_SIGNAL_FALSIFICATION_REPORT.md). SIGNAL STATUS: D -- EVIDENCE OF FALSE EDGE. Win rate at or below the 1st percentile of matched random entry in all four periods (train/validation/test/full); regime-conditioned random control not beaten in any of the three HMM-modeled regimes (20.8th/32.4th/94.4th percentile); NVDA alone supplied 43.9% of total P&L. Not rerun by the V5 framework -- this is a historical negative result, ingested as-is per docs/RESEARCH_GOVERNANCE.md rule 5 (no deleting failed experiments) and rule 6 (no renaming failed hypotheses to hide lineage).",
+  "superseded_by": null,
+  "history": [
+   {
+    "at": "2026-09-04T20:27:38.644910+00:00",
+    "event": "ingested as historical record, status=falsified: FALSIFIED at commit f6cac64 (see docs/V4_1_SIGNAL_FALSIFICATION_REPORT.md). SIGNAL STATUS: D -- EVIDENCE OF FALSE EDGE. Win rate at or below the 1st percentile of matched random entry in all four periods (train/validation/test/full); regime-conditioned random control not beaten in any of the three HMM-modeled regimes (20.8th/32.4th/94.4th percentile); NVDA alone supplied 43.9% of total P&L. Not rerun by the V5 framework -- this is a historical negative result, ingested as-is per docs/RESEARCH_GOVERNANCE.md rule 5 (no deleting failed experiments) and rule 6 (no renaming failed hypotheses to hide lineage)."
+   }
+  ]
+ }
+}
