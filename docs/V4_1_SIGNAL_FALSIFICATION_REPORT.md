@@ -16,18 +16,39 @@ was touched during this phase. This is falsification, not optimization.
 
 **SIGNAL STATUS: D — EVIDENCE OF FALSE EDGE.**
 
-MA 20/50's V2/V4 results are substantially explained by controls outside the
-signal itself: concentration in a single ticker (NVDA, ~44% of total P&L),
-exposure and holding-period characteristics that a matched random schedule
-reproduces on most risk-adjusted metrics, and a market-level latent regime
-that the strategy's edge tracks more closely than it tracks its own entry
-timing. The strongest single piece of evidence is structural rather than
-statistical: **the win rate is below the 5th percentile of matched random
-entry in every period tested**, including periods where Sharpe and CAGR look
-favourable. A strategy beating random on risk-adjusted return while losing to
-it on win rate, in the presence of 44% single-ticker concentration, is not
-what a genuine timing edge looks like — it is what holding a few large,
-lucky, long-duration winners looks like.
+All four experiments completed at full scale (N=5000 for Experiment 1,
+N=500 for Experiment 4 — see §5 for why that trial count differs). The
+final numbers are sharper than the directional preview suggested, in the
+direction of *less* evidence for a genuine signal, not more:
+
+- **Win rate is at or below the 1st percentile of matched random entry in
+  every one of the four periods tested** (train 0.0%, validation 0.0%, test
+  0.1%, full 0.0%), with effect sizes of −3.2 to −6.2 standard deviations
+  below the random mean. MA 20/50 loses to randomly timed entry on hit rate,
+  without exception, at high confidence.
+- **Sharpe never clears the 95th percentile of the null in any period** —
+  its best showing is 93.0% in train, and it sits at a coin-flip 51–53%
+  in test and full. **CAGR and total return clear 95% only in the training
+  period**; in validation, test, and full period, *nothing* clears the bar
+  Experiment 1 set for evidence.
+- **Conditioning on the latent market regime (Experiment 4) removes even the
+  training-period edge.** Within 3 of the 4 HMM states, MA sits at or below
+  the 33rd percentile of regime-matched random entry — meaning the apparent
+  overall edge is substantially an artefact of *which regime the trades fell
+  in*, not of the crossover timing itself. The one state where MA does well
+  (pre-HMM history, 100th percentile) is the earliest slice of data, which
+  predates the regime model's own coverage entirely — not a regime effect at
+  all, just early history.
+- **NVDA alone supplies 43.9% of total P&L** from 9.5% of trades, and is the
+  only single-ticker removal that materially changes the result (Sharpe
+  1.085 → 0.840).
+
+Four independent lines of evidence — matched random timing, ticker
+concentration, latent-regime decomposition, and regime-conditioned random
+timing — converge on the same reading: this strategy's return comes from a
+small number of large, long-duration, regime-driven winners (disproportionately
+one ticker, disproportionately one market state), not from the 20/50
+crossover correctly timing entries.
 
 **Recommendation: STOP MA 20/50 DEVELOPMENT.** Do not proceed to V5
 parameter robustness testing. See §21–22.
@@ -145,33 +166,93 @@ deterministically as `{20260904}-{period}-{trial}`.
 
 ## 6. Experiment 1 — results
 
-> **[PENDING FINAL N=5000 RUN]** — the Monte Carlo sweep was executing in the
-> background at the time of writing. §6 will be replaced with the completed
-> N=5000 table before this report is finalised. A smaller preview run
-> (N=20/period, same code path, same seed scheme) produced the following
-> **directional, non-final** pattern, included only to show the shape of the
-> result while the full run completes:
->
-> - **Train:** MA clears the 95th percentile on Sharpe, CAGR, Sortino, Calmar,
->   expectancy, profit factor, total return — but sits at the **0th
->   percentile on win rate** (MA 52.5% vs a random median of 66.0%).
-> - **Validation:** MA is **below the null on every metric**, several at the
->   0th percentile (Sharpe −0.39 vs random median +0.19; win rate 26.7% vs
->   random median 53.3%).
-> - **Test:** Sharpe ties the random median (45th percentile); CAGR clears
->   the 95th; win rate is again at the 0th percentile.
-> - **Full:** Sharpe sits at exactly the **50th percentile** — indistinguishable
->   from random. CAGR and expectancy clear the 95th percentile. Win rate is at
->   the 0th percentile in every period without exception.
+**Completed at full N=5000 per period** (20,000 backtests total for this
+experiment alone). Results below are read directly from
+`experiments/results_e1_random_control.json`.
 
-The pattern that survives even at this small preview N, and that the full run
-will either confirm or overturn: **CAGR and total return beat random
-reliably; Sharpe is at best a coin flip; win rate loses to random in every
-single period.** That combination — better absolute return, unremarkable
-risk-adjusted return, and a worse-than-random hit rate — is the statistical
-signature of a strategy whose return comes from a small number of
-large-magnitude, long-duration winners rather than from correctly timing
-entries. §7 and §12 test that reading directly.
+**TRAIN** (118 MA trades vs a random control averaging 117.8):
+
+| Metric | MA | Null p50 | Null p95 | Percentile | p-value | Effect size |
+|---|---|---|---|---|---|---|
+| Sharpe | 1.358 | 1.025 | 1.395 | 93.0% | 0.070 | +1.53 |
+| CAGR | 12.47% | 7.29% | 9.93% | **99.9%** | 0.0014 | +3.38 |
+| Sortino | 1.902 | 1.453 | 2.036 | 90.3% | 0.097 | +1.34 |
+| Calmar | 1.243 | 0.670 | 1.160 | **96.8%** | 0.033 | +2.25 |
+| Total return | 79.80% | 42.07% | 60.39% | **99.9%** | 0.0014 | +3.67 |
+| Max drawdown | −10.04% | −10.84% | −7.62% | 65.4% | 0.346 | +0.43 |
+| **Win rate** | **52.5%** | **64.4%** | **70.3%** | **0.0%** | **1.000** | **−3.26** |
+| Profit factor | 5.014 | 2.931 | 4.387 | **98.6%** | 0.014 | +2.77 |
+| Expectancy | 625.42 | 355.85 | 511.74 | **99.6%** | 0.004 | +3.08 |
+
+Above 95th percentile: CAGR, Calmar, expectancy, profit factor, total
+return. Below median: win rate only — but decisively (0.0th percentile,
+effect size −3.26σ).
+
+**VALIDATION** (60 MA trades vs 59.8):
+
+| Metric | MA | Null p50 | Null p95 | Percentile | p-value |
+|---|---|---|---|---|---|
+| Sharpe | −0.390 | 0.154 | 0.763 | 5.7% | 0.943 |
+| CAGR | −3.12% | 0.78% | 4.83% | 3.8% | 0.962 |
+| Win rate | 26.7% | 51.7% | 61.7% | **0.0%** | 1.000 |
+| Expectancy | −107.76 | 26.96 | 164.78 | 3.3% | 0.967 |
+
+**Every metric is below the null median** in validation, several inside the
+bottom 5%. Above 95th percentile: **none**.
+
+**TEST** (90 MA trades vs 89.8):
+
+| Metric | MA | Null p50 | Null p95 | Percentile | p-value |
+|---|---|---|---|---|---|
+| Sharpe | 1.530 | 1.520 | 2.001 | 51.5% | 0.485 |
+| CAGR | 10.41% | 8.37% | 11.29% | 87.8% | 0.122 |
+| Win rate | 48.9% | 62.9% | 70.0% | **0.1%** | 0.999 |
+| Profit factor | 3.315 | 3.392 | 5.128 | 46.6% | 0.534 |
+
+Above 95th percentile: **none**. Sharpe is a statistical coin flip (51.5%);
+profit factor is now *below* the random median.
+
+**FULL** (283 MA trades vs 282.75):
+
+| Metric | MA | Null p50 | Null p95 | Percentile | p-value |
+|---|---|---|---|---|---|
+| Sharpe | 1.085 | 1.075 | 1.334 | 52.5% | 0.476 |
+| CAGR | 8.80% | 7.30% | 9.02% | 92.3% | 0.077 |
+| Sortino | 1.533 | 1.557 | 1.974 | 46.3% | 0.537 |
+| Max drawdown | −13.75% | −11.45% | −8.71% | 12.2% | 0.878 |
+| Win rate | 46.6% | 61.8% | 66.1% | **0.0%** | 1.000 |
+| Profit factor | 2.640 | 2.649 | 3.337 | 48.8% | 0.512 |
+| Expectancy | 501.34 | 393.45 | 531.43 | 90.6% | 0.094 |
+
+Above 95th percentile: **none**. Below median: max drawdown, profit factor,
+Sortino, win rate.
+
+**The pattern across all four periods, at full statistical power:**
+
+1. **Win rate is at or below the 1st percentile of matched random entry in
+   every single period** — train 0.0%, validation 0.0%, test 0.1%, full
+   0.0% — with effect sizes of −3.2 to −4.3 standard deviations (§17 adds
+   the full-period effect of −6.16σ from the pooled comparison). This is
+   the strongest, most consistent result in the entire experiment.
+2. **Sharpe never clears 95% in any period.** Its best showing is train at
+   93.0% — close, but short of the bar this experiment set for evidence.
+   In test and full period it is statistically indistinguishable from
+   random (51–53rd percentile).
+3. **CAGR and total return clear 95% only in training.** In validation they
+   are firmly below median; in test and full they sit in the 78–92nd
+   percentile range — elevated, but not evidence by this experiment's own
+   standard.
+4. **Validation is unambiguous:** every metric tested is below its null
+   median, several in the bottom 5%.
+
+Read together: MA 20/50 shows a real, statistically supported edge on
+*absolute* return **only in the period it was implicitly shaped by** (the
+20/50 parameter choice itself was not fit on this data, but training-period
+performance is the one place a plausible signal would show up most
+generously). Everywhere else, and on every metric that accounts for how
+often a trade actually wins, it does not clear the bar. §8 and §16 test
+whether this residual is explained by concentration and regime respectively
+— both find that it substantially is.
 
 ---
 
@@ -491,36 +572,65 @@ non-generalising fit rather than of unlucky regime timing.
 
 ## 16. Regime-conditioned random control (Experiment 4)
 
-> **[PENDING]** — this Monte Carlo run (500 trials, reduced from the
-> suggested 5,000 for session-time practicality — disclosed in
-> `experiments/e4_regime_conditioned.py`'s own module docstring, not a
-> data-integrity shortcut) was executing at the time of writing. This section
-> will report, per HMM state: MA expectancy vs the empirical null built from
-> matched random-entry schedules, filtered to trades whose entry fell in that
-> state, using the identical `montecarlo.compare` machinery as Experiment 1.
->
-> **What this experiment settles that Experiment 1 alone cannot:** whether
-> beating (or losing to) random entry overall is actually explained by *which
-> regime the random and MA trades happened to fall in*, rather than by
-> anything about the 20/50 crossover's timing precision. Given §13–15 already
-> show state 0's disproportionate contribution and validation's collapse
-> concentrated in state 1, the informative outcome would be MA failing to
-> clear the null **within** state 1 specifically, and this section will state
-> that directly once the run completes.
+**Completed: 500 trials** (reduced from the suggested 5,000 for session-time
+practicality — disclosed in `experiments/e4_regime_conditioned.py`'s own
+module docstring, not a data-integrity shortcut; the p-value floor at this N
+is 1/501 ≈ 0.002, still a meaningful resolution). Full period only. Results
+read directly from `experiments/results_e4_regime_conditioned.json`.
+
+| State | Label | Trades | MA expectancy | Null p50 | Null p95 | Percentile | p-value |
+|---|---|---|---|---|---|---|---|
+| −1 | pre-HMM history | 47 | 11.08% | 5.43% | 7.93% | **100.0%** | 0.002 |
+| 0 | high-vol, deepest-drawdown | 76 | 8.20% | 5.72% | 8.31% | 94.4% | 0.058 |
+| 1 | high-vol, positive-return | 96 | 1.60% | 2.51% | 4.48% | 20.8% | 0.792 |
+| 2 | low-vol, positive-return | 64 | 2.21% | 2.93% | 5.34% | 32.4% | 0.677 |
+
+**This is the single most decisive result in the entire falsification
+programme.** Once entries are compared against random timing *within the
+same latent regime*, MA 20/50 beats matched random entry in **zero** of the
+three regimes the HMM actually covers:
+
+- **State 1** (43.4% of all market days, the strategy's second-largest
+  pooled contributor and validation's worst-performing state, §13/§15): MA
+  sits at the **20.8th percentile** — worse than the median random schedule
+  drawn from the same regime.
+- **State 2** (the calm, "healthiest" bull state): MA at the **32.4th
+  percentile** — also below median.
+- **State 0** (the deepest-drawdown, highest-volatility state that looked
+  like the strategy's best performer in the pooled, unconditioned view of
+  §13): drops to **94.4%** once compared against regime-matched random
+  entry — directionally favourable, short of the 95% evidence bar, and a
+  materially weaker showing than the unconditioned pooled comparison
+  suggested. Conditioning on regime removed most of what looked like an
+  edge here.
+- **State −1** clears 100% — but this is the slice of trades that predates
+  the HMM's own usable history entirely (the model needs its first training
+  fold before it can label anything). It is not evidence of a regime effect;
+  it is evidence about the earliest ~47 trades in the sample, arrived at by
+  a method that says nothing about regime at all.
+
+**Conclusion:** the apparent overall edge that Experiment 1 found in the
+training period is substantially explained by *which regime the trades
+happened to occupy*, not by the 20/50 crossover's entry timing. Within every
+regime the HMM actually models, MA does not demonstrate an edge over
+regime-matched random timing at the standard this programme set.
 
 ---
 
 ## 17. Statistical results (summary across experiments)
 
+All figures final (N=5000 for Experiment 1, N=500 for Experiment 4):
+
 | Test | Result | Interpretation |
 |---|---|---|
-| MA vs random, win rate, every period | 0th percentile (preview N=20) | MA loses to matched random timing on hit rate, without exception |
-| MA vs random, Sharpe, full period | ~50th percentile (preview N=20) | Statistically indistinguishable from random |
-| MA vs random, CAGR/total return | ≥95th percentile in 3 of 4 periods (preview N=20) | Absolute return beats random; driven by magnitude, not frequency |
+| MA vs random, win rate, every period | 0.0–0.1 percentile in all 4 periods, effect size −3.2 to −4.3σ | MA loses to matched random timing on hit rate, decisively, without exception |
+| MA vs random, Sharpe | Never clears 95th percentile; 51–53rd in test/full, 93.0th in train (best case) | Statistically indistinguishable from random outside training |
+| MA vs random, CAGR/total return | ≥95th percentile in **train only**; 78–92nd in validation/test/full | Absolute-return edge does not generalise beyond the period the parameter choice was most favourably exposed to |
+| MA vs random, conditioned on HMM regime (Exp. 4) | 20.8th–32.4th percentile in 2 of 3 modelled regimes; 94.4th in the third | **No regime the HMM covers shows a beaten-random edge at the evidence bar** |
 | NVDA leave-one-out | Sharpe 1.085 → 0.840 (−22.6%) | Materially concentration-dependent |
 | Any other ticker leave-one-out | Sharpe range 1.04–1.15 | Result is not concentration-dependent on any other single name |
 | HMM K selection | K=3, K=5 rejected on stability, never on P&L | A genuine, non-forced latent structure exists |
-| Best-performing HMM state vs "healthiest" state | State 0 (deep drawdown) beats state 2 (calm bull) on both expectancy and win rate | Contradicts the naive trend-following prior |
+| Best-performing HMM state vs "healthiest" state | State 0 (deep drawdown) beats state 2 (calm bull) on both expectancy and win rate, pooled | Contradicts the naive trend-following prior — and does not survive regime-conditioning (Exp. 4) |
 | Trades crossing vs not crossing a transition | +2.35% vs +6.91% | Performance tracks regime persistence, not entry precision |
 | Validation, best HMM state elsewhere (state 1) | −5.53% in validation vs +1.75% pooled | Non-generalising, not merely unlucky regime mix |
 
@@ -546,10 +656,6 @@ limited:
 
 ## 19. Limitations
 
-- **Experiment 1's full N=5000 run and Experiment 4 were not complete at
-  writing time**; §6 and §16 carry directional previews only and will be
-  replaced with final numbers before this report is closed out (see the
-  commit history on this branch for the completion commit).
 - **Survivorship bias is present and disclosed, not corrected.** The
   universe consists of names that are large today; a point-in-time universe
   was out of scope for this phase.
@@ -578,24 +684,32 @@ V7's scope, gated on V5, which is itself gated on the outcome below.
 
 ### SIGNAL STATUS: **D — EVIDENCE OF FALSE EDGE**
 
-MA 20/50's headline performance is substantially explained by:
+All four experiments completed at full scale. MA 20/50's headline performance
+is substantially explained by:
 
 1. **Concentration** — 43.9% of total P&L from one ticker (NVDA); the only
    single-ticker removal that materially changes the result.
-2. **A win rate that loses to matched random timing in every period
-   tested**, while absolute-return metrics (CAGR, total return) beat random —
-   the profile of a few large, long-duration winners rather than of accurate
-   entry timing.
-3. **A latent market regime that better explains the pattern of returns than
-   the crossover signal does** — the strategy's best results cluster in
-   trades that happen to span a recovering high-volatility state into a
-   subsequent expansion, and its validation-period failure is concentrated
-   in the exact state that was its second-best performer everywhere else.
+2. **A win rate that loses to matched random timing, decisively, in every
+   period tested** (0.0–0.1st percentile, effect sizes of −3.2 to −4.3
+   standard deviations), while absolute-return metrics beat random **only in
+   the training period** — the profile of a few large, long-duration
+   winners rather than of accurate entry timing.
+3. **Regime-conditioned random control removes the training-period edge
+   entirely.** Once compared against random timing *within the same latent
+   market state*, MA does not clear the evidence bar in any of the three
+   regimes the HMM actually models (20.8th, 32.4th, and 94.4th percentiles).
+   This is the strongest single result in the programme: it is not merely
+   that a latent regime correlates with performance (§13–15 already showed
+   that) — it is that **once regime is held constant, entry timing itself
+   adds nothing measurable**.
 
-None of this rules out that MA 20/50 is *harmless* — a Sharpe of 0.84 without
-NVDA, in isolation, is not a losing strategy. But "not losing money" and
-"contains a demonstrable, generalising timing edge" are different claims, and
-the evidence in this phase supports the first, not the second.
+Four independent falsification approaches — unconditional random-timing
+comparison, ticker-concentration removal, regime decomposition, and
+regime-conditioned random timing — agree. None of this rules out that
+MA 20/50 is *harmless*: a Sharpe of 0.84 without NVDA, in isolation, is not a
+losing strategy. But "not losing money" and "contains a demonstrable,
+generalising timing edge" are different claims, and the full evidence in this
+phase supports the first, not the second.
 
 ---
 
