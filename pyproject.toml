@@ -28,6 +28,15 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# Statistical/ML dependencies for the offline validation experiments
+# (experiments/hmm_regime.py) -- HMM regime detection is diagnostic, run
+# outside the request/response path, and must never become a runtime
+# dependency of the API or worker.
+experiments = [
+    "numpy>=2.0",
+    "scipy>=1.13",
+    "hmmlearn>=0.3",
+]
 dev = [
     "pytest>=8.3",
     "pytest-asyncio>=0.24",

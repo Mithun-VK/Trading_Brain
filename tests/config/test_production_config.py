@@ -14,19 +14,29 @@ PROD = {"APP_ENV": "production"}
 
 
 def _issues(**overrides: str) -> list[str]:
-    return Settings(**{**PROD, **overrides}).production_issues()  # type: ignore[arg-type]
+    # `_env_file=None` isolates the test from whatever the developer's local
+    # .env happens to contain -- this test suite was bitten by exactly that
+    # once before (health checks assuming Obsidian/Claude unconfigured while
+    # the ambient .env had them set), and switching MARKET_DATA_PROVIDER to
+    # yahoo for real-data experiments broke this file the same way until this
+    # fix: Settings(APP_ENV="production") was silently reading "yahoo" from
+    # .env instead of the "mock" default the test's docstring assumes.
+    return Settings(**{**PROD, **overrides}, _env_file=None).production_issues()  # type: ignore[arg-type,call-arg]
 
 
 def test_development_defaults_raise_no_production_issues() -> None:
     """Outside production none of these are problems, and reporting them
     would train the reader to ignore the list."""
-    assert Settings(APP_ENV="development", MARKET_DATA_PROVIDER="mock").production_issues() == []
+    settings = Settings(
+        APP_ENV="development", MARKET_DATA_PROVIDER="mock", _env_file=None  # type: ignore[call-arg]
+    )
+    assert settings.production_issues() == []
 
 
 def test_the_bare_defaults_are_not_production_ready() -> None:
     """The important case: someone sets APP_ENV=production and changes
     nothing else."""
-    issues = Settings(APP_ENV="production").production_issues()
+    issues = Settings(APP_ENV="production", _env_file=None).production_issues()  # type: ignore[call-arg]
 
     assert len(issues) >= 4
     joined = " ".join(issues)

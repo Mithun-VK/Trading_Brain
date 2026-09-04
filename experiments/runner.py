@@ -134,16 +134,27 @@ def run(
     period: str = "full",
     start: dt.datetime | None = None,
     end: dt.datetime | None = None,
+    provenance: DataProvenance | None = None,
 ) -> ExperimentRun:
     """Execute one arm and return it with its verdict.
 
     `random.seed` is set from the config so that any stochastic component --
     none today, but the ablation arms and Monte Carlo phases will have them
     -- is reproducible from the configuration alone.
+
+    `provenance` may be precomputed and passed in. A Monte Carlo sweep calls
+    this thousands of times over the *same* bars with only the strategy
+    varying -- hashing the whole window fresh on every trial was, at one
+    point, the single largest cost in the run loop. Precomputing it once per
+    period and passing it through changes nothing about what is certified,
+    since the provenance is a pure function of the bars and the bars do not
+    change between trials; it only stops recomputing something that cannot
+    have changed.
     """
     random.seed(config.random_seed)
 
-    provenance = describe_data(bars_by_ticker, provider=provider)
+    if provenance is None:
+        provenance = describe_data(bars_by_ticker, provider=provider)
     # The sizer comes from the config. Before this it did not: the engine's
     # default 10% fraction was used regardless of what the experiment
     # declared, so `position_size_pct` was a setting that did nothing --

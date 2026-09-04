@@ -1,0 +1,4979 @@
+{
+ "selected_k": 3,
+ "selection": [
+  {
+   "k": 2,
+   "total_bic": 118277.44,
+   "total_aic": 117210.95,
+   "total_held_out_log_likelihood": -20198.56,
+   "n_folds": 9,
+   "min_occupancy_share": 0.4582,
+   "min_average_duration": 35.64,
+   "min_feature_separation": 0.186788,
+   "passes_stability": true,
+   "note": "",
+   "states": [
+    {
+     "state_id": 0,
+     "occupancy": 1180,
+     "occupancy_share": 0.5418,
+     "mean_return": 0.000164,
+     "volatility": 0.208371,
+     "downside_volatility": 0.137242,
+     "mean_drawdown": -0.08886,
+     "mean_momentum": 0.002409,
+     "average_duration_days": 43.7,
+     "runs": 27,
+     "label": "high-volatility neutral state"
+    },
+    {
+     "state_id": 1,
+     "occupancy": 998,
+     "occupancy_share": 0.4582,
+     "mean_return": 0.000857,
+     "volatility": 0.10561,
+     "downside_volatility": 0.067247,
+     "mean_drawdown": -0.010836,
+     "mean_momentum": 0.067741,
+     "average_duration_days": 35.64,
+     "runs": 28,
+     "label": "low-volatility positive-return state"
+    }
+   ]
+  },
+  {
+   "k": 3,
+   "total_bic": 94762.47,
+   "total_aic": 93000.45,
+   "total_held_out_log_likelihood": -19019.4,
+   "n_folds": 9,
+   "min_occupancy_share": 0.2525,
+   "min_average_duration": 18.97,
+   "min_feature_separation": 0.09702,
+   "passes_stability": true,
+   "note": "",
+   "states": [
+    {
+     "state_id": 0,
+     "occupancy": 683,
+     "occupancy_share": 0.3136,
+     "mean_return": -5.4e-05,
+     "volatility": 0.251388,
+     "downside_volatility": 0.168357,
+     "mean_drawdown": -0.115466,
+     "mean_momentum": -0.015792,
+     "average_duration_days": 40.18,
+     "runs": 17,
+     "label": "high-volatility neutral state"
+    },
+    {
+     "state_id": 1,
+     "occupancy": 945,
+     "occupancy_share": 0.4339,
+     "mean_return": 0.000465,
+     "volatility": 0.137497,
+     "downside_volatility": 0.089224,
+     "mean_drawdown": -0.036404,
+     "mean_momentum": 0.040792,
+     "average_duration_days": 21,
+     "runs": 45,
+     "label": "high-volatility positive-return state"
+    },
+    {
+     "state_id": 2,
+     "occupancy": 550,
+     "occupancy_share": 0.2525,
+     "mean_return": 0.001176,
+     "volatility": 0.090263,
+     "downside_volatility": 0.054097,
+     "mean_drawdown": -0.004372,
+     "mean_momentum": 0.077612,
+     "average_duration_days": 18.97,
+     "runs": 29,
+     "label": "low-volatility positive-return state"
+    }
+   ]
+  },
+  {
+   "k": 4,
+   "total_bic": 80931.92,
+   "total_aic": 78381.62,
+   "total_held_out_log_likelihood": -21624.12,
+   "n_folds": 9,
+   "min_occupancy_share": 0.0983,
+   "min_average_duration": 10.7,
+   "min_feature_separation": 0.05466,
+   "passes_stability": true,
+   "note": "",
+   "states": [
+    {
+     "state_id": 0,
+     "occupancy": 886,
+     "occupancy_share": 0.4068,
+     "mean_return": 0.00064,
+     "volatility": 0.110126,
+     "downside_volatility": 0.070083,
+     "mean_drawdown": -0.018732,
+     "mean_momentum": 0.064849,
+     "average_duration_days": 22.72,
+     "runs": 39,
+     "label": "low-volatility positive-return state"
+    },
+    {
+     "state_id": 1,
+     "occupancy": 396,
+     "occupancy_share": 0.1818,
+     "mean_return": -0.000684,
+     "volatility": 0.289488,
+     "downside_volatility": 0.194406,
+     "mean_drawdown": -0.125778,
+     "mean_momentum": -0.041649,
+     "average_duration_days": 20.84,
+     "runs": 19,
+     "label": "high-volatility negative-return state"
+    },
+    {
+     "state_id": 2,
+     "occupancy": 214,
+     "occupancy_share": 0.0983,
+     "mean_return": 0.001328,
+     "volatility": 0.071042,
+     "downside_volatility": 0.035813,
+     "mean_drawdown": -0.002897,
+     "mean_momentum": 0.071154,
+     "average_duration_days": 10.7,
+     "runs": 20,
+     "label": "low-volatility positive-return state"
+    },
+    {
+     "state_id": 3,
+     "occupancy": 682,
+     "occupancy_share": 0.3131,
+     "mean_return": 0.000687,
+     "volatility": 0.181622,
+     "downside_volatility": 0.120698,
+     "mean_drawdown": -0.071326,
+     "mean_momentum": 0.020907,
+     "average_duration_days": 20.67,
+     "runs": 33,
+     "label": "high-volatility neutral state"
+    }
+   ]
+  },
+  {
+   "k": 5,
+   "total_bic": 74284.34,
+   "total_aic": 70853.04,
+   "total_held_out_log_likelihood": -22773.02,
+   "n_folds": 9,
+   "min_occupancy_share": 0.0354,
+   "min_average_duration": 9.62,
+   "min_feature_separation": 0.048001,
+   "passes_stability": false,
+   "note": "Fails stability: min occupancy 3.5% (need >= 5%), min average duration 9.6d (need >= 5d).",
+   "states": [
+    {
+     "state_id": 0,
+     "occupancy": 718,
+     "occupancy_share": 0.3297,
+     "mean_return": -0.000161,
+     "volatility": 0.23464,
+     "downside_volatility": 0.151851,
+     "mean_drawdown": -0.117301,
+     "mean_momentum": -0.021248,
+     "average_duration_days": 27.62,
+     "runs": 26,
+     "label": "high-volatility neutral state"
+    },
+    {
+     "state_id": 1,
+     "occupancy": 544,
+     "occupancy_share": 0.2498,
+     "mean_return": 0.000613,
+     "volatility": 0.135059,
+     "downside_volatility": 0.088853,
+     "mean_drawdown": -0.032414,
+     "mean_momentum": 0.046933,
+     "average_duration_days": 11.33,
+     "runs": 48,
+     "label": "high-volatility positive-return state"
+    },
+    {
+     "state_id": 2,
+     "occupancy": 652,
+     "occupancy_share": 0.2994,
+     "mean_return": 0.00071,
+     "volatility": 0.112065,
+     "downside_volatility": 0.074274,
+     "mean_drawdown": -0.0129,
+     "mean_momentum": 0.071693,
+     "average_duration_days": 16.3,
+     "runs": 40,
+     "label": "low-volatility positive-return state"
+    },
+    {
+     "state_id": 3,
+     "occupancy": 187,
+     "occupancy_share": 0.0859,
+     "mean_return": 0.001359,
+     "volatility": 0.06981,
+     "downside_volatility": 0.034213,
+     "mean_drawdown": -0.002815,
+     "mean_momentum": 0.071587,
+     "average_duration_days": 9.84,
+     "runs": 19,
+     "label": "low-volatility positive-return state"
+    },
+    {
+     "state_id": 4,
+     "occupancy": 77,
+     "occupancy_share": 0.0354,
+     "mean_return": 0.001477,
+     "volatility": 0.30146,
+     "downside_volatility": 0.219065,
+     "mean_drawdown": -0.063334,
+     "mean_momentum": 0.00055,
+     "average_duration_days": 9.62,
+     "runs": 8,
+     "label": "high-volatility neutral state"
+    }
+   ]
+  }
+ ],
+ "states": [
+  {
+   "state_id": 0,
+   "occupancy": 683,
+   "occupancy_share": 0.3136,
+   "mean_return": -5.4e-05,
+   "volatility": 0.251388,
+   "downside_volatility": 0.168357,
+   "mean_drawdown": -0.115466,
+   "mean_momentum": -0.015792,
+   "average_duration_days": 40.18,
+   "runs": 17,
+   "label": "high-volatility neutral state"
+  },
+  {
+   "state_id": 1,
+   "occupancy": 945,
+   "occupancy_share": 0.4339,
+   "mean_return": 0.000465,
+   "volatility": 0.137497,
+   "downside_volatility": 0.089224,
+   "mean_drawdown": -0.036404,
+   "mean_momentum": 0.040792,
+   "average_duration_days": 21,
+   "runs": 45,
+   "label": "high-volatility positive-return state"
+  },
+  {
+   "state_id": 2,
+   "occupancy": 550,
+   "occupancy_share": 0.2525,
+   "mean_return": 0.001176,
+   "volatility": 0.090263,
+   "downside_volatility": 0.054097,
+   "mean_drawdown": -0.004372,
+   "mean_momentum": 0.077612,
+   "average_duration_days": 18.97,
+   "runs": 29,
+   "label": "low-volatility positive-return state"
+  }
+ ],
+ "transition_matrix": {
+  "0": {
+   "0": 0.9751,
+   "1": 0.0249,
+   "2": 0.0
+  },
+  "1": {
+   "0": 0.018,
+   "1": 0.9524,
+   "2": 0.0296
+  },
+  "2": {
+   "0": 0.0,
+   "1": 0.051,
+   "2": 0.949
+  }
+ },
+ "by_period": {
+  "train": {
+   "trades": 118,
+   "by_state": [
+    {
+     "state": -1,
+     "trades": 47,
+     "total_pnl": 36565.69,
+     "win_rate": 0.5745,
+     "expectancy": 0.110814,
+     "profit_factor": 7.4331,
+     "average_mae": -0.033637,
+     "average_mfe": 0.205082,
+     "average_holding_days": 111.94,
+     "is_significant": true
+    },
+    {
+     "state": 0,
+     "trades": 37,
+     "total_pnl": 36431.59,
+     "win_rate": 0.6757,
+     "expectancy": 0.095462,
+     "profit_factor": 8.5121,
+     "average_mae": -0.046545,
+     "average_mfe": 0.21842,
+     "average_holding_days": 108.27,
+     "is_significant": true
+    },
+    {
+     "state": 1,
+     "trades": 25,
+     "total_pnl": 2938.17,
+     "win_rate": 0.36,
+     "expectancy": 0.013668,
+     "profit_factor": 1.545,
+     "average_mae": -0.052708,
+     "average_mfe": 0.109428,
+     "average_holding_days": 73.88,
+     "is_significant": false
+    },
+    {
+     "state": 2,
+     "trades": 9,
+     "total_pnl": -2136.43,
+     "win_rate": 0.1111,
+     "expectancy": -0.035108,
+     "profit_factor": 0.1323,
+     "average_mae": -0.069526,
+     "average_mfe": 0.067307,
+     "average_holding_days": 52.77,
+     "is_significant": false
+    }
+   ],
+   "transitions": {
+    "trades_opened_before_any_transition": 115,
+    "trades_opened_after_a_transition": 3,
+    "trades_crossing_a_transition": 37,
+    "mean_return_crossing": 0.011315,
+    "mean_return_not_crossing": 0.103055,
+    "mean_mae_crossing": -0.056081,
+    "mean_mae_not_crossing": -0.039155,
+    "mean_holding_crossing": 82.677946,
+    "mean_holding_not_crossing": 105.309679
+   }
+  },
+  "validation": {
+   "trades": 60,
+   "by_state": [
+    {
+     "state": 2,
+     "trades": 24,
+     "total_pnl": 1967.02,
+     "win_rate": 0.4167,
+     "expectancy": 0.013664,
+     "profit_factor": 1.6177,
+     "average_mae": -0.050246,
+     "average_mfe": 0.100086,
+     "average_holding_days": 67.39,
+     "is_significant": false
+    },
+    {
+     "state": 0,
+     "trades": 14,
+     "total_pnl": -1765.38,
+     "win_rate": 0.1429,
+     "expectancy": -0.023228,
+     "profit_factor": 0.3071,
+     "average_mae": -0.058155,
+     "average_mfe": 0.065822,
+     "average_holding_days": 32.29,
+     "is_significant": false
+    },
+    {
+     "state": 1,
+     "trades": 22,
+     "total_pnl": -6667.3,
+     "win_rate": 0.1818,
+     "expectancy": -0.05525,
+     "profit_factor": 0.4391,
+     "average_mae": -0.110655,
+     "average_mfe": 0.068203,
+     "average_holding_days": 51.32,
+     "is_significant": false
+    }
+   ],
+   "transitions": {
+    "trades_opened_before_any_transition": 60,
+    "trades_opened_after_a_transition": 0,
+    "trades_crossing_a_transition": 31,
+    "mean_return_crossing": -0.012941,
+    "mean_return_not_crossing": -0.027986,
+    "mean_mae_crossing": -0.076387,
+    "mean_mae_not_crossing": -0.071948,
+    "mean_holding_crossing": 64.74871,
+    "mean_holding_not_crossing": 41.071862
+   }
+  },
+  "test": {
+   "trades": 90,
+   "by_state": [
+    {
+     "state": 1,
+     "trades": 49,
+     "total_pnl": 19191.85,
+     "win_rate": 0.4694,
+     "expectancy": 0.052215,
+     "profit_factor": 2.8393,
+     "average_mae": -0.053249,
+     "average_mfe": 0.145415,
+     "average_holding_days": 74.98,
+     "is_significant": true
+    },
+    {
+     "state": 0,
+     "trades": 11,
+     "total_pnl": 16447.48,
+     "win_rate": 0.8182,
+     "expectancy": 0.176325,
+     "profit_factor": 93.7457,
+     "average_mae": -0.025373,
+     "average_mfe": 0.29828,
+     "average_holding_days": 128.09,
+     "is_significant": false
+    },
+    {
+     "state": 2,
+     "trades": 30,
+     "total_pnl": 5880.6,
+     "win_rate": 0.4,
+     "expectancy": 0.031464,
+     "profit_factor": 1.8029,
+     "average_mae": -0.059835,
+     "average_mfe": 0.160219,
+     "average_holding_days": 90.84,
+     "is_significant": true
+    }
+   ],
+   "transitions": {
+    "trades_opened_before_any_transition": 87,
+    "trades_opened_after_a_transition": 3,
+    "trades_crossing_a_transition": 53,
+    "mean_return_crossing": 0.053335,
+    "mean_return_not_crossing": 0.070684,
+    "mean_mae_crossing": -0.052466,
+    "mean_mae_not_crossing": -0.051422,
+    "mean_holding_crossing": 91.337245,
+    "mean_holding_not_crossing": 80.189189
+   }
+  }
+ },
+ "pooled_by_state": [
+  {
+   "state": 0,
+   "trades": 62,
+   "total_pnl": 51113.69,
+   "win_rate": 0.5806,
+   "expectancy": 0.083008,
+   "profit_factor": 7.7478,
+   "average_mae": -0.04541,
+   "average_mfe": 0.198131,
+   "average_holding_days": 94.63,
+   "is_significant": true
+  },
+  {
+   "state": -1,
+   "trades": 47,
+   "total_pnl": 36565.69,
+   "win_rate": 0.5745,
+   "expectancy": 0.110814,
+   "profit_factor": 7.4331,
+   "average_mae": -0.033637,
+   "average_mfe": 0.205082,
+   "average_holding_days": 111.94,
+   "is_significant": true
+  },
+  {
+   "state": 1,
+   "trades": 96,
+   "total_pnl": 15462.71,
+   "win_rate": 0.375,
+   "expectancy": 0.017549,
+   "profit_factor": 1.558,
+   "average_mae": -0.066264,
+   "average_mfe": 0.118349,
+   "average_holding_days": 69.27,
+   "is_significant": true
+  },
+  {
+   "state": 2,
+   "trades": 63,
+   "total_pnl": 5711.2,
+   "win_rate": 0.3651,
+   "expectancy": 0.015173,
+   "profit_factor": 1.4403,
+   "average_mae": -0.057566,
+   "average_mfe": 0.124038,
+   "average_holding_days": 76.46,
+   "is_significant": true
+  }
+ ],
+ "pooled_transitions": {
+  "trades_opened_before_any_transition": 262,
+  "trades_opened_after_a_transition": 6,
+  "trades_crossing_a_transition": 121,
+  "mean_return_crossing": 0.023506,
+  "mean_return_not_crossing": 0.069055,
+  "mean_mae_crossing": -0.0597,
+  "mean_mae_not_crossing": -0.048712,
+  "mean_holding_crossing": 81.877421,
+  "mean_holding_not_crossing": 86.314068
+ },
+ "trades": [
+  {
+   "ticker": "PG",
+   "entry_date": "2016-03-16",
+   "exit_date": "2016-04-28",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": -0.023971,
+   "pnl": -130.009042,
+   "mae": -0.028152,
+   "mfe": 0.030454,
+   "holding_days": 43.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2016-03-16",
+   "exit_date": "2016-05-05",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": -0.068377,
+   "pnl": -619.859598,
+   "mae": -0.07763,
+   "mfe": 0.061053,
+   "holding_days": 50.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2016-03-16",
+   "exit_date": "2016-05-06",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": -0.108784,
+   "pnl": -1092.846163,
+   "mae": -0.122854,
+   "mfe": 0.073298,
+   "holding_days": 51.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2016-03-18",
+   "exit_date": "2016-05-06",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": -0.066302,
+   "pnl": -287.432937,
+   "mae": -0.07764,
+   "mfe": 0.037459,
+   "holding_days": 49.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2016-03-16",
+   "exit_date": "2016-05-17",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": -0.029129,
+   "pnl": -141.659577,
+   "mae": -0.049376,
+   "mfe": 0.030468,
+   "holding_days": 62.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2016-03-16",
+   "exit_date": "2016-06-29",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.021864,
+   "pnl": 155.7155,
+   "mae": -0.03369,
+   "mfe": 0.121293,
+   "holding_days": 105.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2016-07-05",
+   "exit_date": "2016-07-11",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.012737,
+   "pnl": 74.514932,
+   "mae": -0.011681,
+   "mfe": 0.022669,
+   "holding_days": 6.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2016-03-16",
+   "exit_date": "2016-08-10",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.055751,
+   "pnl": 326.159055,
+   "mae": -0.013995,
+   "mfe": 0.149778,
+   "holding_days": 147.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2016-03-16",
+   "exit_date": "2016-08-30",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.118436,
+   "pnl": 773.606163,
+   "mae": -0.013704,
+   "mfe": 0.169071,
+   "holding_days": 167.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2016-06-06",
+   "exit_date": "2016-08-30",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": -0.003174,
+   "pnl": -24.246947,
+   "mae": -0.019437,
+   "mfe": 0.050264,
+   "holding_days": 85.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2016-07-15",
+   "exit_date": "2016-09-29",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.069942,
+   "pnl": 423.371699,
+   "mae": -0.019887,
+   "mfe": 0.086957,
+   "holding_days": 76.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2016-06-16",
+   "exit_date": "2016-10-27",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.05696,
+   "pnl": 335.295701,
+   "mae": -0.021784,
+   "mfe": 0.091566,
+   "holding_days": 133.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2016-10-25",
+   "exit_date": "2016-11-08",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": -0.023849,
+   "pnl": -146.077208,
+   "mae": -0.046068,
+   "mfe": 0.010412,
+   "holding_days": 14.042
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2016-03-18",
+   "exit_date": "2016-11-11",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.309636,
+   "pnl": 1197.056661,
+   "mae": -0.040821,
+   "mfe": 0.508831,
+   "holding_days": 238.042
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2016-07-26",
+   "exit_date": "2016-11-16",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.100393,
+   "pnl": 548.095667,
+   "mae": -0.005127,
+   "mfe": 0.224658,
+   "holding_days": 113.042
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2016-07-27",
+   "exit_date": "2016-11-16",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.013565,
+   "pnl": 64.511104,
+   "mae": -0.021243,
+   "mfe": 0.104341,
+   "holding_days": 112.042
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2016-11-29",
+   "exit_date": "2017-01-09",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": -0.044164,
+   "pnl": -367.305075,
+   "mae": -0.048164,
+   "mfe": 0.014396,
+   "holding_days": 41.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2016-12-05",
+   "exit_date": "2017-01-25",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": -0.024922,
+   "pnl": -188.146616,
+   "mae": -0.033008,
+   "mfe": 0.065647,
+   "holding_days": 51.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2017-01-06",
+   "exit_date": "2017-02-06",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": -0.028971,
+   "pnl": -158.979649,
+   "mae": -0.051604,
+   "mfe": 0.001826,
+   "holding_days": 31.0
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2016-03-16",
+   "exit_date": "2017-03-08",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 2.152007,
+   "pnl": 17425.273204,
+   "mae": -0.005697,
+   "mfe": 2.786806,
+   "holding_days": 357.042
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2016-08-03",
+   "exit_date": "2017-04-07",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.347169,
+   "pnl": 1540.539725,
+   "mae": -0.001627,
+   "mfe": 0.47411,
+   "holding_days": 247.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2016-12-28",
+   "exit_date": "2017-04-18",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.046638,
+   "pnl": 276.55568,
+   "mae": -0.030122,
+   "mfe": 0.074037,
+   "holding_days": 110.958
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2017-01-06",
+   "exit_date": "2017-04-19",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.059159,
+   "pnl": 284.769492,
+   "mae": -0.020993,
+   "mfe": 0.082035,
+   "holding_days": 102.958
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2017-02-24",
+   "exit_date": "2017-04-28",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.017814,
+   "pnl": 101.885698,
+   "mae": -0.005933,
+   "mfe": 0.060667,
+   "holding_days": 62.958
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2017-04-13",
+   "exit_date": "2017-05-01",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": -0.016104,
+   "pnl": -131.469673,
+   "mae": -0.030225,
+   "mfe": 0.0,
+   "holding_days": 18.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2017-05-19",
+   "exit_date": "2017-06-05",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": -0.032671,
+   "pnl": -263.238189,
+   "mae": -0.03438,
+   "mfe": 0.009844,
+   "holding_days": 17.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2016-12-23",
+   "exit_date": "2017-06-28",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.248148,
+   "pnl": 1649.45684,
+   "mae": -0.008173,
+   "mfe": 0.353867,
+   "holding_days": 186.958
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2017-03-01",
+   "exit_date": "2017-07-06",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.060125,
+   "pnl": 315.770273,
+   "mae": -0.024085,
+   "mfe": 0.132726,
+   "holding_days": 126.958
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2017-04-26",
+   "exit_date": "2017-07-07",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.04286,
+   "pnl": 350.185271,
+   "mae": -0.007993,
+   "mfe": 0.130372,
+   "holding_days": 72.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2017-06-20",
+   "exit_date": "2017-07-25",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": -0.013734,
+   "pnl": -102.411628,
+   "mae": -0.039504,
+   "mfe": 0.003897,
+   "holding_days": 35.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2017-05-26",
+   "exit_date": "2017-08-17",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.053045,
+   "pnl": 375.255613,
+   "mae": -0.009165,
+   "mfe": 0.076342,
+   "holding_days": 83.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2017-01-10",
+   "exit_date": "2017-08-22",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.1977,
+   "pnl": 1016.571224,
+   "mae": -0.009891,
+   "mfe": 0.358558,
+   "holding_days": 223.958
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2017-06-29",
+   "exit_date": "2017-09-06",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": -0.026802,
+   "pnl": -199.476593,
+   "mae": -0.036917,
+   "mfe": 0.030159,
+   "holding_days": 69.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2017-08-07",
+   "exit_date": "2017-09-29",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": -0.022815,
+   "pnl": -164.441455,
+   "mae": -0.039065,
+   "mfe": 0.016608,
+   "holding_days": 53.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2017-08-03",
+   "exit_date": "2017-10-03",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": -0.020827,
+   "pnl": -167.142714,
+   "mae": -0.051188,
+   "mfe": 0.049189,
+   "holding_days": 61.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2017-08-01",
+   "exit_date": "2017-10-13",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.016819,
+   "pnl": 142.113807,
+   "mae": -0.013839,
+   "mfe": 0.038948,
+   "holding_days": 73.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2017-09-27",
+   "exit_date": "2017-11-30",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.017758,
+   "pnl": 145.444751,
+   "mae": -0.011867,
+   "mfe": 0.040374,
+   "holding_days": 64.042
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2017-05-11",
+   "exit_date": "2017-12-18",
+   "entry_state": -1,
+   "exit_state": -1,
+   "transitioned": false,
+   "states_visited": [],
+   "return_pct": 0.606917,
+   "pnl": 5347.298759,
+   "mae": -0.002164,
+   "mfe": 0.819671,
+   "holding_days": 221.042
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2017-12-12",
+   "exit_date": "2018-01-30",
+   "entry_state": -1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.041571,
+   "pnl": -274.08058,
+   "mae": -0.04319,
+   "mfe": 0.028711,
+   "holding_days": 49.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2017-11-02",
+   "exit_date": "2018-02-07",
+   "entry_state": -1,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.022536,
+   "pnl": -144.798499,
+   "mae": -0.076554,
+   "mfe": 0.079952,
+   "holding_days": 97.042
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2017-10-12",
+   "exit_date": "2018-02-12",
+   "entry_state": -1,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.04793,
+   "pnl": -364.710836,
+   "mae": -0.104973,
+   "mfe": 0.086782,
+   "holding_days": 123.042
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2017-12-22",
+   "exit_date": "2018-02-14",
+   "entry_state": -1,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.097801,
+   "pnl": -715.617265,
+   "mae": -0.11986,
+   "mfe": 0.063552,
+   "holding_days": 54.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2017-10-02",
+   "exit_date": "2018-02-27",
+   "entry_state": -1,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.170487,
+   "pnl": 1277.463024,
+   "mae": -0.015027,
+   "mfe": 0.226672,
+   "holding_days": 148.042
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2017-10-12",
+   "exit_date": "2018-02-27",
+   "entry_state": -1,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.090895,
+   "pnl": 612.615312,
+   "mae": -0.008926,
+   "mfe": 0.282032,
+   "holding_days": 138.042
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2018-03-19",
+   "exit_date": "2018-03-22",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": -0.035221,
+   "pnl": -325.57154,
+   "mae": -0.061882,
+   "mfe": 0.00044,
+   "holding_days": 3.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2017-09-29",
+   "exit_date": "2018-03-28",
+   "entry_state": -1,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.134499,
+   "pnl": 1016.336574,
+   "mae": -0.004563,
+   "mfe": 0.2509,
+   "holding_days": 180.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2016-10-24",
+   "exit_date": "2018-04-09",
+   "entry_state": -1,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.516576,
+   "pnl": 3440.278417,
+   "mae": -0.045333,
+   "mfe": 0.620668,
+   "holding_days": 532.0
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2018-01-16",
+   "exit_date": "2018-04-09",
+   "entry_state": 2,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.033809,
+   "pnl": -224.776662,
+   "mae": -0.090399,
+   "mfe": 0.134772,
+   "holding_days": 82.958
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2018-03-09",
+   "exit_date": "2018-04-16",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": -0.017938,
+   "pnl": -186.737831,
+   "mae": -0.076727,
+   "mfe": 0.0301,
+   "holding_days": 37.958
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2017-10-17",
+   "exit_date": "2018-04-16",
+   "entry_state": -1,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.434814,
+   "pnl": 3033.497123,
+   "mae": -0.043807,
+   "mfe": 0.606941,
+   "holding_days": 181.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2018-05-24",
+   "exit_date": "2018-06-13",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": -0.016458,
+   "pnl": -122.369009,
+   "mae": -0.064962,
+   "mfe": 0.0,
+   "holding_days": 20.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2018-05-11",
+   "exit_date": "2018-07-12",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.001288,
+   "pnl": -17.704283,
+   "mae": -0.047182,
+   "mfe": 0.023832,
+   "holding_days": 62.0
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2018-05-15",
+   "exit_date": "2018-07-12",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.015047,
+   "pnl": -138.520992,
+   "mae": -0.07818,
+   "mfe": 0.063851,
+   "holding_days": 58.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2018-04-20",
+   "exit_date": "2018-08-10",
+   "entry_state": 0,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.000893,
+   "pnl": 5.335268,
+   "mae": -0.05037,
+   "mfe": 0.062981,
+   "holding_days": 112.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2018-05-23",
+   "exit_date": "2018-09-13",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.100871,
+   "pnl": 804.803943,
+   "mae": -0.00746,
+   "mfe": 0.205747,
+   "holding_days": 113.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2018-07-30",
+   "exit_date": "2018-09-28",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.024083,
+   "pnl": -153.322079,
+   "mae": -0.033303,
+   "mfe": 0.024431,
+   "holding_days": 60.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2018-05-08",
+   "exit_date": "2018-10-12",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.131843,
+   "pnl": 1444.892218,
+   "mae": -0.019651,
+   "mfe": 0.284295,
+   "holding_days": 157.0
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2018-08-16",
+   "exit_date": "2018-10-16",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.08526,
+   "pnl": -597.957457,
+   "mae": -0.10643,
+   "mfe": 0.116714,
+   "holding_days": 61.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2018-06-15",
+   "exit_date": "2018-10-16",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.047666,
+   "pnl": 339.773944,
+   "mae": -0.0111,
+   "mfe": 0.131746,
+   "holding_days": 123.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2018-07-10",
+   "exit_date": "2018-10-22",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.131085,
+   "pnl": 846.592232,
+   "mae": -0.001581,
+   "mfe": 0.165016,
+   "holding_days": 104.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2018-04-27",
+   "exit_date": "2018-10-25",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.090065,
+   "pnl": 1094.825922,
+   "mae": -0.053713,
+   "mfe": 0.189179,
+   "holding_days": 181.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2018-07-25",
+   "exit_date": "2018-10-30",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.092062,
+   "pnl": 634.553817,
+   "mae": -0.021646,
+   "mfe": 0.208105,
+   "holding_days": 97.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2018-09-19",
+   "exit_date": "2018-10-30",
+   "entry_state": 2,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.073366,
+   "pnl": -528.701404,
+   "mae": -0.089624,
+   "mfe": 0.043433,
+   "holding_days": 41.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2018-07-13",
+   "exit_date": "2018-11-05",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.123433,
+   "pnl": 946.681559,
+   "mae": -0.010246,
+   "mfe": 0.140975,
+   "holding_days": 115.042
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2018-10-29",
+   "exit_date": "2018-12-11",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": -0.054278,
+   "pnl": -579.426758,
+   "mae": -0.07298,
+   "mfe": 0.066263,
+   "holding_days": 43.042
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2018-11-06",
+   "exit_date": "2018-12-24",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": -0.101892,
+   "pnl": -1208.691889,
+   "mae": -0.145912,
+   "mfe": 0.051658,
+   "holding_days": 48.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2018-10-29",
+   "exit_date": "2019-01-11",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": 0.036727,
+   "pnl": 425.789766,
+   "mae": -0.018538,
+   "mfe": 0.096423,
+   "holding_days": 74.042
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2019-02-05",
+   "exit_date": "2019-03-28",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.044679,
+   "pnl": -333.691166,
+   "mae": -0.062457,
+   "mfe": 0.036086,
+   "holding_days": 50.958
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2019-02-20",
+   "exit_date": "2019-04-30",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.029491,
+   "pnl": 156.069556,
+   "mae": -0.013489,
+   "mfe": 0.039263,
+   "holding_days": 68.958
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2019-02-13",
+   "exit_date": "2019-05-08",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.011184,
+   "pnl": 63.909115,
+   "mae": -0.001924,
+   "mfe": 0.103553,
+   "holding_days": 83.958
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2019-02-04",
+   "exit_date": "2019-05-17",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.088687,
+   "pnl": 893.61975,
+   "mae": -0.009521,
+   "mfe": 0.32955,
+   "holding_days": 101.958
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2019-01-24",
+   "exit_date": "2019-05-20",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.063521,
+   "pnl": 876.144875,
+   "mae": -0.016217,
+   "mfe": 0.196916,
+   "holding_days": 115.958
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2019-02-13",
+   "exit_date": "2019-05-28",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.04237,
+   "pnl": 278.307714,
+   "mae": -0.012715,
+   "mfe": 0.255002,
+   "holding_days": 103.958
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2019-05-02",
+   "exit_date": "2019-06-03",
+   "entry_state": 2,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.074745,
+   "pnl": -417.559866,
+   "mae": -0.095261,
+   "mfe": 0.001324,
+   "holding_days": 32.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2019-01-25",
+   "exit_date": "2019-06-04",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.01568,
+   "pnl": 189.920641,
+   "mae": -0.063038,
+   "mfe": 0.17476,
+   "holding_days": 129.958
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2019-04-17",
+   "exit_date": "2019-06-07",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.019377,
+   "pnl": -110.326888,
+   "mae": -0.062352,
+   "mfe": 0.047833,
+   "holding_days": 51.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2019-06-28",
+   "exit_date": "2019-07-24",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": -0.085641,
+   "pnl": -964.966601,
+   "mae": -0.092566,
+   "mfe": 0.011281,
+   "holding_days": 26.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2019-07-09",
+   "exit_date": "2019-08-07",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.08757,
+   "pnl": -719.088126,
+   "mae": -0.093124,
+   "mfe": 0.017687,
+   "holding_days": 29.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2019-07-03",
+   "exit_date": "2019-08-14",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.075194,
+   "pnl": -686.751024,
+   "mae": -0.097556,
+   "mfe": 0.050559,
+   "holding_days": 42.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2019-01-28",
+   "exit_date": "2019-08-15",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.164004,
+   "pnl": 1841.021039,
+   "mae": -0.036393,
+   "mfe": 0.19522,
+   "holding_days": 198.958
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2019-07-12",
+   "exit_date": "2019-08-20",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.056441,
+   "pnl": -376.547945,
+   "mae": -0.086693,
+   "mfe": 0.026223,
+   "holding_days": 39.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2019-02-05",
+   "exit_date": "2019-08-26",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.270863,
+   "pnl": 2218.868089,
+   "mae": -0.017954,
+   "mfe": 0.334513,
+   "holding_days": 201.958
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2019-07-12",
+   "exit_date": "2019-08-26",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.012176,
+   "pnl": -93.143094,
+   "mae": -0.120414,
+   "mfe": 0.06757,
+   "holding_days": 45.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2019-09-30",
+   "exit_date": "2019-10-16",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.029951,
+   "pnl": -233.058564,
+   "mae": -0.070133,
+   "mfe": 0.001946,
+   "holding_days": 16.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2019-02-04",
+   "exit_date": "2019-10-28",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.268336,
+   "pnl": 2442.504107,
+   "mae": -0.00994,
+   "mfe": 0.292504,
+   "holding_days": 265.958
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2019-10-07",
+   "exit_date": "2019-11-14",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.016954,
+   "pnl": -120.218272,
+   "mae": -0.053468,
+   "mfe": 0.032028,
+   "holding_days": 38.042
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2019-11-19",
+   "exit_date": "2019-11-22",
+   "entry_state": 2,
+   "exit_state": 2,
+   "transitioned": false,
+   "states_visited": [
+    2
+   ],
+   "return_pct": -0.01542,
+   "pnl": -114.113817,
+   "mae": -0.02181,
+   "mfe": 0.005965,
+   "holding_days": 3.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2019-11-26",
+   "exit_date": "2019-12-06",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.003817,
+   "pnl": -30.893738,
+   "mae": -0.021292,
+   "mfe": 0.012771,
+   "holding_days": 10.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2019-11-11",
+   "exit_date": "2019-12-12",
+   "entry_state": 2,
+   "exit_state": 2,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.017223,
+   "pnl": -143.518449,
+   "mae": -0.032065,
+   "mfe": 0.025234,
+   "holding_days": 31.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2019-09-09",
+   "exit_date": "2020-01-10",
+   "entry_state": 0,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.022396,
+   "pnl": 255.466093,
+   "mae": -0.001872,
+   "mfe": 0.093928,
+   "holding_days": 123.042
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2019-12-27",
+   "exit_date": "2020-01-28",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.073897,
+   "pnl": -484.302135,
+   "mae": -0.080265,
+   "mfe": 0.015651,
+   "holding_days": 32.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2019-09-19",
+   "exit_date": "2020-02-10",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.142396,
+   "pnl": 1340.87244,
+   "mae": -0.077614,
+   "mfe": 0.177602,
+   "holding_days": 144.042
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2019-12-10",
+   "exit_date": "2020-02-28",
+   "entry_state": 2,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.124091,
+   "pnl": -891.227887,
+   "mae": -0.14599,
+   "mfe": 0.025501,
+   "holding_days": 80.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2019-11-19",
+   "exit_date": "2020-03-05",
+   "entry_state": 2,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.0414,
+   "pnl": 325.748122,
+   "mae": -0.031931,
+   "mfe": 0.143301,
+   "holding_days": 107.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2019-07-02",
+   "exit_date": "2020-03-06",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.398031,
+   "pnl": 4007.635272,
+   "mae": -0.044796,
+   "mfe": 0.626148,
+   "holding_days": 248.042
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2019-07-19",
+   "exit_date": "2020-03-10",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.089784,
+   "pnl": 531.349132,
+   "mae": -0.02326,
+   "mfe": 0.330535,
+   "holding_days": 235.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2019-09-24",
+   "exit_date": "2020-03-16",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.00406,
+   "pnl": -38.779516,
+   "mae": -0.051818,
+   "mfe": 0.357292,
+   "holding_days": 174.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2019-12-20",
+   "exit_date": "2020-03-17",
+   "entry_state": 2,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.014898,
+   "pnl": -111.382446,
+   "mae": -0.097362,
+   "mfe": 0.213459,
+   "holding_days": 87.958
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2019-09-10",
+   "exit_date": "2020-03-20",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.220403,
+   "pnl": 2309.040811,
+   "mae": -0.055973,
+   "mfe": 0.763612,
+   "holding_days": 192.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2020-04-27",
+   "exit_date": "2020-06-02",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": -0.019259,
+   "pnl": -175.998061,
+   "mae": -0.067549,
+   "mfe": 0.0,
+   "holding_days": 36.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2020-04-13",
+   "exit_date": "2020-06-09",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": 0.001218,
+   "pnl": 10.835545,
+   "mae": -0.01591,
+   "mfe": 0.098761,
+   "holding_days": 57.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2020-04-23",
+   "exit_date": "2020-06-15",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": -0.08727,
+   "pnl": -868.695429,
+   "mae": -0.09724,
+   "mfe": 0.016811,
+   "holding_days": 53.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2020-05-05",
+   "exit_date": "2020-07-09",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": -0.074023,
+   "pnl": -483.823022,
+   "mae": -0.131867,
+   "mfe": 0.195518,
+   "holding_days": 65.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2020-05-21",
+   "exit_date": "2020-07-15",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": 0.115972,
+   "pnl": 674.668262,
+   "mae": -0.018153,
+   "mfe": 0.281204,
+   "holding_days": 55.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2020-07-28",
+   "exit_date": "2020-09-25",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.024531,
+   "pnl": -201.47676,
+   "mae": -0.031091,
+   "mfe": 0.053695,
+   "holding_days": 59.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2020-05-01",
+   "exit_date": "2020-09-28",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.110033,
+   "pnl": 790.174011,
+   "mae": -0.022185,
+   "mfe": 0.30231,
+   "holding_days": 150.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2020-08-17",
+   "exit_date": "2020-09-28",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.064852,
+   "pnl": -473.399187,
+   "mae": -0.100604,
+   "mfe": 0.035516,
+   "holding_days": 42.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2020-04-23",
+   "exit_date": "2020-09-29",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.200599,
+   "pnl": 2200.634509,
+   "mae": -0.028081,
+   "mfe": 0.336094,
+   "holding_days": 159.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2020-04-16",
+   "exit_date": "2020-09-29",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.351505,
+   "pnl": 4766.289775,
+   "mae": -0.039162,
+   "mfe": 0.51266,
+   "holding_days": 166.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2020-05-01",
+   "exit_date": "2020-10-05",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.58937,
+   "pnl": 4720.396254,
+   "mae": -0.002395,
+   "mfe": 0.926178,
+   "holding_days": 157.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2020-10-26",
+   "exit_date": "2020-11-16",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": -0.034443,
+   "pnl": -415.48792,
+   "mae": -0.078646,
+   "mfe": 0.051488,
+   "holding_days": 21.042
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2020-04-21",
+   "exit_date": "2020-11-25",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.843784,
+   "pnl": 10305.274339,
+   "mae": -0.054787,
+   "mfe": 1.084522,
+   "holding_days": 218.042
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2020-06-22",
+   "exit_date": "2020-11-25",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.161416,
+   "pnl": 1375.146709,
+   "mae": -0.032455,
+   "mfe": 0.235673,
+   "holding_days": 156.042
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2020-11-27",
+   "exit_date": "2020-11-30",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.009711,
+   "pnl": -115.362913,
+   "mae": -0.031081,
+   "mfe": 0.001802,
+   "holding_days": 3.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2020-11-30",
+   "exit_date": "2020-12-03",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": -0.000848,
+   "pnl": -15.212193,
+   "mae": -0.018808,
+   "mfe": 0.013045,
+   "holding_days": 3.0
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2020-12-01",
+   "exit_date": "2020-12-07",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": 0.006568,
+   "pnl": 61.629614,
+   "mae": -0.020547,
+   "mfe": 0.016697,
+   "holding_days": 6.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2020-10-22",
+   "exit_date": "2020-12-15",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.004289,
+   "pnl": 50.055569,
+   "mae": -0.067823,
+   "mfe": 0.065265,
+   "holding_days": 54.042
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2020-07-17",
+   "exit_date": "2020-12-31",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.079582,
+   "pnl": 707.306258,
+   "mae": -0.044069,
+   "mfe": 0.150982,
+   "holding_days": 167.042
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2021-03-17",
+   "exit_date": "2021-03-24",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": 0.005689,
+   "pnl": 51.890743,
+   "mae": -0.029766,
+   "mfe": 0.01973,
+   "holding_days": 7.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2021-03-17",
+   "exit_date": "2021-04-26",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.056281,
+   "pnl": -413.866351,
+   "mae": -0.075724,
+   "mfe": 0.016703,
+   "holding_days": 40.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2021-03-17",
+   "exit_date": "2021-05-04",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.017376,
+   "pnl": -144.777713,
+   "mae": -0.056628,
+   "mfe": 0.039838,
+   "holding_days": 48.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2021-05-05",
+   "exit_date": "2021-05-06",
+   "entry_state": 2,
+   "exit_state": 2,
+   "transitioned": false,
+   "states_visited": [
+    2
+   ],
+   "return_pct": 0.011751,
+   "pnl": 57.384995,
+   "mae": -0.009772,
+   "mfe": 0.029867,
+   "holding_days": 1.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2021-04-20",
+   "exit_date": "2021-05-27",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.06495,
+   "pnl": -263.051907,
+   "mae": -0.095483,
+   "mfe": 0.014169,
+   "holding_days": 37.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2021-04-08",
+   "exit_date": "2021-05-27",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.007819,
+   "pnl": -56.641215,
+   "mae": -0.059097,
+   "mfe": 0.040183,
+   "holding_days": 49.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2021-04-15",
+   "exit_date": "2021-06-01",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.039265,
+   "pnl": -219.269046,
+   "mae": -0.073199,
+   "mfe": 0.053233,
+   "holding_days": 47.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2021-03-31",
+   "exit_date": "2021-06-21",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.023503,
+   "pnl": -181.588588,
+   "mae": -0.040685,
+   "mfe": 0.024182,
+   "holding_days": 82.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2021-04-12",
+   "exit_date": "2021-06-23",
+   "entry_state": 2,
+   "exit_state": 2,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.014617,
+   "pnl": 86.496377,
+   "mae": -0.029278,
+   "mfe": 0.071248,
+   "holding_days": 72.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2021-04-16",
+   "exit_date": "2021-06-23",
+   "entry_state": 2,
+   "exit_state": 2,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.032611,
+   "pnl": -147.873698,
+   "mae": -0.047018,
+   "mfe": 0.025165,
+   "holding_days": 68.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2021-05-07",
+   "exit_date": "2021-06-30",
+   "entry_state": 2,
+   "exit_state": 2,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.023537,
+   "pnl": -122.743319,
+   "mae": -0.06238,
+   "mfe": 0.06394,
+   "holding_days": 54.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2021-05-11",
+   "exit_date": "2021-07-23",
+   "entry_state": 2,
+   "exit_state": 2,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.071813,
+   "pnl": -332.321238,
+   "mae": -0.114953,
+   "mfe": 0.052493,
+   "holding_days": 73.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2021-06-23",
+   "exit_date": "2021-08-16",
+   "entry_state": 2,
+   "exit_state": 2,
+   "transitioned": false,
+   "states_visited": [
+    2
+   ],
+   "return_pct": -0.064742,
+   "pnl": -383.860135,
+   "mae": -0.084759,
+   "mfe": 0.075409,
+   "holding_days": 54.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2021-07-22",
+   "exit_date": "2021-09-17",
+   "entry_state": 2,
+   "exit_state": 2,
+   "transitioned": false,
+   "states_visited": [
+    2
+   ],
+   "return_pct": -0.031331,
+   "pnl": -177.95611,
+   "mae": -0.035212,
+   "mfe": 0.061291,
+   "holding_days": 57.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2021-07-23",
+   "exit_date": "2021-09-27",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.008026,
+   "pnl": 41.075473,
+   "mae": -0.004599,
+   "mfe": 0.077004,
+   "holding_days": 66.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2021-06-29",
+   "exit_date": "2021-10-04",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.050056,
+   "pnl": 314.611839,
+   "mae": -0.004334,
+   "mfe": 0.165451,
+   "holding_days": 97.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2021-07-20",
+   "exit_date": "2021-10-06",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.011808,
+   "pnl": -76.459859,
+   "mae": -0.027532,
+   "mfe": 0.0473,
+   "holding_days": 78.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2021-06-21",
+   "exit_date": "2021-10-07",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.134391,
+   "pnl": 765.435232,
+   "mae": -0.008305,
+   "mfe": 0.175946,
+   "holding_days": 108.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2021-03-17",
+   "exit_date": "2021-10-08",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.347545,
+   "pnl": 3123.227128,
+   "mae": -0.035956,
+   "mfe": 0.412714,
+   "holding_days": 205.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2021-09-23",
+   "exit_date": "2021-10-12",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": -0.037849,
+   "pnl": -209.274842,
+   "mae": -0.061234,
+   "mfe": 0.013545,
+   "holding_days": 19.0
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2021-04-16",
+   "exit_date": "2021-10-13",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.301106,
+   "pnl": 1491.737334,
+   "mae": -0.162428,
+   "mfe": 0.433998,
+   "holding_days": 180.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2021-08-18",
+   "exit_date": "2021-12-01",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.028461,
+   "pnl": 152.720837,
+   "mae": -0.038196,
+   "mfe": 0.105413,
+   "holding_days": 105.042
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2021-11-16",
+   "exit_date": "2021-12-02",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.037723,
+   "pnl": -167.411731,
+   "mae": -0.045874,
+   "mfe": 0.006898,
+   "holding_days": 16.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2021-10-05",
+   "exit_date": "2021-12-08",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -6.1e-05,
+   "pnl": -3.441527,
+   "mae": -0.055008,
+   "mfe": 0.060679,
+   "holding_days": 64.042
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2021-11-04",
+   "exit_date": "2021-12-08",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.082081,
+   "pnl": -551.394464,
+   "mae": -0.10038,
+   "mfe": 0.011107,
+   "holding_days": 34.042
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2021-11-03",
+   "exit_date": "2021-12-22",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.020887,
+   "pnl": -158.677888,
+   "mae": -0.04605,
+   "mfe": 0.033688,
+   "holding_days": 49.042
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2021-11-10",
+   "exit_date": "2021-12-23",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.045012,
+   "pnl": -221.497684,
+   "mae": -0.073872,
+   "mfe": 0.054581,
+   "holding_days": 43.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2021-12-31",
+   "exit_date": "2022-01-06",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": -0.063381,
+   "pnl": -429.685934,
+   "mae": -0.065922,
+   "mfe": 0.003437,
+   "holding_days": 6.0
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2021-10-29",
+   "exit_date": "2022-01-06",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.103899,
+   "pnl": 852.430222,
+   "mae": -0.001039,
+   "mfe": 0.38444,
+   "holding_days": 69.042
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2021-10-28",
+   "exit_date": "2022-01-07",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.032839,
+   "pnl": -305.413289,
+   "mae": -0.044861,
+   "mfe": 0.077053,
+   "holding_days": 71.042
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2021-11-05",
+   "exit_date": "2022-02-01",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.143915,
+   "pnl": 861.771794,
+   "mae": -0.030004,
+   "mfe": 0.203221,
+   "holding_days": 88.042
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2022-01-20",
+   "exit_date": "2022-02-04",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": -0.01174,
+   "pnl": -93.404187,
+   "mae": -0.05995,
+   "mfe": 0.013809,
+   "holding_days": 15.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2021-12-17",
+   "exit_date": "2022-02-16",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": -0.02004,
+   "pnl": -126.329573,
+   "mae": -0.068015,
+   "mfe": 0.026443,
+   "holding_days": 61.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2021-11-09",
+   "exit_date": "2022-02-18",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.098124,
+   "pnl": 527.92736,
+   "mae": -0.007268,
+   "mfe": 0.13897,
+   "holding_days": 101.0
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2022-03-29",
+   "exit_date": "2022-04-25",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": -0.331827,
+   "pnl": -2302.509092,
+   "mae": -0.335183,
+   "mfe": 0.007739,
+   "holding_days": 27.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2022-04-01",
+   "exit_date": "2022-04-26",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": -0.124651,
+   "pnl": -780.347653,
+   "mae": -0.151308,
+   "mfe": 0.029164,
+   "holding_days": 25.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2022-04-05",
+   "exit_date": "2022-04-27",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": -0.100848,
+   "pnl": -568.708874,
+   "mae": -0.138985,
+   "mfe": 0.004103,
+   "holding_days": 22.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2022-03-29",
+   "exit_date": "2022-04-29",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.239046,
+   "pnl": -1844.19246,
+   "mae": -0.286885,
+   "mfe": 0.001625,
+   "holding_days": 31.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2022-04-06",
+   "exit_date": "2022-05-04",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.075013,
+   "pnl": -381.343016,
+   "mae": -0.111645,
+   "mfe": 0.006362,
+   "holding_days": 28.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2022-03-21",
+   "exit_date": "2022-05-20",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.178569,
+   "pnl": -1702.163772,
+   "mae": -0.194438,
+   "mfe": 0.104376,
+   "holding_days": 60.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2022-04-18",
+   "exit_date": "2022-05-23",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.100038,
+   "pnl": -456.921596,
+   "mae": -0.12266,
+   "mfe": 0.03947,
+   "holding_days": 35.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2022-03-23",
+   "exit_date": "2022-05-24",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.021408,
+   "pnl": 178.858345,
+   "mae": -0.01548,
+   "mfe": 0.064335,
+   "holding_days": 62.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2022-06-22",
+   "exit_date": "2022-06-23",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": -0.000369,
+   "pnl": -7.577917,
+   "mae": -0.030566,
+   "mfe": 0.01048,
+   "holding_days": 1.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2022-01-12",
+   "exit_date": "2022-07-08",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.220406,
+   "pnl": 1864.664486,
+   "mae": -0.019676,
+   "mfe": 0.482492,
+   "holding_days": 176.958
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2022-07-22",
+   "exit_date": "2022-07-26",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": -0.021752,
+   "pnl": -142.372405,
+   "mae": -0.060019,
+   "mfe": 0.0,
+   "holding_days": 4.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2022-07-18",
+   "exit_date": "2022-07-26",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": -0.030599,
+   "pnl": -303.338676,
+   "mae": -0.045851,
+   "mfe": 0.00153,
+   "holding_days": 8.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2022-07-19",
+   "exit_date": "2022-07-27",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": -0.015821,
+   "pnl": -143.268391,
+   "mae": -0.062102,
+   "mfe": 0.040006,
+   "holding_days": 8.0
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2022-08-05",
+   "exit_date": "2022-09-08",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.285549,
+   "pnl": -1575.410241,
+   "mae": -0.295229,
+   "mfe": 0.021254,
+   "holding_days": 34.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2022-07-26",
+   "exit_date": "2022-09-09",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.034668,
+   "pnl": -257.763183,
+   "mae": -0.052808,
+   "mfe": 0.05459,
+   "holding_days": 45.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2022-07-28",
+   "exit_date": "2022-09-12",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.013761,
+   "pnl": -96.979878,
+   "mae": -0.059586,
+   "mfe": 0.088437,
+   "holding_days": 46.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2022-07-29",
+   "exit_date": "2022-09-14",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.088405,
+   "pnl": -544.077707,
+   "mae": -0.101151,
+   "mfe": 0.058286,
+   "holding_days": 47.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2022-07-21",
+   "exit_date": "2022-09-20",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.008608,
+   "pnl": -71.952472,
+   "mae": -0.040636,
+   "mfe": 0.13899,
+   "holding_days": 61.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2022-07-21",
+   "exit_date": "2022-09-21",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.007253,
+   "pnl": -55.121982,
+   "mae": -0.071302,
+   "mfe": 0.188503,
+   "holding_days": 62.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2022-08-17",
+   "exit_date": "2022-09-23",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.101512,
+   "pnl": -455.033173,
+   "mae": -0.124669,
+   "mfe": 0.006026,
+   "holding_days": 37.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2022-08-16",
+   "exit_date": "2022-09-29",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.04327,
+   "pnl": -216.946621,
+   "mae": -0.08936,
+   "mfe": 0.10245,
+   "holding_days": 44.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2022-07-26",
+   "exit_date": "2022-10-10",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.067744,
+   "pnl": 443.551278,
+   "mae": -0.009824,
+   "mfe": 0.177061,
+   "holding_days": 76.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2022-11-25",
+   "exit_date": "2022-11-29",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": -0.028564,
+   "pnl": -145.327629,
+   "mae": -0.054617,
+   "mfe": 0.00284,
+   "holding_days": 4.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2022-12-05",
+   "exit_date": "2022-12-20",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": -0.112181,
+   "pnl": -505.592045,
+   "mae": -0.121877,
+   "mfe": 0.020296,
+   "holding_days": 15.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2022-12-08",
+   "exit_date": "2022-12-21",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": -0.067451,
+   "pnl": -274.389742,
+   "mae": -0.084162,
+   "mfe": 0.042467,
+   "holding_days": 13.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2022-10-20",
+   "exit_date": "2022-12-21",
+   "entry_state": 0,
+   "exit_state": 0,
+   "transitioned": false,
+   "states_visited": [
+    0
+   ],
+   "return_pct": 0.0365,
+   "pnl": 338.83441,
+   "mae": -0.019673,
+   "mfe": 0.09802,
+   "holding_days": 62.042
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2023-04-19",
+   "exit_date": "2023-05-22",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.089582,
+   "pnl": -387.600463,
+   "mae": -0.122002,
+   "mfe": 0.032048,
+   "holding_days": 33.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2023-04-17",
+   "exit_date": "2023-05-31",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.068009,
+   "pnl": -327.551668,
+   "mae": -0.075861,
+   "mfe": 0.002015,
+   "holding_days": 44.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2023-03-29",
+   "exit_date": "2023-06-02",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.018946,
+   "pnl": -127.559112,
+   "mae": -0.036183,
+   "mfe": 0.073919,
+   "holding_days": 65.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2023-04-10",
+   "exit_date": "2023-06-07",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.00887,
+   "pnl": -49.780417,
+   "mae": -0.036545,
+   "mfe": 0.025511,
+   "holding_days": 58.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2023-03-28",
+   "exit_date": "2023-07-20",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.183503,
+   "pnl": 1333.865216,
+   "mae": -0.02733,
+   "mfe": 0.258405,
+   "holding_days": 114.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2023-03-16",
+   "exit_date": "2023-08-15",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.216077,
+   "pnl": 1940.086941,
+   "mae": -0.008269,
+   "mfe": 0.381598,
+   "holding_days": 152.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2023-03-16",
+   "exit_date": "2023-08-17",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.162424,
+   "pnl": 1619.241709,
+   "mae": -0.004413,
+   "mfe": 0.301472,
+   "holding_days": 154.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2023-05-02",
+   "exit_date": "2023-09-06",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.021804,
+   "pnl": 82.495143,
+   "mae": -0.068753,
+   "mfe": 0.126031,
+   "holding_days": 127.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2023-06-29",
+   "exit_date": "2023-09-11",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": -0.011199,
+   "pnl": -57.826025,
+   "mae": -0.033615,
+   "mfe": 0.080879,
+   "holding_days": 74.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2023-07-17",
+   "exit_date": "2023-09-14",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": 0.026525,
+   "pnl": 115.762944,
+   "mae": -0.011079,
+   "mfe": 0.057279,
+   "holding_days": 59.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2023-09-18",
+   "exit_date": "2023-09-19",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": -0.006024,
+   "pnl": -49.185731,
+   "mae": -0.018528,
+   "mfe": 0.0,
+   "holding_days": 1.0
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2023-03-16",
+   "exit_date": "2023-09-28",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.76453,
+   "pnl": 6187.95165,
+   "mae": -0.006529,
+   "mfe": 1.089973,
+   "holding_days": 196.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2023-04-06",
+   "exit_date": "2023-10-04",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": 0.249341,
+   "pnl": 1468.968892,
+   "mae": -0.031143,
+   "mfe": 0.446295,
+   "holding_days": 181.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2023-06-22",
+   "exit_date": "2023-10-16",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": 0.034323,
+   "pnl": 185.763312,
+   "mae": -0.022464,
+   "mfe": 0.069069,
+   "holding_days": 116.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2023-08-11",
+   "exit_date": "2023-10-24",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": -0.00756,
+   "pnl": -35.296577,
+   "mae": -0.051144,
+   "mfe": 0.092501,
+   "holding_days": 74.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2023-08-01",
+   "exit_date": "2023-11-02",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1
+   ],
+   "return_pct": -0.019517,
+   "pnl": -97.401537,
+   "mae": -0.081741,
+   "mfe": 0.07875,
+   "holding_days": 93.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2023-11-08",
+   "exit_date": "2023-12-04",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": -0.07688,
+   "pnl": -782.264083,
+   "mae": -0.080575,
+   "mfe": 0.023699,
+   "holding_days": 26.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2023-11-13",
+   "exit_date": "2023-12-19",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.039606,
+   "pnl": -364.882452,
+   "mae": -0.060036,
+   "mfe": 0.013381,
+   "holding_days": 36.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2023-11-15",
+   "exit_date": "2024-01-18",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.010854,
+   "pnl": -83.663152,
+   "mae": -0.041842,
+   "mfe": 0.061594,
+   "holding_days": 64.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2023-12-12",
+   "exit_date": "2024-02-21",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.017956,
+   "pnl": 100.660038,
+   "mae": -0.021817,
+   "mfe": 0.0543,
+   "holding_days": 71.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2023-11-30",
+   "exit_date": "2024-03-04",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.003011,
+   "pnl": 13.486322,
+   "mae": -0.05389,
+   "mfe": 0.137552,
+   "holding_days": 95.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2024-03-13",
+   "exit_date": "2024-03-27",
+   "entry_state": 2,
+   "exit_state": 2,
+   "transitioned": false,
+   "states_visited": [
+    2
+   ],
+   "return_pct": -0.041677,
+   "pnl": -256.288189,
+   "mae": -0.048758,
+   "mfe": 0.0,
+   "holding_days": 14.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2024-01-26",
+   "exit_date": "2024-04-16",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.001242,
+   "pnl": -10.652051,
+   "mae": -0.00818,
+   "mfe": 0.045998,
+   "holding_days": 80.958
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2024-01-18",
+   "exit_date": "2024-04-29",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.118574,
+   "pnl": 801.988793,
+   "mae": -0.006206,
+   "mfe": 0.146656,
+   "holding_days": 101.958
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2023-10-26",
+   "exit_date": "2024-04-30",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.177213,
+   "pnl": 1891.379445,
+   "mae": -0.040896,
+   "mfe": 0.263844,
+   "holding_days": 187.0
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2023-11-16",
+   "exit_date": "2024-05-01",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.745095,
+   "pnl": 4937.608625,
+   "mae": -0.076295,
+   "mfe": 0.998863,
+   "holding_days": 166.958
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2023-11-27",
+   "exit_date": "2024-05-02",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.256473,
+   "pnl": 1527.596516,
+   "mae": -0.005687,
+   "mfe": 0.308344,
+   "holding_days": 156.958
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2024-02-13",
+   "exit_date": "2024-05-24",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.11588,
+   "pnl": 634.720449,
+   "mae": -0.023748,
+   "mfe": 0.203059,
+   "holding_days": 100.958
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2023-11-14",
+   "exit_date": "2024-06-12",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.294746,
+   "pnl": 2409.186226,
+   "mae": -0.038755,
+   "mfe": 0.320748,
+   "holding_days": 210.958
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2024-05-08",
+   "exit_date": "2024-07-23",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.011315,
+   "pnl": 107.960037,
+   "mae": -0.028445,
+   "mfe": 0.028734,
+   "holding_days": 76.0
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2024-05-21",
+   "exit_date": "2024-08-05",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.017917,
+   "pnl": -120.597627,
+   "mae": -0.032048,
+   "mfe": 0.502359,
+   "holding_days": 76.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2024-05-30",
+   "exit_date": "2024-08-06",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.058684,
+   "pnl": -385.105807,
+   "mae": -0.092164,
+   "mfe": 0.102715,
+   "holding_days": 68.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2024-04-03",
+   "exit_date": "2024-08-06",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.03575,
+   "pnl": 213.289459,
+   "mae": -0.027015,
+   "mfe": 0.247125,
+   "holding_days": 125.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2024-06-24",
+   "exit_date": "2024-08-06",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.147163,
+   "pnl": -1021.239493,
+   "mae": -0.200029,
+   "mfe": 0.061633,
+   "holding_days": 43.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2024-05-09",
+   "exit_date": "2024-08-21",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.238938,
+   "pnl": 2142.116639,
+   "mae": -0.003462,
+   "mfe": 0.298165,
+   "holding_days": 104.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2024-07-23",
+   "exit_date": "2024-09-12",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.044201,
+   "pnl": -250.386624,
+   "mae": -0.062257,
+   "mfe": 0.048511,
+   "holding_days": 51.0
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2024-09-09",
+   "exit_date": "2024-09-20",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": 0.11446,
+   "pnl": 926.133269,
+   "mae": -0.012334,
+   "mfe": 0.150546,
+   "holding_days": 11.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2024-05-16",
+   "exit_date": "2024-10-01",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.031485,
+   "pnl": 250.515757,
+   "mae": -0.057021,
+   "mfe": 0.113909,
+   "holding_days": 138.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2024-07-19",
+   "exit_date": "2024-10-11",
+   "entry_state": 2,
+   "exit_state": 2,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.034675,
+   "pnl": 212.703556,
+   "mae": -0.032531,
+   "mfe": 0.077767,
+   "holding_days": 84.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2024-07-30",
+   "exit_date": "2024-10-17",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.062624,
+   "pnl": 375.879895,
+   "mae": -0.024154,
+   "mfe": 0.098722,
+   "holding_days": 79.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2024-09-25",
+   "exit_date": "2024-10-23",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.000894,
+   "pnl": 3.137614,
+   "mae": -0.051341,
+   "mfe": 0.011714,
+   "holding_days": 28.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2024-08-30",
+   "exit_date": "2024-11-20",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.010738,
+   "pnl": -101.486336,
+   "mae": -0.071609,
+   "mfe": 0.030682,
+   "holding_days": 82.042
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2024-10-09",
+   "exit_date": "2024-12-05",
+   "entry_state": 2,
+   "exit_state": 2,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.052621,
+   "pnl": -382.748459,
+   "mae": -0.059171,
+   "mfe": 0.026765,
+   "holding_days": 57.042
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2024-10-03",
+   "exit_date": "2024-12-18",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.105354,
+   "pnl": 839.473136,
+   "mae": -0.005791,
+   "mfe": 0.263126,
+   "holding_days": 76.042
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2024-12-03",
+   "exit_date": "2025-01-06",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.090642,
+   "pnl": -738.326447,
+   "mae": -0.103431,
+   "mfe": 0.003751,
+   "holding_days": 34.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2024-10-18",
+   "exit_date": "2025-01-14",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.076873,
+   "pnl": 543.956789,
+   "mae": -0.026884,
+   "mfe": 0.129137,
+   "holding_days": 88.042
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2024-12-04",
+   "exit_date": "2025-01-21",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.008024,
+   "pnl": -55.928956,
+   "mae": -0.052468,
+   "mfe": 0.052362,
+   "holding_days": 48.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2024-12-04",
+   "exit_date": "2025-01-28",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.050916,
+   "pnl": -374.842737,
+   "mae": -0.097621,
+   "mfe": 0.069873,
+   "holding_days": 55.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2024-10-10",
+   "exit_date": "2025-02-24",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.129591,
+   "pnl": 837.056057,
+   "mae": -0.003918,
+   "mfe": 0.285778,
+   "holding_days": 137.042
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2024-09-20",
+   "exit_date": "2025-03-03",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.119856,
+   "pnl": 936.841263,
+   "mae": -0.05341,
+   "mfe": 0.273604,
+   "holding_days": 164.042
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2025-01-22",
+   "exit_date": "2025-03-14",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.133594,
+   "pnl": -1290.869182,
+   "mae": -0.147942,
+   "mfe": 0.06493,
+   "holding_days": 50.958
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2024-05-20",
+   "exit_date": "2025-03-17",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.319503,
+   "pnl": 2321.132813,
+   "mae": -0.009528,
+   "mfe": 0.632952,
+   "holding_days": 301.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2025-03-07",
+   "exit_date": "2025-03-18",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": -0.090472,
+   "pnl": -766.932183,
+   "mae": -0.114407,
+   "mfe": 0.0256,
+   "holding_days": 10.958
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2025-02-20",
+   "exit_date": "2025-04-07",
+   "entry_state": 2,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.001623,
+   "pnl": 8.503881,
+   "mae": -0.025247,
+   "mfe": 0.102116,
+   "holding_days": 45.958
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2025-02-07",
+   "exit_date": "2025-04-11",
+   "entry_state": 1,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.028814,
+   "pnl": -274.244548,
+   "mae": -0.079277,
+   "mfe": 0.106104,
+   "holding_days": 62.958
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2025-02-19",
+   "exit_date": "2025-04-22",
+   "entry_state": 2,
+   "exit_state": 0,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": -0.043148,
+   "pnl": -367.490327,
+   "mae": -0.117892,
+   "mfe": 0.081529,
+   "holding_days": 61.958
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2025-06-09",
+   "exit_date": "2025-06-17",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.036624,
+   "pnl": -248.918923,
+   "mae": -0.045868,
+   "mfe": 0.00687,
+   "holding_days": 8.0
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2025-06-16",
+   "exit_date": "2025-06-25",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.033671,
+   "pnl": -185.56829,
+   "mae": -0.048133,
+   "mfe": 0.0,
+   "holding_days": 9.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2025-06-09",
+   "exit_date": "2025-06-26",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.024966,
+   "pnl": -153.665846,
+   "mae": -0.03903,
+   "mfe": 0.002853,
+   "holding_days": 17.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2025-04-30",
+   "exit_date": "2025-07-02",
+   "entry_state": 0,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.021294,
+   "pnl": 262.433316,
+   "mae": -0.043171,
+   "mfe": 0.050544,
+   "holding_days": 63.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2025-06-23",
+   "exit_date": "2025-08-12",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.09014,
+   "pnl": -501.524326,
+   "mae": -0.096619,
+   "mfe": 0.001141,
+   "holding_days": 50.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2025-05-07",
+   "exit_date": "2025-09-10",
+   "entry_state": 0,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.15763,
+   "pnl": 1784.711089,
+   "mae": -0.007286,
+   "mfe": 0.279031,
+   "holding_days": 126.0
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2025-05-15",
+   "exit_date": "2025-09-18",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.293613,
+   "pnl": 2696.377667,
+   "mae": -0.039162,
+   "mfe": 0.372371,
+   "holding_days": 126.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2025-09-05",
+   "exit_date": "2025-10-06",
+   "entry_state": 2,
+   "exit_state": 2,
+   "transitioned": false,
+   "states_visited": [
+    2
+   ],
+   "return_pct": -0.045898,
+   "pnl": -272.992416,
+   "mae": -0.052351,
+   "mfe": 0.018659,
+   "holding_days": 31.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2025-05-19",
+   "exit_date": "2025-10-07",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.093722,
+   "pnl": 771.756616,
+   "mae": -0.019825,
+   "mfe": 0.183295,
+   "holding_days": 141.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2025-05-09",
+   "exit_date": "2025-10-29",
+   "entry_state": 0,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    0,
+    1,
+    2
+   ],
+   "return_pct": 0.190786,
+   "pnl": 1945.069377,
+   "mae": -0.009478,
+   "mfe": 0.2483,
+   "holding_days": 173.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2025-08-08",
+   "exit_date": "2025-11-18",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.005266,
+   "pnl": -34.472862,
+   "mae": -0.077831,
+   "mfe": 0.059016,
+   "holding_days": 102.042
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2025-10-09",
+   "exit_date": "2025-11-20",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.058139,
+   "pnl": -462.737861,
+   "mae": -0.090583,
+   "mfe": 0.059016,
+   "holding_days": 42.042
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2025-10-06",
+   "exit_date": "2025-12-03",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.025291,
+   "pnl": -184.110243,
+   "mae": -0.086897,
+   "mfe": 0.142738,
+   "holding_days": 58.042
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2025-11-07",
+   "exit_date": "2025-12-15",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.063037,
+   "pnl": -528.557906,
+   "mae": -0.115006,
+   "mfe": 0.035399,
+   "holding_days": 38.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2025-07-14",
+   "exit_date": "2026-01-08",
+   "entry_state": 2,
+   "exit_state": 2,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.222478,
+   "pnl": 1474.614881,
+   "mae": -0.041115,
+   "mfe": 0.373465,
+   "holding_days": 178.042
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2025-11-20",
+   "exit_date": "2026-02-02",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.007627,
+   "pnl": -71.715187,
+   "mae": -0.045122,
+   "mfe": 0.099801,
+   "holding_days": 74.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2026-01-15",
+   "exit_date": "2026-02-12",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.148994,
+   "pnl": -1410.391684,
+   "mae": -0.175285,
+   "mfe": 0.034359,
+   "holding_days": 28.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2025-05-20",
+   "exit_date": "2026-02-27",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.824696,
+   "pnl": 6140.640847,
+   "mae": -0.02759,
+   "mfe": 1.094882,
+   "holding_days": 283.042
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2026-01-16",
+   "exit_date": "2026-03-03",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.057423,
+   "pnl": -491.797366,
+   "mae": -0.096366,
+   "mfe": 0.044175,
+   "holding_days": 46.0
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2026-03-09",
+   "exit_date": "2026-03-11",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": 0.049773,
+   "pnl": 481.895295,
+   "mae": -0.008174,
+   "mfe": 0.059959,
+   "holding_days": 2.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2026-02-24",
+   "exit_date": "2026-03-19",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1
+   ],
+   "return_pct": -0.070312,
+   "pnl": -599.606227,
+   "mae": -0.077679,
+   "mfe": 0.02977,
+   "holding_days": 22.958
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2026-02-02",
+   "exit_date": "2026-03-26",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.058689,
+   "pnl": -504.09988,
+   "mae": -0.067787,
+   "mfe": 0.0962,
+   "holding_days": 51.958
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2025-12-02",
+   "exit_date": "2026-03-30",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.108142,
+   "pnl": 854.852332,
+   "mae": -0.015876,
+   "mfe": 0.2071,
+   "holding_days": 117.958
+  },
+  {
+   "ticker": "JNJ",
+   "entry_date": "2025-07-07",
+   "exit_date": "2026-04-10",
+   "entry_state": 2,
+   "exit_state": 1,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.548758,
+   "pnl": 4047.026916,
+   "mae": -0.012589,
+   "mfe": 0.611707,
+   "holding_days": 277.0
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2025-09-11",
+   "exit_date": "2026-04-29",
+   "entry_state": 2,
+   "exit_state": 2,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.362587,
+   "pnl": 2393.363543,
+   "mae": -0.010057,
+   "mfe": 0.58199,
+   "holding_days": 230.0
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2026-04-21",
+   "exit_date": "2026-06-02",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.067512,
+   "pnl": -822.662196,
+   "mae": -0.07595,
+   "mfe": 0.007654,
+   "holding_days": 42.0
+  },
+  {
+   "ticker": "WMT",
+   "entry_date": "2026-04-23",
+   "exit_date": "2026-06-03",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.135096,
+   "pnl": -1195.468885,
+   "mae": -0.137494,
+   "mfe": 0.034119,
+   "holding_days": 41.0
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2026-04-14",
+   "exit_date": "2026-06-17",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.011386,
+   "pnl": 146.312669,
+   "mae": -0.034839,
+   "mfe": 0.150971,
+   "holding_days": 64.0
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2026-04-28",
+   "exit_date": "2026-06-23",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.124239,
+   "pnl": -890.695622,
+   "mae": -0.136295,
+   "mfe": 0.097237,
+   "holding_days": 56.0
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2026-04-22",
+   "exit_date": "2026-06-24",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.034113,
+   "pnl": 365.899818,
+   "mae": -0.006483,
+   "mfe": 0.211209,
+   "holding_days": 63.0
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2026-04-23",
+   "exit_date": "2026-06-25",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.013237,
+   "pnl": -134.572843,
+   "mae": -0.051971,
+   "mfe": 0.167162,
+   "holding_days": 63.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2026-04-24",
+   "exit_date": "2026-07-08",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": 0.141819,
+   "pnl": 1121.263319,
+   "mae": -0.029164,
+   "mfe": 0.162498,
+   "holding_days": 75.0
+  },
+  {
+   "ticker": "PG",
+   "entry_date": "2026-06-17",
+   "exit_date": "2026-08-06",
+   "entry_state": 1,
+   "exit_state": 1,
+   "transitioned": false,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.031379,
+   "pnl": -307.774106,
+   "mae": -0.080851,
+   "mfe": 0.011719,
+   "holding_days": 50.0
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2026-07-10",
+   "exit_date": "2026-08-27",
+   "entry_state": 1,
+   "exit_state": 2,
+   "transitioned": true,
+   "states_visited": [
+    1,
+    2
+   ],
+   "return_pct": -0.014729,
+   "pnl": -174.263379,
+   "mae": -0.047724,
+   "mfe": 0.093752,
+   "holding_days": 48.0
+  }
+ ]
+}
